@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NeonRide — О нас</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --text-primary: #e0e0ff;
+            --text-secondary: #8888bb;
+            --cyan: #00f0ff;
+            --magenta: #ff00d4;
+            --yellow: #ffe600;
+            --glow-cyan: 0 0 20px rgba(0, 240, 255, 0.3);
+            --glow-magenta: 0 0 20px rgba(255, 0, 212, 0.3);
+            --border-neon: 1px solid rgba(0, 240, 255, 0.2);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        a {
+            color: var(--cyan);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        a:hover {
+            color: var(--magenta);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .bg-animation .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.25;
+            animation: floatOrb 25s ease-in-out infinite alternate;
+        }
+        .bg-animation .orb:nth-child(1) {
+            width: 450px;
+            height: 450px;
+            background: var(--cyan);
+            top: -120px;
+            left: -120px;
+            animation-delay: 0s;
+        }
+        .bg-animation .orb:nth-child(2) {
+            width: 550px;
+            height: 550px;
+            background: var(--magenta);
+            bottom: -180px;
+            right: -180px;
+            animation-delay: -8s;
+        }
+        .bg-animation .orb:nth-child(3) {
+            width: 350px;
+            height: 350px;
+            background: var(--yellow);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -16s;
+            opacity: 0.15;
+        }
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(100px, -80px) scale(1.15); }
+            66% { transform: translate(-70px, 90px) scale(0.85); }
+            100% { transform: translate(50px, 50px) scale(1.05); }
+        }
+        .navbar {
+            padding: 20px 0;
+            border-bottom: var(--border-neon);
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--cyan), var(--magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: var(--glow-cyan);
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            font-weight: 400;
+            font-size: 1rem;
+        }
+        .nav-links a {
+            color: var(--text-secondary);
+            transition: 0.3s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--cyan);
+            transition: width 0.3s;
+            box-shadow: var(--glow-cyan);
+        }
+        .nav-links a:hover {
+            color: #fff;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .cart-icon {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            transition: 0.3s;
+            position: relative;
+            cursor: pointer;
+        }
+        .cart-icon:hover {
+            color: var(--cyan);
+            transform: scale(1.1);
+        }
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: var(--magenta);
+            color: #fff;
+            font-size: 0.7rem;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-weight: 700;
+            box-shadow: var(--glow-magenta);
+        }
+        .page-header {
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+        .page-header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 3rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #fff 30%, var(--cyan) 70%, var(--magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-top: 10px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .about-section {
+            padding: 30px 0 60px;
+        }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        .about-text h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--cyan);
+            text-shadow: var(--glow-cyan);
+        }
+        .about-text p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin-bottom: 16px;
+            line-height: 1.8;
+        }
+        .about-text .highlight {
+            color: var(--yellow);
+            font-weight: 500;
+        }
+        .about-image {
+            background: var(--bg-secondary);
+            border: var(--border-neon);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: var(--cyan);
+            min-height: 250px;
+            box-shadow: var(--glow-cyan);
+            padding: 20px;
+            text-align: center;
+            flex-direction: column;
+        }
+        .about-image span {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-top: 10px;
+        }
+        .mission-block {
+            background: var(--bg-secondary);
+            border: var(--border-neon);
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 60px;
+            text-align: center;
+            box-shadow: var(--glow-magenta);
+        }
+        .mission-block h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 2rem;
+            color: var(--magenta);
+            text-shadow: var(--glow-magenta);
+            margin-bottom: 16px;
+        }
+        .mission-block p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        .feature-item {
+            background: var(--bg-secondary);
+            border: var(--border-neon);
+            border-radius: 10px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .feature-item:hover {
+            border-color: var(--cyan);
+            box-shadow: var(--glow-cyan);
+            transform: translateY(-6px);
+        }
+        .feature-item .icon {
+            font-size: 2.8rem;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .feature-item h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 400;
+            font-size: 1.2rem;
+            color: var(--cyan);
+            margin-bottom: 8px;
+        }
+        .feature-item p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        .team {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        .team-member {
+            background: var(--bg-secondary);
+            border: var(--border-neon);
+            border-radius: 10px;
+            padding: 25px 15px;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .team-member:hover {
+            border-color: var(--magenta);
+            box-shadow: var(--glow-magenta);
+            transform: translateY(-5px);
+        }
+        .team-member .avatar {
+            font-size: 4rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .team-member h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 400;
+            font-size: 1.1rem;
+            color: #fff;
+        }
+        .team-member .role {
+            color: var(--cyan);
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+        .team-member .bio {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+        .contacts-block {
+            background: var(--bg-secondary);
+            border: var(--border-neon);
+            border-radius: 12px;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .contacts-block .contact-item {
+            text-align: center;
+        }
+        .contacts-block .contact-item .icon {
+            font-size: 2.2rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .contacts-block .contact-item h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 400;
+            font-size: 1rem;
+            color: var(--cyan);
+        }
+        .contacts-block .contact-item p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        .footer {
+            margin-top: auto;
+            padding: 40px 0 20px;
+            border-top: var(--border-neon);
+            background: var(--bg-secondary);
+        }
+        .footer .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+        }
+        .footer-col h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 400;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+        .footer-col p,
+        .footer-col a {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .footer-col a:hover {
+            color: var(--cyan);
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: var(--border-neon);
+            margin-top: 30px;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+        .glitch-text {
+            display: inline-block;
+            position: relative;
+        }
+        .glitch-text:hover {
+            animation: glitch 0.3s ease-in-out;
+        }
+        @keyframes glitch {
+            0% { transform: skew(0deg); }
+            20% { transform: skew(2deg) translateX(2px); color: var(--magenta); }
+            40% { transform: skew(-2deg) translateX(-2px); color: var(--cyan); }
+            60% { transform: skew(1deg) translateX(1px); }
+            80% { transform: skew(-1deg) translateX(-1px); }
+            100% { transform: skew(0deg); }
+        }
+        @media (max-width: 768px) {
+            .nav-links { gap: 15px; font-size: 0.9rem; }
+            .logo { font-size: 1.4rem; }
+            .page-header h1 { font-size: 2.2rem; }
+            .about-grid { grid-template-columns: 1fr; }
+            .about-image { min-height: 180px; }
+            .mission-block h2 { font-size: 1.6rem; }
+        }
+        @media (max-width: 480px) {
+            .navbar .container { flex-direction: column; gap: 15px; }
+            .feature-item { padding: 20px 15px; }
+            .team-member { padding: 20px 10px; }
+            .contacts-block { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
+
+    <header class="navbar">
+        <div class="container">
+            <div class="logo">NeonRide</div>
+            <nav class="nav-links">
+                <a href="index.html">Главная</a>
+                <a href="Categories.html">Магазин</a>
+                <a href="Promotions.html">Акции</a>
+                <a href="About.html">О нас</a>
+                <a href="Cart.html">Корзина</a>
+            </nav>
+            <a href="Cart.html" class="cart-icon">
+                🛒
+                <span class="cart-badge" id="cartBadge">0</span>
+            </a>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1 class="glitch-text">О нас</h1>
+            <p>Мы — команда энтузиастов, которая делает городской транспорт будущего доступным каждому.</p>
+        </div>
+    </section>
+
+    <section class="about-section">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <h2>🔮 Кто мы</h2>
+                    <p>
+                        <strong>NeonRide</strong> — это не просто магазин электросамокатов и средств индивидуальной мобильности. 
+                        Мы — сообщество, которое верит, что передвижение по городу должно быть <span class="highlight">быстрым, экологичным и стильным</span>.
+                    </p>
+                    <p>
+                        Наша команда состоит из профессиональных райдеров, инженеров и маркетологов, которые лично тестируют каждую модель перед тем, как предложить её вам. 
+                        Мы знаем о СИМ всё: от технических характеристик до нюансов эксплуатации в российских условиях.
+                    </p>
+                    <p>
+                        Мы сотрудничаем напрямую с производителями — Kukirin, Segway, Dualtron, Ausom, Inmotion и другими — чтобы гарантировать 
+                        <span class="highlight">оригинальность, качество и лучшие цены</span>.
+                    </p>
+                </div>
+                <div class="about-image">
+                    ⚡
+                    <span>NeonRide — движение вперёд</span>
+                </div>
+            </div>
+
+            <div class="mission-block">
+                <h2>🚀 Наша миссия</h2>
+                <p>
+                    Сделать городскую мобильность <strong>удобной, безопасной и доступной</strong> для каждого. 
+                    Мы стремимся изменить представление о перемещении по городу, предлагая современные, надёжные и экологичные транспортные средства. 
+                    Наша цель — чтобы каждый наш клиент получал не просто товар, а <span class="highlight">настоящий драйв и свободу</span>.
+                </p>
+            </div>
+
+            <h2 style="font-family:'Orbitron',sans-serif; font-weight:700; font-size:1.8rem; text-align:center; margin-bottom:30px; color:var(--cyan); text-shadow:var(--glow-cyan);">Почему выбирают нас</h2>
+            <div class="features">
+                <div class="feature-item">
+                    <span class="icon">🛡️</span>
+                    <h3>Гарантия качества</h3>
+                    <p>Все товары сертифицированы, проходят строгий контроль и имеют официальную гарантию от производителя.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">💸</span>
+                    <h3>Лучшие цены</h3>
+                    <p>Прямые поставки без посредников — мы предлагаем честные цены и регулярные акции.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">🚚</span>
+                    <h3>Быстрая доставка</h3>
+                    <p>Доставляем по всей России в кратчайшие сроки, заботливо упаковывая каждую модель.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">🔧</span>
+                    <h3>Сервис и поддержка</h3>
+                    <p>Наши специалисты помогут с выбором, настройкой и обслуживанием вашего СИМ.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">🧑‍🤝‍🧑</span>
+                    <h3>Команда райдеров</h3>
+                    <p>Мы сами катаемся и знаем, что важно — делимся опытом и советами.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">🌟</span>
+                    <h3>Отзывы и рейтинг</h3>
+                    <p>Более 5000 довольных клиентов и высокий рейтинг на всех платформах.</p>
+                </div>
+            </div>
+
+            <h2 style="font-family:'Orbitron',sans-serif; font-weight:700; font-size:1.8rem; text-align:center; margin-bottom:30px; color:var(--magenta); text-shadow:var(--glow-magenta);">Наша команда</h2>
+            <div class="team">
+                <div class="team-member">
+                    <span class="avatar">👨‍💻</span>
+                    <h4>Алексей С.</h4>
+                    <div class="role">Основатель &amp; CEO</div>
+                    <div class="bio">Более 10 лет в сфере электротранспорта. Профессиональный райдер и инженер.</div>
+                </div>
+                <div class="team-member">
+                    <span class="avatar">👩‍💻</span>
+                    <h4>Мария К.</h4>
+                    <div class="role">Руководитель отдела продаж</div>
+                    <div class="bio">Знает о каждом самокате всё и поможет подобрать идеальную модель.</div>
+                </div>
+                <div class="team-member">
+                    <span class="avatar">🔧</span>
+                    <h4>Иван П.</h4>
+                    <div class="role">Главный механик</div>
+                    <div class="bio">Сертифицированный специалист по ремонту и обслуживанию СИМ.</div>
+                </div>
+                <div class="team-member">
+                    <span class="avatar">📦</span>
+                    <h4>Ольга Д.</h4>
+                    <div class="role">Логист</div>
+                    <div class="bio">Организует быструю и бережную доставку по всей стране.</div>
+                </div>
+            </div>
+
+            <h2 style="font-family:'Orbitron',sans-serif; font-weight:700; font-size:1.8rem; text-align:center; margin-bottom:30px; color:var(--cyan); text-shadow:var(--glow-cyan);">Наши контакты</h2>
+            <div class="contacts-block">
+                <div class="contact-item">
+                    <span class="icon">📍</span>
+                    <h4>Адрес</h4>
+                    <p>г. Москва, ул. Новослободская, д. 20, стр. 1<br />(м. Менделеевская)</p>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">📞</span>
+                    <h4>Телефон</h4>
+                    <p><a href="tel:+71234567890">+7 (123) 456-78-90</a><br />Пн–Вс 10:00–21:00</p>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">✉️</span>
+                    <h4>Email</h4>
+                    <p><a href="mailto:info@neonride.tech">info@neonride.tech</a><br />Для вопросов и заказов</p>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">💬</span>
+                    <h4>Соцсети</h4>
+                    <p>
+                        <a href="#">Telegram</a> &bull; <a href="#">VK</a> &bull; <a href="#">YouTube</a><br />
+                        Подписывайтесь и будьте в курсе новинок!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-col">
+                <h4>NeonRide</h4>
+                <p>Скорость, стиль, свобода.</p>
+                <p>© 2026 Все права защищены.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Контакты</h4>
+                <a href="mailto:info@neonride.tech">info@neonride.tech</a>
+                <a href="tel:+71234567890">+7 (123) 456-78-90</a>
+            </div>
+            <div class="footer-col">
+                <h4>Соцсети</h4>
+                <a href="#">Telegram</a>
+                <a href="#">VK</a>
+                <a href="#">YouTube</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span class="glitch-text">#RideTheFuture</span>
+        </div>
+    </footer>
+
+    <script>
+        // Обновление бейджа корзины
+        function updateCartBadge() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const badge = document.getElementById('cartBadge');
+            if (badge) {
+                const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+                badge.textContent = total;
+            }
+        }
+        updateCartBadge();
+        window.addEventListener('focus', updateCartBadge);
+
+        // Глитч-эффект
+        document.querySelectorAll('.glitch-text').forEach(el => {
+            el.addEventListener('mouseenter', function() {
+                this.style.animation = 'none';
+                setTimeout(() => this.style.animation = 'glitch 0.3s ease-in-out', 10);
+            });
+        });
+    </script>
+</body>
+</html>
