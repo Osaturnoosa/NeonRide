@@ -359,17 +359,15 @@
         <div class="container">
             <div class="logo">NeonRide</div>
             <nav class="nav-links">
-    <a href="index.html">Главная</a>
-    <a href="Categories.html">Магазин</a>
-    <a href="Promotions.html">Акции</a>
-    <a href="Cart.html">Корзина</a>
-    <a href="Compare.html">Сравнение</a>
-    <a href="Support.html">Поддержка</a>
-    <a href="About.html">О нас</a>
-    <a href="Account.html">Профиль</a>
-    <a href="Admin.html">Админ</a>
-    <button class="theme-toggle" id="themeToggle">🌙 Тема</button>
-</nav>
+                <a href="index.html">Главная</a>
+                <a href="Categories.html">Магазин</a>
+                <a href="Promotions.html">Акции</a>
+                <a href="Cart.html">Корзина</a>
+                <a href="Compare.html">Сравнение</a>
+                <a href="Support.html">Поддержка</a>
+                <a href="About.html">О нас</a>
+                <a href="Account.html">Профиль</a>
+                <a href="Admin.html">Админ</a>
                 <button class="theme-toggle" id="themeToggle">🌙 Тема</button>
             </nav>
             <a href="Cart.html" class="cart-icon">
@@ -417,8 +415,7 @@
     </footer>
 
     <script>
-        // Полный массив товаров (должен совпадать с тем, что в Store.html)
-        // Для демонстрации я вставляю несколько, но вы должны скопировать свой полный массив из Store.html.
+        // ===== ПОЛНЫЙ МАССИВ ТОВАРОВ (скопирован из Store.html) =====
         const allProducts = [
             {
                 id: 'g1pro', name: 'Kukirin G1 Pro', price: '119 900 ₽', img: 'Photos/g1-pro.jpg',
@@ -448,7 +445,600 @@
                     { label: 'Тормоза', value: 'дисковые' }
                 ]
             },
-            // добавьте остальные товары из Store.html
+            {
+                id: 'g2promax', name: 'Kukirin G2 Pro Max', price: '99 900 ₽', img: 'Photos/g2-pro-max.jpg',
+                specs: [
+                    { label: 'Мощность', value: '1600 Вт (2×800 Вт)' },
+                    { label: 'Скорость', value: '55-60 км/ч' },
+                    { label: 'Запас хода', value: '60-80 км' },
+                    { label: 'Аккумулятор', value: '52V 20.8Ah' },
+                    { label: 'Вес', value: '32-39 кг' },
+                    { label: 'Колёса', value: '10"' },
+                    { label: 'Нагрузка', value: '120 кг' },
+                    { label: 'Привод', value: 'полный' },
+                    { label: 'Тормоза', value: 'дисковые' }
+                ]
+            },
+            {
+                id: 'g2promaxplus', name: 'Kukirin G2 Pro Max+', price: '109 900 ₽', img: 'Photos/g2-pro-max-plus.jpg',
+                specs: [
+                    { label: 'Мощность', value: '1600 Вт (2×800 Вт)' },
+                    { label: 'Скорость', value: '60 км/ч' },
+                    { label: 'Запас хода', value: '80-90 км' },
+                    { label: 'Аккумулятор', value: '52V 24Ah' },
+                    { label: 'Вес', value: '34-40 кг' },
+                    { label: 'Колёса', value: '10"' },
+                    { label: 'Нагрузка', value: '120 кг' },
+                    { label: 'Привод', value: 'полный' },
+                    { label: 'Тормоза', value: 'дисковые' }
+                ]
+            },
+            {
+                id: 'g3', name: 'Kukirin G3', price: '89 900 ₽', img: 'Photos/g3.jpg',
+                specs: [
+                    { label: 'Мощность', value: '1200 Вт' },
+                    { label: 'Скорость', value: '50 км/ч' },
+                    { label: 'Запас хода', value: '50-63 км' },
+                    { label: 'Аккумулятор', value: '48V 20Ah' },
+                    { label: 'Вес', value: '36-40 кг' },
+                    { label: 'Колёса', value: '10"' },
+                    { label: 'Нагрузка', value: '120 кг' },
+                    { label: 'Привод', value: 'задний' },
+                    { label: 'Тормоза', value: 'дисковые' }
+                ]
+            },
+            {
+                id: 'g3pro', name: 'Kukirin G3 Pro', price: '109 900 ₽', img: 'Photos/g3-pro.jpg',
+                specs: [
+                    { label: 'Мощность', value: '1600 Вт (2×800 Вт)' },
+                    { label: 'Скорость', value: '55-60 км/ч' },
+                    { label: 'Запас хода', value: '60-70 км' },
+                    { label: 'Аккумулятор', value: '52V 23.4Ah' },
+                    { label: 'Вес', value: '38-42 кг' },
+                    { label: 'Колёса', value: '11"' },
+                    { label: 'Нагрузка', value: '130 кг' },
+                    { label: 'Привод', value: 'полный' },
+                    { label: 'Тормоза', value: 'гидравлические' }
+                ]
+            },
+            {
+                id: 'g4', name: 'Kukirin G4', price: '129 900 ₽', img: 'Photos/g4.jpg',
+                specs: [
+                    { label: 'Мощность', value: '2000 Вт' },
+                    { label: 'Скорость', value: '70-75 км/ч' },
+                    { label: 'Запас хода', value: '60-65 км' },
+                    { label: 'Аккумулятор', value: '48V 26Ah' },
+                    { label: 'Вес', value: '45-48 кг' },
+                    { label: 'Колёса', value: '11"' },
+                    { label: 'Нагрузка', value: '150 кг' },
+                    { label: 'Привод', value: 'задний' },
+                    { label: 'Тормоза', value: 'гидравлические' }
+                ]
+            },
+            {
+                id: 'g4pro', name: 'Kukirin G4 Pro', price: '149 900 ₽', img: 'Photos/g4-pro.jpg',
+                specs: [
+                    { label: 'Мощность', value: '3600 Вт (пиковая)' },
+                    { label: 'Скорость', value: '85-90 км/ч' },
+                    { label: 'Запас хода', value: '70-80 км' },
+                    { label: 'Аккумулятор', value: '60V 35.2Ah' },
+                    { label: 'Вес', value: '59-60 кг' },
+                    { label: 'Колёса', value: '12"' },
+                    { label: 'Нагрузка', value: '150 кг' },
+                    { label: 'Привод', value: 'полный' },
+                    { label: 'Тормоза', value: 'гидравлические' }
+                ]
+            },
+            {
+                id: 'g4max', name: 'Kukirin G4 Max', price: '185 000 ₽', img: 'Photos/g4-max.jpg',
+                specs: [
+                    { label: 'Мощность', value: '3200 Вт (2×1600 Вт)' },
+                    { label: 'Скорость', value: '86 км/ч' },
+                    { label: 'Запас хода', value: '95 км' },
+                    { label: 'Аккумулятор', value: '60V 35.2Ah' },
+                    { label: 'Вес', value: '64 кг' },
+                    { label: 'Колёса', value: '12"' },
+                    { label: 'Нагрузка', value: '150 кг' },
+                    { label: 'Привод', value: 'полный' },
+                    { label: 'Тормоза', value: 'гидравлические' }
+                ]
+            },
+            {
+                id: 'g5', name: 'Kukirin G5', price: '—', img: 'Photos/g5.jpg',
+                specs: [
+                    { label: 'Номинальная мощность', value: '5000 Вт (2×2500 Вт)' },
+                    { label: 'Пиковая мощность', value: '13000 Вт' },
+                    { label: 'Скорость', value: '130 км/ч' },
+                    { label: 'Запас хода', value: 'до 120 км' },
+                    { label: 'Аккумулятор', value: '72V 40Ah SAMSUNG' },
+                    { label: 'Вес', value: '71 кг' },
+                    { label: 'Колёса', value: '13"' },
+                    { label: 'Нагрузка', value: '160 кг' },
+                    { label: 'Привод', value: 'полный' },
+                    { label: 'Тормоза', value: 'дисковые' },
+                    { label: 'Подвеска', value: 'передняя и задняя' }
+                ]
+            },
+            {
+                id: 'maxspeed', name: 'Kukirin Max Speed', price: '38 900 ₽', img: 'Photos/max-speed.jpg',
+                specs: [
+                    { label: 'Мощность', value: '600 Вт' },
+                    { label: 'Скорость', value: '45 км/ч' },
+                    { label: 'Запас хода', value: '35 км' },
+                    { label: 'Аккумулятор', value: '48V 11Ah' },
+                    { label: 'Вес', value: '24 кг' },
+                    { label: 'Колёса', value: '10"' },
+                    { label: 'Нагрузка', value: '120 кг' },
+                    { label: 'Привод', value: 'задний' },
+                    { label: 'Тормоза', value: 'дисковые' }
+                ]
+            },
+            {
+                id: 'm2pro', name: 'Kukirin M2 Pro', price: '31 900 ₽', img: 'Photos/m2-pro.jpg',
+                specs: [
+                    { label: 'Мощность', value: '350 Вт' },
+                    { label: 'Скорость', value: '30 км/ч' },
+                    { label: 'Запас хода', value: '30 км' },
+                    { label: 'Аккумулятор', value: '36V 7.8-9Ah' },
+                    { label: 'Вес', value: '15-19 кг' },
+                    { label: 'Колёса', value: '8.5"' },
+                    { label: 'Нагрузка', value: '120 кг' },
+                    { label: 'Привод', value: 'передний' },
+                    { label: 'Тормоза', value: 'дисковые' }
+                ]
+            },
+            {
+                id: 'm3', name: 'Kukirin M3', price: '49 900 ₽', img: 'Photos/m3.jpg',
+                specs: [
+                    { label: 'Мощность', value: '600 Вт' },
+                    { label: 'Скорость', value: '40 км/ч' },
+                    { label: 'Запас хода', value: '35-40 км' },
+                    { label: 'Аккумулятор', value: '36V 13Ah' },
+                    { label: 'Вес', value: '22 кг' },
+                    { label: 'Колёса', value: '10"' },
+                    { label: 'Нагрузка', value: '120 кг' },
+                    { label: 'Привод', value: 'задний' },
+                    { label: 'Тормоза', value: 'дисковые' }
+                ]
+            },
+            {
+                id: 'm4', name: 'Kukirin M4', price: '39 500 ₽', img: 'Photos/m4.jpg',
+                specs: [
+                    { label: 'Мощность', value: '500 Вт' },
+                    { label: 'Скорость', value: '40-45 км/ч' },
+                    { label: 'Запас хода', value: '30-45 км' },
+                    { label: 'Аккумулятор', value: '48V 11Ah' },
+                    { label: 'Вес', value: '22-25 кг' },
+                    { label: 'Колёса', value: '10"' },
+                    { label: 'Нагрузка', value: '120-140 кг' },
+                    { label: 'Привод', value: 'задний' },
+                    { label: 'Тормоза', value: 'дисковые' }
+                ]
+            },
+            {
+                id: 'm5pro', name: 'Kukirin M5 Pro', price: '59 900 ₽', img: 'Photos/m5-pro.jpg',
+                specs: [
+                    { label: 'Мощность', value: '800 Вт' },
+                    { label: 'Скорость', value: '45-50 км/ч' },
+                    { label: 'Запас хода', value: '40-50 км' },
+                    { label: 'Аккумулятор', value: '48V 15Ah' },
+                    { label: 'Вес', value: '26 кг' },
+                    { label: 'Колёса', value: '10"' },
+                    { label: 'Нагрузка', value: '130 кг' },
+                    { label: 'Привод', value: 'задний' },
+                    { label: 'Тормоза', value: 'дисковые' }
+                ]
+            },
+            {
+                id: 'inmotion-v9', name: 'Inmotion V9', price: '99 900 ₽', img: 'Photos/inmotion-v9.jpg',
+                specs: [
+                    { label: 'Мощность', value: '1500 Вт' },
+                    { label: 'Скорость', value: '55 км/ч' },
+                    { label: 'Запас хода', value: '50 км' },
+                    { label: 'Аккумулятор', value: '84V 20Ah' },
+                    { label: 'Вес', value: '23 кг' },
+                    { label: 'Колесо', value: '16"' },
+                    { label: 'Нагрузка', value: '120 кг' }
+                ]
+            },
+            {
+                id: 'inmotion-v12s', name: 'Inmotion V12S', price: '129 900 ₽', img: 'Photos/inmotion-v12s.jpg',
+                specs: [
+                    { label: 'Мощность', value: '2500 Вт' },
+                    { label: 'Скорость', value: '70 км/ч' },
+                    { label: 'Запас хода', value: '70 км' },
+                    { label: 'Аккумулятор', value: '100V 22Ah' },
+                    { label: 'Вес', value: '27 кг' },
+                    { label: 'Колесо', value: '16"' },
+                    { label: 'Нагрузка', value: '130 кг' }
+                ]
+            },
+            {
+                id: 'inmotion-p6', name: 'Inmotion P6', price: '79 900 ₽', img: 'Photos/inmotion-p6.jpg',
+                specs: [
+                    { label: 'Мощность', value: '1000 Вт' },
+                    { label: 'Скорость', value: '45 км/ч' },
+                    { label: 'Запас хода', value: '40 км' },
+                    { label: 'Аккумулятор', value: '67V 15Ah' },
+                    { label: 'Вес', value: '18 кг' },
+                    { label: 'Колесо', value: '14"' },
+                    { label: 'Нагрузка', value: '110 кг' }
+                ]
+            },
+            {
+                id: 'kingsong-18xl', name: 'KingSong 18XL', price: '109 900 ₽', img: 'Photos/kingsong-18xl.jpg',
+                specs: [
+                    { label: 'Мощность', value: '2000 Вт' },
+                    { label: 'Скорость', value: '60 км/ч' },
+                    { label: 'Запас хода', value: '80 км' },
+                    { label: 'Аккумулятор', value: '84V 24Ah' },
+                    { label: 'Вес', value: '25 кг' },
+                    { label: 'Колесо', value: '18"' },
+                    { label: 'Нагрузка', value: '120 кг' }
+                ]
+            },
+            {
+                id: 'veteran-oryx', name: 'Veteran Oryx', price: '149 900 ₽', img: 'Photos/veteran-oryx.jpg',
+                specs: [
+                    { label: 'Мощность', value: '3000 Вт' },
+                    { label: 'Скорость', value: '80 км/ч' },
+                    { label: 'Запас хода', value: '100 км' },
+                    { label: 'Аккумулятор', value: '100V 30Ah' },
+                    { label: 'Вес', value: '30 кг' },
+                    { label: 'Колесо', value: '18"' },
+                    { label: 'Нагрузка', value: '130 кг' }
+                ]
+            },
+            {
+                id: 'gyroor-g13', name: 'Gyroor G13', price: '39 900 ₽', img: 'Photos/gyroor-g13.jpg',
+                specs: [
+                    { label: 'Мощность', value: '700 Вт' },
+                    { label: 'Скорость', value: '20 км/ч' },
+                    { label: 'Запас хода', value: '30 км' },
+                    { label: 'Аккумулятор', value: '36V 6Ah' },
+                    { label: 'Вес', value: '13 кг' },
+                    { label: 'Колёса', value: '6.5"' },
+                    { label: 'Нагрузка', value: '120 кг' }
+                ]
+            },
+            {
+                id: 'razor-hovertrax', name: 'Razor Hovertrax 2.0', price: '29 900 ₽', img: 'Photos/razor-hovertrax.jpg',
+                specs: [
+                    { label: 'Мощность', value: '500 Вт' },
+                    { label: 'Скорость', value: '16 км/ч' },
+                    { label: 'Запас хода', value: '20 км' },
+                    { label: 'Аккумулятор', value: '24V 4Ah' },
+                    { label: 'Вес', value: '11 кг' },
+                    { label: 'Колёса', value: '6.5"' },
+                    { label: 'Нагрузка', value: '100 кг' }
+                ]
+            },
+            {
+                id: 'evolve-gtr-bamboo', name: 'Evolve GTR Bamboo', price: '119 900 ₽', img: 'Photos/evolve-gtr-bamboo.jpg',
+                specs: [
+                    { label: 'Мощность', value: '1500 Вт' },
+                    { label: 'Скорость', value: '45 км/ч' },
+                    { label: 'Запас хода', value: '35 км' },
+                    { label: 'Аккумулятор', value: '42V 14Ah' },
+                    { label: 'Вес', value: '8.5 кг' },
+                    { label: 'Длина деки', value: '98 см' },
+                    { label: 'Нагрузка', value: '130 кг' }
+                ]
+            },
+            {
+                id: 'evolve-diablo-carbon', name: 'Evolve Diablo Carbon', price: '149 900 ₽', img: 'Photos/evolve-diablo-carbon.jpg',
+                specs: [
+                    { label: 'Мощность', value: '2000 Вт' },
+                    { label: 'Скорость', value: '50 км/ч' },
+                    { label: 'Запас хода', value: '45 км' },
+                    { label: 'Аккумулятор', value: '42V 18Ah' },
+                    { label: 'Вес', value: '9 кг' },
+                    { label: 'Длина деки', value: '100 см' },
+                    { label: 'Нагрузка', value: '130 кг' }
+                ]
+            },
+            {
+                id: 'backfire-zealot-s2', name: 'Backfire Zealot S2', price: '79 900 ₽', img: 'Photos/backfire-zealot-s2.jpg',
+                specs: [
+                    { label: 'Мощность', value: '1200 Вт' },
+                    { label: 'Скорость', value: '42 км/ч' },
+                    { label: 'Запас хода', value: '30 км' },
+                    { label: 'Аккумулятор', value: '48V 12Ah' },
+                    { label: 'Вес', value: '7.5 кг' },
+                    { label: 'Длина деки', value: '96 см' },
+                    { label: 'Нагрузка', value: '120 кг' }
+                ]
+            },
+            {
+                id: 'meepo-mini-5', name: 'Meepo Mini 5', price: '49 900 ₽', img: 'Photos/meepo-mini-5.jpg',
+                specs: [
+                    { label: 'Мощность', value: '600 Вт' },
+                    { label: 'Скорость', value: '35 км/ч' },
+                    { label: 'Запас хода', value: '20 км' },
+                    { label: 'Аккумулятор', value: '36V 8Ah' },
+                    { label: 'Вес', value: '6.5 кг' },
+                    { label: 'Длина деки', value: '80 см' },
+                    { label: 'Нагрузка', value: '100 кг' }
+                ]
+            },
+            {
+                id: 'exway-flex-paragon', name: 'Exway Flex Paragon', price: '89 900 ₽', img: 'Photos/exway-flex-paragon.jpg',
+                specs: [
+                    { label: 'Мощность', value: '1000 Вт' },
+                    { label: 'Скорость', value: '42 км/ч' },
+                    { label: 'Запас хода', value: '35 км' },
+                    { label: 'Аккумулятор', value: '36V 12Ah' },
+                    { label: 'Вес', value: '7.2 кг' },
+                    { label: 'Длина деки', value: '94 см' },
+                    { label: 'Нагрузка', value: '120 кг' }
+                ]
+            },
+            {
+                id: 'segway-max-g2', name: 'Segway Ninebot MAX G2', price: '89 900 ₽', img: 'Photos/segway-max-g2.jpg',
+                specs: [
+                    { label: 'Мощность', value: '450 Вт' },
+                    { label: 'Скорость', value: '35 км/ч' },
+                    { label: 'Запас хода', value: '60 км' },
+                    { label: 'Аккумулятор', value: '36V 15Ah' },
+                    { label: 'Вес', value: '24 кг' },
+                    { label: 'Колёса', value: '10"' },
+                    { label: 'Нагрузка', value: '120 кг' },
+                    { label: 'Привод', value: 'передний' },
+                    { label: 'Тормоза', value: 'дисковые' }
+                ]
+            },
+            {
+                id: 'segway-max-g3', name: 'Segway Ninebot MAX G3', price: '109 900 ₽', img: 'Photos/segway-max-g3.jpg',
+                specs: [
+                    { label: 'Мощность', value: '600 Вт' },
+                    { label: 'Скорость', value: '40 км/ч' },
+                    { label: 'Запас хода', value: '70 км' },
+                    { label: 'Аккумулятор', value: '48V 18Ah' },
+                    { label: 'Вес', value: '26 кг' },
+                    { label: 'Колёса', value: '10"' },
+                    { label: 'Нагрузка', value: '130 кг' },
+                    { label: 'Привод', value: 'передний' },
+                    { label: 'Тормоза', value: 'дисковые' }
+                ]
+            },
+            {
+                id: 'segway-zt3-pro', name: 'Segway Ninebot ZT3 Pro', price: '79 900 ₽', img: 'Photos/segway-zt3-pro.jpg',
+                specs: [
+                    { label: 'Мощность', value: '400 Вт' },
+                    { label: 'Скорость', value: '32 км/ч' },
+                    { label: 'Запас хода', value: '50 км' },
+                    { label: 'Аккумулятор', value: '36V 12Ah' },
+                    { label: 'Вес', value: '22 кг' },
+                    { label: 'Колёса', value: '9"' },
+                    { label: 'Нагрузка', value: '120 кг' },
+                    { label: 'Привод', value: 'передний' },
+                    { label: 'Тормоза', value: 'дисковые' }
+                ]
+            },
+            {
+                id: 'segway-f2-pro', name: 'Segway Ninebot F2 Pro', price: '69 900 ₽', img: 'Photos/segway-f2-pro.jpg',
+                specs: [
+                    { label: 'Мощность', value: '350 Вт' },
+                    { label: 'Скорость', value: '30 км/ч' },
+                    { label: 'Запас хода', value: '45 км' },
+                    { label: 'Аккумулятор', value: '36V 10Ah' },
+                    { label: 'Вес', value: '18 кг' },
+                    { label: 'Колёса', value: '9"' },
+                    { label: 'Нагрузка', value: '120 кг' },
+                    { label: 'Привод', value: 'передний' },
+                    { label: 'Тормоза', value: 'дисковые' }
+                ]
+            },
+            {
+                id: 'segway-e2-plus', name: 'Segway Ninebot E2 Plus', price: '49 900 ₽', img: 'Photos/segway-e2-plus.jpg',
+                specs: [
+                    { label: 'Мощность', value: '300 Вт' },
+                    { label: 'Скорость', value: '25 км/ч' },
+                    { label: 'Запас хода', value: '30 км' },
+                    { label: 'Аккумулятор', value: '36V 8Ah' },
+                    { label: 'Вес', value: '15 кг' },
+                    { label: 'Колёса', value: '8.5"' },
+                    { label: 'Нагрузка', value: '100 кг' },
+                    { label: 'Привод', value: 'передний' },
+                    { label: 'Тормоза', value: 'дисковые' }
+                ]
+            },
+            {
+                id: 'segway-max-g30', name: 'Segway Ninebot MAX G30', price: '99 900 ₽', img: 'Photos/segway-max-g30.jpg',
+                specs: [
+                    { label: 'Мощность', value: '450 Вт' },
+                    { label: 'Скорость', value: '35 км/ч' },
+                    { label: 'Запас хода', value: '65 км' },
+                    { label: 'Аккумулятор', value: '36V 15Ah' },
+                    { label: 'Вес', value: '24.5 кг' },
+                    { label: 'Колёса', value: '10"' },
+                    { label: 'Нагрузка', value: '120 кг' },
+                    { label: 'Привод', value: 'передний' },
+                    { label: 'Тормоза', value: 'дисковые' }
+                ]
+            },
+            {
+                id: 'dualtron-popular', name: 'Dualtron Popular', price: '119 900 ₽', img: 'Photos/dualtron-popular.jpg',
+                specs: [
+                    { label: 'Мощность', value: '2000 Вт' },
+                    { label: 'Скорость', value: '50 км/ч' },
+                    { label: 'Запас хода', value: '60 км' },
+                    { label: 'Аккумулятор', value: '48V 20Ah' },
+                    { label: 'Вес', value: '32 кг' },
+                    { label: 'Колёса', value: '10"' },
+                    { label: 'Нагрузка', value: '120 кг' },
+                    { label: 'Привод', value: 'полный' },
+                    { label: 'Тормоза', value: 'дисковые' }
+                ]
+            },
+            {
+                id: 'dualtron-spider', name: 'Dualtron Spider', price: '139 900 ₽', img: 'Photos/dualtron-spider.jpg',
+                specs: [
+                    { label: 'Мощность', value: '1800 Вт' },
+                    { label: 'Скорость', value: '60 км/ч' },
+                    { label: 'Запас хода', value: '70 км' },
+                    { label: 'Аккумулятор', value: '48V 24Ah' },
+                    { label: 'Вес', value: '28 кг' },
+                    { label: 'Колёса', value: '10"' },
+                    { label: 'Нагрузка', value: '120 кг' },
+                    { label: 'Привод', value: 'полный' },
+                    { label: 'Тормоза', value: 'дисковые' }
+                ]
+            },
+            {
+                id: 'dualtron-victor', name: 'Dualtron Victor', price: '159 900 ₽', img: 'Photos/dualtron-victor.jpg',
+                specs: [
+                    { label: 'Мощность', value: '2400 Вт' },
+                    { label: 'Скорость', value: '70 км/ч' },
+                    { label: 'Запас хода', value: '80 км' },
+                    { label: 'Аккумулятор', value: '52V 28Ah' },
+                    { label: 'Вес', value: '37 кг' },
+                    { label: 'Колёса', value: '11"' },
+                    { label: 'Нагрузка', value: '130 кг' },
+                    { label: 'Привод', value: 'полный' },
+                    { label: 'Тормоза', value: 'гидравлические' }
+                ]
+            },
+            {
+                id: 'dualtron-thunder-3', name: 'Dualtron Thunder 3', price: '199 900 ₽', img: 'Photos/dualtron-thunder-3.jpg',
+                specs: [
+                    { label: 'Мощность', value: '4000 Вт (2×2000 Вт)' },
+                    { label: 'Скорость', value: '95 км/ч' },
+                    { label: 'Запас хода', value: '120 км' },
+                    { label: 'Аккумулятор', value: '60V 40Ah' },
+                    { label: 'Вес', value: '49 кг' },
+                    { label: 'Колёса', value: '11"' },
+                    { label: 'Нагрузка', value: '150 кг' },
+                    { label: 'Привод', value: 'полный' },
+                    { label: 'Тормоза', value: 'гидравлические' }
+                ]
+            },
+            {
+                id: 'dualtron-storm-limited', name: 'Dualtron Storm Limited', price: '249 900 ₽', img: 'Photos/dualtron-storm-limited.jpg',
+                specs: [
+                    { label: 'Мощность', value: '6000 Вт (2×3000 Вт)' },
+                    { label: 'Скорость', value: '110 км/ч' },
+                    { label: 'Запас хода', value: '150 км' },
+                    { label: 'Аккумулятор', value: '72V 50Ah' },
+                    { label: 'Вес', value: '58 кг' },
+                    { label: 'Колёса', value: '11"' },
+                    { label: 'Нагрузка', value: '150 кг' },
+                    { label: 'Привод', value: 'полный' },
+                    { label: 'Тормоза', value: 'гидравлические' }
+                ]
+            },
+            {
+                id: 'dualtron-compact', name: 'Dualtron Compact', price: '89 900 ₽', img: 'Photos/dualtron-compact.jpg',
+                specs: [
+                    { label: 'Мощность', value: '1600 Вт' },
+                    { label: 'Скорость', value: '50 км/ч' },
+                    { label: 'Запас хода', value: '50 км' },
+                    { label: 'Аккумулятор', value: '48V 16Ah' },
+                    { label: 'Вес', value: '24 кг' },
+                    { label: 'Колёса', value: '8.5"' },
+                    { label: 'Нагрузка', value: '110 кг' },
+                    { label: 'Привод', value: 'полный' },
+                    { label: 'Тормоза', value: 'дисковые' }
+                ]
+            },
+            {
+                id: 'dualtron-eagle', name: 'Dualtron Eagle', price: '169 900 ₽', img: 'Photos/dualtron-eagle.jpg',
+                specs: [
+                    { label: 'Мощность', value: '3000 Вт (2×1500 Вт)' },
+                    { label: 'Скорость', value: '80 км/ч' },
+                    { label: 'Запас хода', value: '90 км' },
+                    { label: 'Аккумулятор', value: '52V 30Ah' },
+                    { label: 'Вес', value: '40 кг' },
+                    { label: 'Колёса', value: '11"' },
+                    { label: 'Нагрузка', value: '130 кг' },
+                    { label: 'Привод', value: 'полный' },
+                    { label: 'Тормоза', value: 'гидравлические' }
+                ]
+            },
+            {
+                id: 'ausom-l1', name: 'Ausom L1', price: '49 900 ₽', img: 'Photos/ausom-l1.jpg',
+                specs: [
+                    { label: 'Мощность', value: '350 Вт' },
+                    { label: 'Скорость', value: '32 км/ч' },
+                    { label: 'Запас хода', value: '40 км' },
+                    { label: 'Аккумулятор', value: '36V 10Ah' },
+                    { label: 'Вес', value: '17 кг' },
+                    { label: 'Колёса', value: '8.5"' },
+                    { label: 'Нагрузка', value: '100 кг' },
+                    { label: 'Привод', value: 'задний' },
+                    { label: 'Тормоза', value: 'дисковые' }
+                ]
+            },
+            {
+                id: 'ausom-l2-max', name: 'Ausom L2 Max', price: '69 900 ₽', img: 'Photos/ausom-l2-max.jpg',
+                specs: [
+                    { label: 'Мощность', value: '500 Вт' },
+                    { label: 'Скорость', value: '38 км/ч' },
+                    { label: 'Запас хода', value: '55 км' },
+                    { label: 'Аккумулятор', value: '48V 14Ah' },
+                    { label: 'Вес', value: '20 кг' },
+                    { label: 'Колёса', value: '9"' },
+                    { label: 'Нагрузка', value: '110 кг' },
+                    { label: 'Привод', value: 'задний' },
+                    { label: 'Тормоза', value: 'дисковые' }
+                ]
+            },
+            {
+                id: 'ausom-dt2-pro', name: 'Ausom DT2 Pro', price: '89 900 ₽', img: 'Photos/ausom-dt2-pro.jpg',
+                specs: [
+                    { label: 'Мощность', value: '1200 Вт' },
+                    { label: 'Скорость', value: '50 км/ч' },
+                    { label: 'Запас хода', value: '65 км' },
+                    { label: 'Аккумулятор', value: '48V 20Ah' },
+                    { label: 'Вес', value: '29 кг' },
+                    { label: 'Колёса', value: '10"' },
+                    { label: 'Нагрузка', value: '120 кг' },
+                    { label: 'Привод', value: 'полный' },
+                    { label: 'Тормоза', value: 'дисковые' }
+                ]
+            },
+            {
+                id: 'ausom-gx1', name: 'Ausom GX1', price: '109 900 ₽', img: 'Photos/ausom-gx1.jpg',
+                specs: [
+                    { label: 'Мощность', value: '2000 Вт' },
+                    { label: 'Скорость', value: '60 км/ч' },
+                    { label: 'Запас хода', value: '80 км' },
+                    { label: 'Аккумулятор', value: '52V 24Ah' },
+                    { label: 'Вес', value: '35 кг' },
+                    { label: 'Колёса', value: '11"' },
+                    { label: 'Нагрузка', value: '130 кг' },
+                    { label: 'Привод', value: 'полный' },
+                    { label: 'Тормоза', value: 'гидравлические' }
+                ]
+            },
+            {
+                id: 'ausom-gosoul-2-pro', name: 'Ausom Gosoul 2 Pro', price: '79 900 ₽', img: 'Photos/ausom-gosoul-2-pro.jpg',
+                specs: [
+                    { label: 'Мощность', value: '600 Вт' },
+                    { label: 'Скорость', value: '40 км/ч' },
+                    { label: 'Запас хода', value: '50 км' },
+                    { label: 'Аккумулятор', value: '48V 15Ah' },
+                    { label: 'Вес', value: '22 кг' },
+                    { label: 'Колёса', value: '9.5"' },
+                    { label: 'Нагрузка', value: '120 кг' },
+                    { label: 'Привод', value: 'задний' },
+                    { label: 'Тормоза', value: 'дисковые' }
+                ]
+            },
+            {
+                id: 'ausom-laluz-2-pro', name: 'Ausom Laluz 2 Pro', price: '99 900 ₽', img: 'Photos/ausom-laluz-2-pro.jpg',
+                specs: [
+                    { label: 'Мощность', value: '700 Вт' },
+                    { label: 'Скорость', value: '45 км/ч' },
+                    { label: 'Запас хода', value: '60 км' },
+                    { label: 'Аккумулятор', value: '48V 18Ah' },
+                    { label: 'Вес', value: '25 кг' },
+                    { label: 'Колёса', value: '10"' },
+                    { label: 'Нагрузка', value: '120 кг' },
+                    { label: 'Привод', value: 'задний' },
+                    { label: 'Тормоза', value: 'дисковые' }
+                ]
+            }
         ];
 
         function getCompareList() {
@@ -496,7 +1086,6 @@
                     list = list.filter(i => i !== id);
                     localStorage.setItem('compareList', JSON.stringify(list));
                     renderCompare();
-                    // Обновим баннер в Store.html, если он открыт – но это не обязательно
                 });
             });
         }
@@ -514,7 +1103,6 @@
         updateCartBadge();
         window.addEventListener('focus', updateCartBadge);
 
-        // Тема
         (function() {
             const toggle = document.getElementById('themeToggle');
             const current = localStorage.getItem('theme') || 'dark';
