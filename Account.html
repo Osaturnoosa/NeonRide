@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NeonRide — Аккаунт</title>
+    <title>NeonRide — Профиль</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
     <style>
         :root {
@@ -41,7 +41,7 @@
             color: var(--magenta);
         }
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 0 20px;
         }
@@ -139,6 +139,121 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+        .profile-card {
+            background: var(--bg-secondary);
+            border: var(--border-neon);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            display: none;
+        }
+        .profile-card .avatar-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .profile-card .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid var(--cyan);
+            box-shadow: var(--glow-cyan);
+            background: #1a1a2e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--text-secondary);
+            flex-shrink: 0;
+        }
+        .profile-card .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .profile-card .info-row .label {
+            color: var(--text-secondary);
+        }
+        .profile-card .info-row .value {
+            font-weight: 500;
+        }
+        .profile-card .level-bar {
+            width: 100%;
+            height: 8px;
+            background: #1a1a2e;
+            border-radius: 4px;
+            margin: 12px 0;
+            overflow: hidden;
+        }
+        .profile-card .level-bar .fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--cyan), var(--magenta));
+            border-radius: 4px;
+            transition: width 0.5s;
+        }
+        .profile-card .orders-list {
+            margin-top: 20px;
+        }
+        .profile-card .orders-list .order-item {
+            background: var(--bg-primary);
+            border-radius: 6px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            border-left: 3px solid var(--cyan);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .profile-card .orders-list .order-item .order-info {
+            font-size: 0.9rem;
+        }
+        .profile-card .orders-list .order-item .order-status {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .profile-card .btn-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .profile-card .btn-group button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .profile-card .btn-logout {
+            background: transparent;
+            border: 2px solid var(--magenta);
+            color: var(--magenta);
+        }
+        .profile-card .btn-logout:hover {
+            background: var(--magenta);
+            color: #0a0a0f;
+            box-shadow: var(--glow-magenta);
+        }
+        .profile-card .btn-delete {
+            background: transparent;
+            border: 2px solid #ff0044;
+            color: #ff0044;
+        }
+        .profile-card .btn-delete:hover {
+            background: #ff0044;
+            color: #0a0a0f;
+            box-shadow: 0 0 20px rgba(255,0,68,0.3);
+        }
         .auth-form {
             background: var(--bg-secondary);
             border: var(--border-neon);
@@ -207,49 +322,6 @@
             margin-bottom: 12px;
             display: none;
         }
-        .user-info {
-            background: var(--bg-secondary);
-            border: var(--border-neon);
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 30px;
-            display: none;
-        }
-        .user-info h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 400;
-            font-size: 1.4rem;
-            color: var(--cyan);
-            margin-bottom: 12px;
-        }
-        .user-info .bonus {
-            font-size: 1.8rem;
-            color: var(--yellow);
-            text-shadow: 0 0 20px rgba(255, 230, 0, 0.2);
-        }
-        .user-info .discount {
-            font-size: 1.2rem;
-            color: var(--magenta);
-        }
-        .user-info .btn-logout {
-            padding: 10px 24px;
-            background: transparent;
-            border: 2px solid var(--magenta);
-            color: var(--magenta);
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-top: 12px;
-        }
-        .user-info .btn-logout:hover {
-            background: var(--magenta);
-            color: #0a0a0f;
-            box-shadow: var(--glow-magenta);
-        }
         .footer {
             margin-top: auto;
             padding: 40px 0 20px;
@@ -306,9 +378,79 @@
             .nav-links { gap: 15px; font-size: 0.9rem; }
             .logo { font-size: 1.4rem; }
             .page-header h1 { font-size: 2rem; }
+            .profile-card .avatar-section { flex-direction: column; align-items: center; }
         }
         @media (max-width: 480px) {
             .navbar .container { flex-direction: column; gap: 15px; }
+        }
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-box {
+            background: var(--bg-secondary);
+            border: var(--border-neon);
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 0 60px rgba(255,0,68,0.2);
+        }
+        .modal-box h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: #ff0044;
+            margin-bottom: 12px;
+        }
+        .modal-box p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        .modal-box .btn-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+        .modal-box .btn-group button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .modal-box .btn-confirm {
+            background: #ff0044;
+            color: #fff;
+        }
+        .modal-box .btn-confirm:hover {
+            background: #cc0033;
+            transform: scale(1.05);
+        }
+        .modal-box .btn-cancel {
+            background: transparent;
+            border: 2px solid var(--cyan);
+            color: var(--cyan);
+        }
+        .modal-box .btn-cancel:hover {
+            background: var(--cyan);
+            color: #0a0a0f;
         }
     </style>
 </head>
@@ -321,9 +463,8 @@
                 <a href="Categories.html">Магазин</a>
                 <a href="Promotions.html">Акции</a>
                 <a href="About.html">О нас</a>
-                <a href="Account.html">Аккаунт</a>
+                <a href="Account.html">Профиль</a>
                 <a href="Admin.html">Админ</a>
-                <a href="Cart.html">Корзина</a>
             </nav>
             <a href="Cart.html" class="cart-icon">
                 🛒
@@ -334,7 +475,7 @@
 
     <section class="page-header">
         <div class="container">
-            <h1 class="glitch-text">Аккаунт</h1>
+            <h1 class="glitch-text">Профиль</h1>
         </div>
     </section>
 
@@ -350,13 +491,53 @@
             </div>
         </div>
 
-        <div class="user-info" id="userInfo">
-            <h2>👤 Добро пожаловать, <span id="userEmail"></span></h2>
-            <div class="bonus">🎁 Бонусы: <span id="userBonuses">0</span> ₽</div>
-            <div class="discount">💰 Скидка: <span id="userDiscount">0</span>%</div>
-            <button class="btn-logout" id="logoutBtn">Выйти</button>
+        <div class="profile-card" id="profileCard">
+            <div class="avatar-section">
+                <div class="avatar">👤</div>
+            </div>
+
+            <div class="info-row">
+                <span class="label">Email</span>
+                <span class="value" id="profileEmail"></span>
+            </div>
+            <div class="info-row">
+                <span class="label">Бонусы</span>
+                <span class="value" id="profileBonuses">0 ₽</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Скидка</span>
+                <span class="value" id="profileDiscount">0%</span>
+            </div>
+            <div class="info-row">
+                <span class="label">Уровень</span>
+                <span class="value" id="profileLevel">Новичок</span>
+            </div>
+            <div class="level-bar">
+                <div class="fill" id="levelFill" style="width:0%"></div>
+            </div>
+
+            <div class="orders-list" id="ordersList">
+                <h3 style="font-family:'Orbitron',sans-serif; font-weight:400; font-size:1.1rem; color:var(--cyan); margin-bottom:10px;">📦 Мои заказы</h3>
+                <div id="ordersContainer"></div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn-logout" id="logoutBtn">Выйти</button>
+                <button class="btn-delete" id="deleteBtn">🗑 Удалить аккаунт</button>
+            </div>
         </div>
     </section>
+
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal-box">
+            <h2>⚠️ Удаление аккаунта</h2>
+            <p>Вы уверены? Это действие <strong>необратимо</strong>. Все ваши данные будут удалены.</p>
+            <div class="btn-group">
+                <button class="btn-confirm" id="confirmDelete">Да, удалить</button>
+                <button class="btn-cancel" id="cancelDelete">Отмена</button>
+            </div>
+        </div>
+    </div>
 
     <footer class="footer">
         <div class="container">
@@ -401,23 +582,6 @@
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        console.log('Firebase инициализирован');
-
-        const authForm = document.getElementById('authForm');
-        const userInfo = document.getElementById('userInfo');
-        const formTitle = document.getElementById('formTitle');
-        const authBtn = document.getElementById('authBtn');
-        const toggleLink = document.getElementById('toggleLink');
-        const emailInput = document.getElementById('emailInput');
-        const passwordInput = document.getElementById('passwordInput');
-        const authError = document.getElementById('authError');
-        const userEmail = document.getElementById('userEmail');
-        const userBonuses = document.getElementById('userBonuses');
-        const userDiscount = document.getElementById('userDiscount');
-        const logoutBtn = document.getElementById('logoutBtn');
-
-        let isLogin = true;
-
         function updateCartBadge() {
             const cart = JSON.parse(localStorage.getItem('cart') || '[]');
             const badge = document.getElementById('cartBadge');
@@ -428,6 +592,29 @@
         }
         updateCartBadge();
         window.addEventListener('focus', updateCartBadge);
+
+        const authForm = document.getElementById('authForm');
+        const profileCard = document.getElementById('profileCard');
+        const formTitle = document.getElementById('formTitle');
+        const authBtn = document.getElementById('authBtn');
+        const toggleLink = document.getElementById('toggleLink');
+        const emailInput = document.getElementById('emailInput');
+        const passwordInput = document.getElementById('passwordInput');
+        const authError = document.getElementById('authError');
+        const profileEmail = document.getElementById('profileEmail');
+        const profileBonuses = document.getElementById('profileBonuses');
+        const profileDiscount = document.getElementById('profileDiscount');
+        const profileLevel = document.getElementById('profileLevel');
+        const levelFill = document.getElementById('levelFill');
+        const ordersContainer = document.getElementById('ordersContainer');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const deleteBtn = document.getElementById('deleteBtn');
+        const deleteModal = document.getElementById('deleteModal');
+        const confirmDelete = document.getElementById('confirmDelete');
+        const cancelDelete = document.getElementById('cancelDelete');
+
+        let currentUser = null;
+        let isLogin = true;
 
         toggleLink.addEventListener('click', function() {
             isLogin = !isLogin;
@@ -450,74 +637,136 @@
                 return;
             }
             authError.style.display = 'none';
-
             try {
                 if (isLogin) {
-                    console.log('Попытка входа:', email);
                     await auth.signInWithEmailAndPassword(email, password);
-                    console.log('Вход выполнен');
                 } else {
-                    console.log('Попытка регистрации:', email);
                     const cred = await auth.createUserWithEmailAndPassword(email, password);
-                    console.log('Пользователь создан, UID:', cred.user.uid);
-                    console.log('Сохраняем в Firestore...');
                     await db.collection('users').doc(cred.user.uid).set({
                         email: email,
                         bonuses: 500,
                         discount: 5,
                         createdAt: firebase.firestore.FieldValue.serverTimestamp()
                     });
-                    console.log('Данные пользователя сохранены в Firestore');
                 }
             } catch (err) {
-                console.error('Ошибка:', err);
                 showError(err.message);
             }
         });
 
-        logoutBtn.addEventListener('click', function() {
-            auth.signOut();
-            console.log('Выход выполнен');
-        });
+        async function loadUserData(user) {
+            if (!user) return;
+            currentUser = user;
+            profileEmail.textContent = user.email;
+
+            try {
+                const doc = await db.collection('users').doc(user.uid).get();
+                if (doc.exists) {
+                    const data = doc.data();
+                    profileBonuses.textContent = data.bonuses || 0 + ' ₽';
+                    profileDiscount.textContent = (data.discount || 0) + '%';
+                    localStorage.setItem('userDiscount', data.discount || 0);
+                    localStorage.setItem('userBonuses', data.bonuses || 0);
+                } else {
+                    await db.collection('users').doc(user.uid).set({
+                        email: user.email,
+                        bonuses: 0,
+                        discount: 0,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                }
+            } catch (err) {
+                console.error(err);
+            }
+
+            try {
+                const ordersSnap = await db.collection('orders')
+                    .where('uid', '==', user.uid)
+                    .orderBy('createdAt', 'desc')
+                    .limit(10)
+                    .get();
+
+                let totalSpent = 0;
+                let ordersHtml = '';
+                if (ordersSnap.empty) {
+                    ordersHtml = '<p style="color:var(--text-secondary); font-size:0.9rem;">У вас пока нет заказов</p>';
+                } else {
+                    ordersSnap.forEach(doc => {
+                        const o = doc.data();
+                        totalSpent += o.total || 0;
+                        const statusMap = { pending: '⏳ Ожидает', shipped: '📦 Отправлен', delivered: '✅ Доставлен' };
+                        const statusText = statusMap[o.status] || o.status;
+                        ordersHtml += `
+                            <div class="order-item">
+                                <div class="order-info">
+                                    <strong>${o.items ? o.items.map(i => i.name).join(', ') : 'Товары'}</strong>
+                                    <br />${o.total || 0} ₽
+                                </div>
+                                <div class="order-status" style="color:${o.status === 'delivered' ? '#00ff88' : o.status === 'shipped' ? '#00ccff' : '#ff8800'}">${statusText}</div>
+                            </div>
+                        `;
+                    });
+                }
+                ordersContainer.innerHTML = ordersHtml;
+
+                let level = 'Новичок';
+                let percent = 0;
+                if (totalSpent >= 50000) { level = 'Легенда'; percent = 100; }
+                else if (totalSpent >= 20000) { level = 'Мастер'; percent = 75; }
+                else if (totalSpent >= 10000) { level = 'Эксперт'; percent = 50; }
+                else if (totalSpent >= 5000) { level = 'Продвинутый'; percent = 25; }
+                else { level = 'Новичок'; percent = Math.min(25, Math.floor(totalSpent / 200)); }
+                profileLevel.textContent = level;
+                levelFill.style.width = percent + '%';
+
+            } catch (err) {
+                console.error(err);
+                ordersContainer.innerHTML = '<p style="color:var(--text-secondary);">Ошибка загрузки заказов</p>';
+            }
+        }
 
         auth.onAuthStateChanged(async function(user) {
-            console.log('Состояние авторизации изменено, user:', user ? user.email : 'null');
             if (user) {
                 authForm.style.display = 'none';
-                userInfo.style.display = 'block';
-                userEmail.textContent = user.email;
-
-                try {
-                    console.log('Загружаем данные пользователя из Firestore...');
-                    const doc = await db.collection('users').doc(user.uid).get();
-                    if (doc.exists) {
-                        const data = doc.data();
-                        console.log('Данные получены:', data);
-                        userBonuses.textContent = data.bonuses || 0;
-                        userDiscount.textContent = data.discount || 0;
-                        localStorage.setItem('userDiscount', data.discount || 0);
-                        localStorage.setItem('userBonuses', data.bonuses || 0);
-                    } else {
-                        console.warn('Документ пользователя не найден, создаём новый');
-                        await db.collection('users').doc(user.uid).set({
-                            email: user.email,
-                            bonuses: 0,
-                            discount: 0,
-                            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                        });
-                        console.log('Новый документ создан');
-                    }
-                } catch (err) {
-                    console.error('Ошибка загрузки данных:', err);
-                }
+                profileCard.style.display = 'block';
+                await loadUserData(user);
             } else {
                 authForm.style.display = 'block';
-                userInfo.style.display = 'none';
+                profileCard.style.display = 'none';
                 localStorage.removeItem('userDiscount');
                 localStorage.removeItem('userBonuses');
                 emailInput.value = '';
                 passwordInput.value = '';
                 authError.style.display = 'none';
+                currentUser = null;
+            }
+        });
+
+        logoutBtn.addEventListener('click', function() {
+            auth.signOut();
+        });
+
+        deleteBtn.addEventListener('click', function() {
+            deleteModal.classList.add('active');
+        });
+
+        cancelDelete.addEventListener('click', function() {
+            deleteModal.classList.remove('active');
+        });
+
+        confirmDelete.addEventListener('click', async function() {
+            if (!currentUser) return;
+            try {
+                await db.collection('users').doc(currentUser.uid).delete();
+                const ordersSnap = await db.collection('orders').where('uid', '==', currentUser.uid).get();
+                ordersSnap.forEach(doc => doc.ref.delete());
+                await currentUser.delete();
+                deleteModal.classList.remove('active');
+                auth.signOut();
+                alert('Аккаунт удалён');
+            } catch (err) {
+                alert('Ошибка удаления: ' + err.message);
+                deleteModal.classList.remove('active');
             }
         });
 
