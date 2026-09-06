@@ -267,6 +267,7 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 20px;
+            margin-top: 20px;
         }
         .cart-summary .total-label {
             font-family: 'Orbitron', sans-serif;
@@ -298,6 +299,12 @@
         .cart-summary .btn-checkout:hover {
             transform: scale(1.05);
             box-shadow: 0 0 50px rgba(255, 230, 0, 0.4);
+        }
+        .cart-summary .discount-info {
+            font-size: 0.9rem;
+            color: var(--cyan);
+            width: 100%;
+            text-align: center;
         }
         .footer {
             margin-top: auto;
@@ -447,16 +454,19 @@
             }
         }
         updateCartBadge();
+        window.addEventListener('focus', updateCartBadge);
 
         function renderCart() {
             const container = document.getElementById('cartContainer');
             const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const discount = parseInt(localStorage.getItem('userDiscount')) || 0;
+            const bonus = parseInt(localStorage.getItem('userBonuses')) || 0;
 
             if (cart.length === 0) {
                 container.innerHTML = `
                     <div class="cart-empty">
                         <p>🛒 Ваша корзина пуста</p>
-                        <a href="Store.html" class="btn-primary">Перейти в магазин</a>
+                        <a href="Categories.html" class="btn-primary">Перейти в магазин</a>
                     </div>
                 `;
                 updateCartBadge();
@@ -490,22 +500,26 @@
 
             html += `</div>`;
 
-            const discount = parseInt(localStorage.getItem('userDiscount') || '0');
-            const bonus = parseInt(localStorage.getItem('userBonuses') || '0');
             let finalTotal = total;
+            let discountApplied = 0;
+            let bonusApplied = 0;
+
             if (discount > 0) {
-                finalTotal = finalTotal * (1 - discount / 100);
+                discountApplied = Math.round(total * discount / 100);
+                finalTotal -= discountApplied;
             }
-            if (bonus > 0) {
-                finalTotal = Math.max(0, finalTotal - bonus);
+            if (bonus > 0 && finalTotal > 0) {
+                bonusApplied = Math.min(bonus, finalTotal);
+                finalTotal -= bonusApplied;
             }
-            finalTotal = Math.round(finalTotal);
 
             html += `
                 <div class="cart-summary">
                     <span class="total-label">ИТОГО</span>
                     <span class="total-price">${finalTotal.toLocaleString()} ₽</span>
                     <button class="btn-checkout" onclick="checkout()">Оформить заказ</button>
+                    ${discount > 0 ? `<div class="discount-info">Скидка ${discount}%: -${discountApplied} ₽</div>` : ''}
+                    ${bonus > 0 && bonusApplied > 0 ? `<div class="discount-info">Бонусы: -${bonusApplied} ₽</div>` : ''}
                 </div>
             `;
 
@@ -538,53 +552,66 @@
 
             const user = auth.currentUser;
             if (!user) {
-                alert('Пожалуйста, войдите в аккаунт, чтобы оформить заказ.');
+                alert('Для оформления заказа войдите в аккаунт');
                 window.location.href = 'Account.html';
                 return;
             }
 
-            const total = cart.reduce((sum, item) => {
-                const price = parseInt(item.price.replace(/\D/g, ''));
-                return sum + price * item.quantity;
-            }, 0);
+            let total = 0;
+            cart.forEach(item => {
+                total += parseInt(item.price.replace(/\D/g, '')) * item.quantity;
+            });
 
-            const discount = parseInt(localStorage.getItem('userDiscount') || '0');
-            const bonus = parseInt(localStorage.getItem('userBonuses') || '0');
+            const discount = parseInt(localStorage.getItem('userDiscount')) || 0;
+            const bonus = parseInt(localStorage.getItem('userBonuses')) || 0;
             let finalTotal = total;
-            if (discount > 0) {
-                finalTotal = finalTotal * (1 - discount / 100);
-            }
-            if (bonus > 0) {
-                finalTotal = Math.max(0, finalTotal - bonus);
-            }
-            finalTotal = Math.round(finalTotal);
+            if (discount > 0) finalTotal -= Math.round(total * discount / 100);
+            if (bonus > 0 && finalTotal > 0) finalTotal -= Math.min(bonus, finalTotal);
 
             const orderData = {
-                userId: user.uid,
                 userEmail: user.email,
-                items: cart,
+                uid: user.uid,
+                items: cart.map(item => ({ name: item.name, price: item.price, quantity: item.quantity })),
                 total: finalTotal,
                 originalTotal: total,
                 discount: discount,
-                bonusUsed: bonus,
+                bonusUsed: Math.min(bonus, finalTotal),
                 status: 'pending',
                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
             };
 
             try {
-                await db.collection('orders').add(orderData);
-                localStorage.removeItem('cart');
+                const docRef = await db.collection('orders').add(orderData);
+
+                let newBonuses = parseInt(localStorage.getItem('userBonuses')) || 0;
+                const earned = Math.floor(finalTotal * 0.05);
+                newBonuses += earned;
+                await db.collection('users').doc(user.uid).update({
+                    bonuses: newBonuses
+                });
+                localStorage.setItem('userBonuses', newBonuses);
+
+                localStorage.setItem('cart', '[]');
                 renderCart();
-                alert('✅ Заказ оформлен! Спасибо за покупку.');
+
+                const container = document.getElementById('cartContainer');
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 60px 0;">
+                        <div style="font-size: 4rem; margin-bottom: 20px;">✅</div>
+                        <h2 style="font-family: 'Orbitron', sans-serif; font-size: 2rem; color: var(--cyan);">Заказ оформлен!</h2>
+                        <p style="color: var(--text-secondary); font-size: 1.2rem; margin: 20px 0;">
+                            Спасибо за покупку! Сумма заказа: <strong style="color: var(--yellow);">${finalTotal.toLocaleString()} ₽</strong>
+                            <br />Начислено бонусов: <strong style="color: var(--yellow);">${earned}</strong>
+                        </p>
+                        <a href="Categories.html" class="btn-primary" style="display: inline-block; margin-top: 30px; padding: 14px 40px; font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; color: #0a0a0f; background: var(--cyan); border: none; border-radius: 4px; cursor: pointer; transition: 0.3s; box-shadow: var(--glow-cyan);">Продолжить покупки</a>
+                    </div>
+                `;
+                updateCartBadge();
             } catch (err) {
-                alert('❌ Ошибка при оформлении заказа: ' + err.message);
+                alert('Ошибка при оформлении заказа: ' + err.message);
+                console.error(err);
             }
         }
-
-        auth.onAuthStateChanged(function(user) {
-            // при изменении статуса авторизации перерисовываем корзину (чтобы обновилась скидка)
-            renderCart();
-        });
 
         renderCart();
 
