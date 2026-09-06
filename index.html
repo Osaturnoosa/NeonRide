@@ -18,6 +18,19 @@
             --glow-cyan: 0 0 20px rgba(0, 240, 255, 0.3);
             --glow-magenta: 0 0 20px rgba(255, 0, 212, 0.3);
             --border-neon: 1px solid rgba(0, 240, 255, 0.2);
+            --bg-card: #12121a;
+            --bg-input: #0a0a0f;
+            --shadow: rgba(0,240,255,0.1);
+        }
+        body.light-theme {
+            --bg-primary: #f0f0ff;
+            --bg-secondary: #ffffff;
+            --text-primary: #1a1a2e;
+            --text-secondary: #444466;
+            --bg-card: #ffffff;
+            --bg-input: #f0f0ff;
+            --border-neon: 1px solid #00f0ff;
+            --shadow: rgba(0,0,0,0.1);
         }
         * {
             margin: 0;
@@ -33,6 +46,7 @@
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
+            transition: background 0.3s, color 0.3s;
         }
         a {
             color: var(--cyan);
@@ -98,12 +112,13 @@
         .navbar {
             padding: 20px 0;
             border-bottom: var(--border-neon);
-            background: rgba(10, 10, 15, 0.85);
+            background: var(--bg-secondary);
             backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
             z-index: 100;
             animation: slideDown 0.8s ease-out;
+            transition: background 0.3s, border-color 0.3s;
         }
         @keyframes slideDown {
             from { transform: translateY(-100%); opacity: 0; }
@@ -137,6 +152,7 @@
             gap: 30px;
             font-weight: 400;
             font-size: 1rem;
+            align-items: center;
         }
         .nav-links a {
             color: var(--text-secondary);
@@ -157,8 +173,28 @@
         .nav-links a:hover {
             color: #fff;
         }
+        body.light-theme .nav-links a:hover {
+            color: #000;
+        }
         .nav-links a:hover::after {
             width: 100%;
+        }
+        .theme-toggle {
+            background: transparent;
+            border: var(--border-neon);
+            border-radius: 20px;
+            padding: 6px 14px;
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .theme-toggle:hover {
+            background: var(--cyan);
+            color: #0a0a0f;
         }
         .cart-icon {
             font-size: 1.4rem;
@@ -202,6 +238,11 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: fadeInUp 1s ease-out;
+        }
+        body.light-theme .hero h1 {
+            background: linear-gradient(135deg, #1a1a2e 20%, var(--cyan) 60%, var(--magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         .hero p {
             font-size: 1.3rem;
@@ -252,6 +293,9 @@
             color: #fff;
             text-shadow: var(--glow-cyan);
         }
+        body.light-theme .section-title {
+            color: #1a1a2e;
+        }
         .section-title span {
             color: var(--magenta);
         }
@@ -261,13 +305,14 @@
             gap: 30px;
         }
         .category-card {
-            background: var(--bg-secondary);
+            background: var(--bg-card);
             padding: 30px 20px;
             text-align: center;
             border: var(--border-neon);
             border-radius: 8px;
             transition: 0.4s;
             cursor: default;
+            box-shadow: 0 0 20px var(--shadow);
             animation: fadeInUp 0.8s ease-out both;
         }
         .category-card:nth-child(1) { animation-delay: 0.1s; }
@@ -309,7 +354,7 @@
             overflow: hidden;
             border-radius: 12px;
             border: var(--border-neon);
-            background: var(--bg-secondary);
+            background: var(--bg-card);
             box-shadow: var(--glow-cyan);
         }
         .carousel-track {
@@ -324,11 +369,14 @@
             justify-content: center;
             background: #1a1a2e;
         }
+        body.light-theme .carousel-slide {
+            background: #e0e0ff;
+        }
         .carousel-slide img {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            background: #1a1a2e;
+            background: transparent;
         }
         .carousel-btn {
             position: absolute;
@@ -394,7 +442,7 @@
             gap: 30px;
         }
         .product-card {
-            background: var(--bg-secondary);
+            background: var(--bg-card);
             border: var(--border-neon);
             border-radius: 8px;
             padding: 20px;
@@ -404,6 +452,7 @@
             animation: fadeInUp 0.8s ease-out both;
             cursor: pointer;
             position: relative;
+            box-shadow: 0 0 20px var(--shadow);
         }
         .product-card:nth-child(1) { animation-delay: 0.1s; }
         .product-card:nth-child(2) { animation-delay: 0.2s; }
@@ -425,11 +474,14 @@
             overflow: hidden;
             margin-bottom: 15px;
         }
+        body.light-theme .product-card .image {
+            background: #e0e0ff;
+        }
         .product-card .image img {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            background: #1a1a2e;
+            background: transparent;
         }
         .product-card .badge {
             position: absolute;
@@ -498,6 +550,7 @@
             padding: 40px 0 20px;
             border-top: var(--border-neon);
             background: var(--bg-secondary);
+            transition: background 0.3s, border-color 0.3s;
         }
         .footer .container {
             display: flex;
@@ -546,9 +599,10 @@
         }
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.8rem; }
-            .nav-links { gap: 15px; font-size: 0.9rem; }
+            .nav-links { gap: 15px; font-size: 0.9rem; flex-wrap: wrap; }
             .logo { font-size: 1.4rem; }
             .category-grid { grid-template-columns: repeat(2, 1fr); }
+            .theme-toggle { padding: 4px 10px; font-size: 0.8rem; }
         }
         @media (max-width: 480px) {
             .hero h1 { font-size: 2rem; }
@@ -573,7 +627,7 @@
             display: flex;
         }
         .modal {
-            background: var(--bg-secondary);
+            background: var(--bg-card);
             border: var(--border-neon);
             border-radius: 12px;
             max-width: 800px;
@@ -615,7 +669,7 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            background: #1a1a2e;
+            background: transparent;
         }
         .modal h2 {
             font-family: 'Orbitron', sans-serif;
@@ -737,8 +791,9 @@
                 <a href="Promotions.html">Акции</a>
                 <a href="Cart.html">Корзина</a>
                 <a href="About.html">О нас</a>
-                <a href="Account.html">Аккаунт</a>
+                <a href="Account.html">Профиль</a>
                 <a href="Admin.html">Админ</a>
+                <button class="theme-toggle" id="themeToggle">🌙 Тема</button>
             </nav>
             <a href="Cart.html" class="cart-icon">
                 🛒
@@ -1903,6 +1958,24 @@
         });
 
         window.addEventListener('focus', updateCartBadge);
+
+        // ===== ТЕМА =====
+        (function() {
+            const toggle = document.getElementById('themeToggle');
+            const current = localStorage.getItem('theme') || 'dark';
+            if (current === 'light') {
+                document.body.classList.add('light-theme');
+                toggle.textContent = '☀️ Тема';
+            } else {
+                toggle.textContent = '🌙 Тема';
+            }
+            toggle.addEventListener('click', function() {
+                document.body.classList.toggle('light-theme');
+                const isLight = document.body.classList.contains('light-theme');
+                localStorage.setItem('theme', isLight ? 'light' : 'dark');
+                this.textContent = isLight ? '☀️ Тема' : '🌙 Тема';
+            });
+        })();
     </script>
 </body>
 </html>
