@@ -59,6 +59,7 @@
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
+            max-width: 1200px;
         }
         .logo {
             font-family: 'Orbitron', sans-serif;
@@ -305,6 +306,7 @@
             background: var(--bg-secondary);
         }
         .footer .container {
+            max-width: 1200px;
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
@@ -368,10 +370,11 @@
             <div class="logo">NeonRide</div>
             <nav class="nav-links">
                 <a href="index.html">Главная</a>
-                <a href="Store.html">Магазин</a>
-                <a href="Cart.html">Корзина</a>
-                <a href="#">Акции</a>
+                <a href="Categories.html">Магазин</a>
+                <a href="Promotions.html">Акции</a>
                 <a href="About.html">О нас</a>
+                <a href="Account.html">Аккаунт</a>
+                <a href="Admin.html">Админ</a>
             </nav>
             <a href="Cart.html" class="cart-icon">
                 🛒
@@ -416,7 +419,25 @@
         </div>
     </footer>
 
+    <script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore-compat.js"></script>
+
     <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyD604DaYFZFDxyXficUMk5o6vjoeDTP--c",
+            authDomain: "neonride-7f3ec.firebaseapp.com",
+            projectId: "neonride-7f3ec",
+            storageBucket: "neonride-7f3ec.firebasestorage.app",
+            messagingSenderId: "439881566114",
+            appId: "1:439881566114:web:3ae85a145f524f50ead4fb",
+            measurementId: "G-WCWH5H151L"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
         function updateCartBadge() {
             const cart = JSON.parse(localStorage.getItem('cart') || '[]');
             const badge = document.getElementById('cartBadge');
@@ -425,6 +446,7 @@
                 badge.textContent = total;
             }
         }
+        updateCartBadge();
 
         function renderCart() {
             const container = document.getElementById('cartContainer');
@@ -468,10 +490,21 @@
 
             html += `</div>`;
 
+            const discount = parseInt(localStorage.getItem('userDiscount') || '0');
+            const bonus = parseInt(localStorage.getItem('userBonuses') || '0');
+            let finalTotal = total;
+            if (discount > 0) {
+                finalTotal = finalTotal * (1 - discount / 100);
+            }
+            if (bonus > 0) {
+                finalTotal = Math.max(0, finalTotal - bonus);
+            }
+            finalTotal = Math.round(finalTotal);
+
             html += `
                 <div class="cart-summary">
                     <span class="total-label">ИТОГО</span>
-                    <span class="total-price">${total.toLocaleString()} ₽</span>
+                    <span class="total-price">${finalTotal.toLocaleString()} ₽</span>
                     <button class="btn-checkout" onclick="checkout()">Оформить заказ</button>
                 </div>
             `;
@@ -499,35 +532,59 @@
             renderCart();
         }
 
-        function checkout() {
+        async function checkout() {
             const cart = JSON.parse(localStorage.getItem('cart') || '[]');
             if (cart.length === 0) return;
+
+            const user = auth.currentUser;
+            if (!user) {
+                alert('Пожалуйста, войдите в аккаунт, чтобы оформить заказ.');
+                window.location.href = 'Account.html';
+                return;
+            }
 
             const total = cart.reduce((sum, item) => {
                 const price = parseInt(item.price.replace(/\D/g, ''));
                 return sum + price * item.quantity;
             }, 0);
 
-            const itemsList = cart.map(item => `${item.name} x${item.quantity}`).join('\n');
+            const discount = parseInt(localStorage.getItem('userDiscount') || '0');
+            const bonus = parseInt(localStorage.getItem('userBonuses') || '0');
+            let finalTotal = total;
+            if (discount > 0) {
+                finalTotal = finalTotal * (1 - discount / 100);
+            }
+            if (bonus > 0) {
+                finalTotal = Math.max(0, finalTotal - bonus);
+            }
+            finalTotal = Math.round(finalTotal);
 
-            localStorage.setItem('cart', '[]');
+            const orderData = {
+                userId: user.uid,
+                userEmail: user.email,
+                items: cart,
+                total: finalTotal,
+                originalTotal: total,
+                discount: discount,
+                bonusUsed: bonus,
+                status: 'pending',
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            };
 
-            const container = document.getElementById('cartContainer');
-            container.innerHTML = `
-                <div style="text-align: center; padding: 60px 0;">
-                    <div style="font-size: 4rem; margin-bottom: 20px;">✅</div>
-                    <h2 style="font-family: 'Orbitron', sans-serif; font-size: 2rem; color: var(--cyan);">Заказ оформлен!</h2>
-                    <p style="color: var(--text-secondary); font-size: 1.2rem; margin: 20px 0;">
-                        Спасибо за покупку! Сумма заказа: <strong style="color: var(--yellow);">${total.toLocaleString()} ₽</strong>
-                    </p>
-                    <div style="background: var(--bg-primary); border-radius: 8px; padding: 20px; max-width: 400px; margin: 0 auto; text-align: left; border: var(--border-neon);">
-                        <p style="color: var(--text-secondary); font-size: 0.9rem; white-space: pre-line;">${itemsList}</p>
-                    </div>
-                    <a href="Store.html" class="btn-primary" style="display: inline-block; margin-top: 30px; padding: 14px 40px; font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; color: #0a0a0f; background: var(--cyan); border: none; border-radius: 4px; cursor: pointer; transition: 0.3s; box-shadow: var(--glow-cyan);">Продолжить покупки</a>
-                </div>
-            `;
-            updateCartBadge();
+            try {
+                await db.collection('orders').add(orderData);
+                localStorage.removeItem('cart');
+                renderCart();
+                alert('✅ Заказ оформлен! Спасибо за покупку.');
+            } catch (err) {
+                alert('❌ Ошибка при оформлении заказа: ' + err.message);
+            }
         }
+
+        auth.onAuthStateChanged(function(user) {
+            // при изменении статуса авторизации перерисовываем корзину (чтобы обновилась скидка)
+            renderCart();
+        });
 
         renderCart();
 

@@ -436,7 +436,9 @@
         updateCartBadge();
         window.addEventListener('focus', updateCartBadge);
 
-        const adminEmail = 'admin@neonride.tech';
+        function isAdmin(user) {
+            return user && user.email && user.email.includes('adminGlobal');
+        }
 
         function renderUsers(users) {
             const container = document.getElementById('usersTableContainer');
@@ -566,15 +568,15 @@
         }
 
         auth.onAuthStateChanged(async function(user) {
-            if (user && user.email === adminEmail) {
+            if (user && isAdmin(user)) {
                 document.getElementById('loginRequired').style.display = 'none';
                 document.getElementById('adminDashboard').style.display = 'block';
                 await loadData();
             } else {
                 document.getElementById('loginRequired').style.display = 'block';
                 document.getElementById('adminDashboard').style.display = 'none';
-                if (user && user.email !== adminEmail) {
-                    document.querySelector('#loginRequired p').textContent = 'У вас нет прав администратора. Войдите под admin@neonride.tech';
+                if (user) {
+                    document.querySelector('#loginRequired p').textContent = 'У вас нет прав администратора. Войдите под adminGlobal';
                 } else {
                     document.querySelector('#loginRequired p').textContent = 'Требуется вход администратора';
                 }
