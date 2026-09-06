@@ -445,6 +445,8 @@
         const auth = firebase.auth();
         const db = firebase.firestore();
 
+        console.log('Firebase инициализирован в корзине');
+
         function updateCartBadge() {
             const cart = JSON.parse(localStorage.getItem('cart') || '[]');
             const badge = document.getElementById('cartBadge');
@@ -557,6 +559,8 @@
                 return;
             }
 
+            console.log('Оформление заказа, пользователь:', user.email);
+
             let total = 0;
             cart.forEach(item => {
                 total += parseInt(item.price.replace(/\D/g, '')) * item.quantity;
@@ -581,7 +585,9 @@
             };
 
             try {
+                console.log('Сохраняем заказ в Firestore...', orderData);
                 const docRef = await db.collection('orders').add(orderData);
+                console.log('Заказ сохранён, ID:', docRef.id);
 
                 let newBonuses = parseInt(localStorage.getItem('userBonuses')) || 0;
                 const earned = Math.floor(finalTotal * 0.05);
@@ -589,6 +595,7 @@
                 await db.collection('users').doc(user.uid).update({
                     bonuses: newBonuses
                 });
+                console.log('Бонусы обновлены, начислено:', earned);
                 localStorage.setItem('userBonuses', newBonuses);
 
                 localStorage.setItem('cart', '[]');
@@ -608,8 +615,8 @@
                 `;
                 updateCartBadge();
             } catch (err) {
+                console.error('Ошибка при оформлении заказа:', err);
                 alert('Ошибка при оформлении заказа: ' + err.message);
-                console.error(err);
             }
         }
 

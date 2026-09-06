@@ -339,7 +339,6 @@
     </section>
 
     <section class="container">
-        <!-- Форма регистрации/входа -->
         <div class="auth-form" id="authForm">
             <h2 id="formTitle">Вход</h2>
             <div class="error" id="authError">Ошибка</div>
@@ -351,7 +350,6 @@
             </div>
         </div>
 
-        <!-- Информация о пользователе -->
         <div class="user-info" id="userInfo">
             <h2>👤 Добро пожаловать, <span id="userEmail"></span></h2>
             <div class="bonus">🎁 Бонусы: <span id="userBonuses">0</span> ₽</div>
@@ -384,7 +382,6 @@
         </div>
     </footer>
 
-    <!-- Firebase SDK (compat) -->
     <script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore-compat.js"></script>
@@ -404,7 +401,8 @@
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        // === DOM-элементы ===
+        console.log('Firebase инициализирован');
+
         const authForm = document.getElementById('authForm');
         const userInfo = document.getElementById('userInfo');
         const formTitle = document.getElementById('formTitle');
@@ -420,7 +418,6 @@
 
         let isLogin = true;
 
-        // === Обновление бейджа корзины ===
         function updateCartBadge() {
             const cart = JSON.parse(localStorage.getItem('cart') || '[]');
             const badge = document.getElementById('cartBadge');
@@ -432,7 +429,6 @@
         updateCartBadge();
         window.addEventListener('focus', updateCartBadge);
 
-        // === Переключение между входом и регистрацией ===
         toggleLink.addEventListener('click', function() {
             isLogin = !isLogin;
             formTitle.textContent = isLogin ? 'Вход' : 'Регистрация';
@@ -441,13 +437,11 @@
             authError.style.display = 'none';
         });
 
-        // === Показать ошибку ===
         function showError(msg) {
             authError.textContent = msg;
             authError.style.display = 'block';
         }
 
-        // === Обработка регистрации/входа ===
         authBtn.addEventListener('click', async function() {
             const email = emailInput.value.trim();
             const password = passwordInput.value.trim();
@@ -459,48 +453,59 @@
 
             try {
                 if (isLogin) {
+                    console.log('Попытка входа:', email);
                     await auth.signInWithEmailAndPassword(email, password);
+                    console.log('Вход выполнен');
                 } else {
+                    console.log('Попытка регистрации:', email);
                     const cred = await auth.createUserWithEmailAndPassword(email, password);
+                    console.log('Пользователь создан, UID:', cred.user.uid);
+                    console.log('Сохраняем в Firestore...');
                     await db.collection('users').doc(cred.user.uid).set({
                         email: email,
                         bonuses: 500,
                         discount: 5,
                         createdAt: firebase.firestore.FieldValue.serverTimestamp()
                     });
+                    console.log('Данные пользователя сохранены в Firestore');
                 }
             } catch (err) {
+                console.error('Ошибка:', err);
                 showError(err.message);
             }
         });
 
-        // === Выход ===
         logoutBtn.addEventListener('click', function() {
             auth.signOut();
+            console.log('Выход выполнен');
         });
 
-        // === Слушатель состояния авторизации ===
         auth.onAuthStateChanged(async function(user) {
+            console.log('Состояние авторизации изменено, user:', user ? user.email : 'null');
             if (user) {
                 authForm.style.display = 'none';
                 userInfo.style.display = 'block';
                 userEmail.textContent = user.email;
 
                 try {
+                    console.log('Загружаем данные пользователя из Firestore...');
                     const doc = await db.collection('users').doc(user.uid).get();
                     if (doc.exists) {
                         const data = doc.data();
+                        console.log('Данные получены:', data);
                         userBonuses.textContent = data.bonuses || 0;
                         userDiscount.textContent = data.discount || 0;
                         localStorage.setItem('userDiscount', data.discount || 0);
                         localStorage.setItem('userBonuses', data.bonuses || 0);
                     } else {
+                        console.warn('Документ пользователя не найден, создаём новый');
                         await db.collection('users').doc(user.uid).set({
                             email: user.email,
                             bonuses: 0,
                             discount: 0,
                             createdAt: firebase.firestore.FieldValue.serverTimestamp()
                         });
+                        console.log('Новый документ создан');
                     }
                 } catch (err) {
                     console.error('Ошибка загрузки данных:', err);
