@@ -361,17 +361,15 @@
         <div class="container">
             <div class="logo">NeonRide</div>
             <nav class="nav-links">
-    <a href="index.html">Главная</a>
-    <a href="Categories.html">Магазин</a>
-    <a href="Promotions.html">Акции</a>
-    <a href="Cart.html">Корзина</a>
-    <a href="Compare.html">Сравнение</a>
-    <a href="Support.html">Поддержка</a>
-    <a href="About.html">О нас</a>
-    <a href="Account.html">Профиль</a>
-    <a href="Admin.html">Админ</a>
-    <button class="theme-toggle" id="themeToggle">🌙 Тема</button>
-</nav>
+                <a href="index.html">Главная</a>
+                <a href="Categories.html">Магазин</a>
+                <a href="Promotions.html">Акции</a>
+                <a href="Cart.html">Корзина</a>
+                <a href="Compare.html">Сравнение</a>
+                <a href="Support.html">Поддержка</a>
+                <a href="About.html">О нас</a>
+                <a href="Account.html">Профиль</a>
+                <a href="Admin.html">Админ</a>
                 <button class="theme-toggle" id="themeToggle">🌙 Тема</button>
             </nav>
             <a href="Cart.html" class="cart-icon">
@@ -473,13 +471,11 @@
                 </div>
             `;
 
-            // Подписка на чат
             if (unsubscribeChat) {
                 unsubscribeChat();
                 unsubscribeChat = null;
             }
 
-            // Поиск открытого чата или создание нового
             db.collection('supportChats')
                 .where('uid', '==', user.uid)
                 .where('status', '==', 'open')
@@ -504,7 +500,6 @@
                 })
                 .then((chatId) => {
                     currentChatId = chatId;
-                    // Подписка на изменения
                     unsubscribeChat = db.collection('supportChats').doc(chatId).onSnapshot((doc) => {
                         const data = doc.data();
                         if (data && data.messages) {
@@ -527,7 +522,6 @@
                     container.innerHTML = `<p style="color:var(--text-secondary);">Ошибка загрузки чата</p>`;
                 });
 
-            // Отправка сообщения
             document.getElementById('sendBtn').addEventListener('click', sendMessage);
             document.getElementById('chatInput').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') sendMessage();
