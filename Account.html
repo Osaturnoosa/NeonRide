@@ -17,6 +17,19 @@
             --glow-cyan: 0 0 20px rgba(0, 240, 255, 0.3);
             --glow-magenta: 0 0 20px rgba(255, 0, 212, 0.3);
             --border-neon: 1px solid rgba(0, 240, 255, 0.2);
+            --bg-card: #12121a;
+            --bg-input: #0a0a0f;
+            --shadow: rgba(0,240,255,0.1);
+        }
+        body.light-theme {
+            --bg-primary: #f0f0ff;
+            --bg-secondary: #ffffff;
+            --text-primary: #1a1a2e;
+            --text-secondary: #444466;
+            --bg-card: #ffffff;
+            --bg-input: #f0f0ff;
+            --border-neon: 1px solid #00f0ff;
+            --shadow: rgba(0,0,0,0.1);
         }
         * {
             margin: 0;
@@ -31,6 +44,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            transition: background 0.3s, color 0.3s;
         }
         a {
             color: var(--cyan);
@@ -48,11 +62,12 @@
         .navbar {
             padding: 20px 0;
             border-bottom: var(--border-neon);
-            background: rgba(10, 10, 15, 0.9);
+            background: var(--bg-secondary);
             backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
             z-index: 100;
+            transition: background 0.3s, border-color 0.3s;
         }
         .navbar .container {
             display: flex;
@@ -78,6 +93,7 @@
             gap: 30px;
             font-weight: 400;
             font-size: 1rem;
+            align-items: center;
         }
         .nav-links a {
             color: var(--text-secondary);
@@ -98,8 +114,28 @@
         .nav-links a:hover {
             color: #fff;
         }
+        body.light-theme .nav-links a:hover {
+            color: #000;
+        }
         .nav-links a:hover::after {
             width: 100%;
+        }
+        .theme-toggle {
+            background: transparent;
+            border: var(--border-neon);
+            border-radius: 20px;
+            padding: 6px 14px;
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .theme-toggle:hover {
+            background: var(--cyan);
+            color: #0a0a0f;
         }
         .cart-icon {
             font-size: 1.4rem;
@@ -139,13 +175,20 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+        body.light-theme .page-header h1 {
+            background: linear-gradient(135deg, #1a1a2e 30%, var(--cyan) 70%, var(--magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
         .profile-card {
-            background: var(--bg-secondary);
+            background: var(--bg-card);
             border: var(--border-neon);
             border-radius: 12px;
             padding: 30px;
             margin-bottom: 30px;
             display: none;
+            box-shadow: 0 0 30px var(--shadow);
+            transition: background 0.3s, border-color 0.3s;
         }
         .profile-card .avatar {
             width: 80px;
@@ -161,11 +204,17 @@
             color: var(--text-secondary);
             margin-bottom: 16px;
         }
+        body.light-theme .profile-card .avatar {
+            background: #e0e0ff;
+        }
         .profile-card .info-row {
             display: flex;
             justify-content: space-between;
             padding: 8px 0;
             border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        body.light-theme .profile-card .info-row {
+            border-bottom: 1px solid rgba(0,0,0,0.1);
         }
         .profile-card .info-row .label {
             color: var(--text-secondary);
@@ -180,6 +229,9 @@
             border-radius: 4px;
             margin: 12px 0;
             overflow: hidden;
+        }
+        body.light-theme .profile-card .level-bar {
+            background: #d0d0e0;
         }
         .profile-card .level-bar .fill {
             height: 100%;
@@ -199,6 +251,11 @@
             padding: 12px;
             text-align: center;
             border: 1px solid rgba(0,240,255,0.1);
+            transition: background 0.3s;
+        }
+        body.light-theme .profile-card .stats-grid .stat-item {
+            background: var(--bg-primary);
+            border-color: rgba(0,0,0,0.1);
         }
         .profile-card .stats-grid .stat-item .number {
             font-family: 'Orbitron', sans-serif;
@@ -223,6 +280,10 @@
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 8px;
+            transition: background 0.3s;
+        }
+        body.light-theme .profile-card .orders-list .order-item {
+            background: var(--bg-primary);
         }
         .profile-card .orders-list .order-item .order-info {
             font-size: 0.9rem;
@@ -271,11 +332,13 @@
             box-shadow: 0 0 20px rgba(255,0,68,0.3);
         }
         .auth-form {
-            background: var(--bg-secondary);
+            background: var(--bg-card);
             border: var(--border-neon);
             border-radius: 12px;
             padding: 30px;
             margin-bottom: 30px;
+            box-shadow: 0 0 30px var(--shadow);
+            transition: background 0.3s, border-color 0.3s;
         }
         .auth-form h2 {
             font-family: 'Orbitron', sans-serif;
@@ -288,13 +351,13 @@
             width: 100%;
             padding: 12px 16px;
             margin-bottom: 14px;
-            background: var(--bg-primary);
+            background: var(--bg-input);
             border: var(--border-neon);
             border-radius: 6px;
-            color: #fff;
+            color: var(--text-primary);
             font-size: 1rem;
             font-family: 'Roboto', sans-serif;
-            transition: 0.3s;
+            transition: background 0.3s, border-color 0.3s, color 0.3s;
         }
         .auth-form input:focus {
             outline: none;
@@ -343,6 +406,7 @@
             padding: 40px 0 20px;
             border-top: var(--border-neon);
             background: var(--bg-secondary);
+            transition: background 0.3s, border-color 0.3s;
         }
         .footer .container {
             max-width: 1200px;
@@ -391,10 +455,11 @@
             100% { transform: skew(0deg); }
         }
         @media (max-width: 768px) {
-            .nav-links { gap: 15px; font-size: 0.9rem; }
+            .nav-links { gap: 15px; font-size: 0.9rem; flex-wrap: wrap; }
             .logo { font-size: 1.4rem; }
             .page-header h1 { font-size: 2rem; }
             .stats-grid { grid-template-columns: 1fr; }
+            .theme-toggle { padding: 4px 10px; font-size: 0.8rem; }
         }
         @media (max-width: 480px) {
             .navbar .container { flex-direction: column; gap: 15px; }
@@ -416,7 +481,7 @@
             display: flex;
         }
         .modal-box {
-            background: var(--bg-secondary);
+            background: var(--bg-card);
             border: var(--border-neon);
             border-radius: 12px;
             padding: 30px;
@@ -468,15 +533,37 @@
             background: var(--cyan);
             color: #0a0a0f;
         }
-        .category-tag {
-            display: inline-block;
-            background: var(--cyan);
-            color: #0a0a0f;
-            font-size: 0.7rem;
-            padding: 2px 8px;
+        .notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--bg-card);
+            border: 2px solid var(--cyan);
             border-radius: 12px;
+            padding: 16px 24px;
+            box-shadow: 0 0 40px var(--glow-cyan);
+            color: var(--text-primary);
+            font-family: 'Roboto', sans-serif;
+            z-index: 1000;
+            animation: slideIn 0.4s ease-out;
+            max-width: 350px;
+        }
+        .notification.success {
+            border-color: #00ff88;
+        }
+        .notification .title {
             font-weight: 700;
-            margin-left: 6px;
+            font-size: 1.1rem;
+            color: var(--cyan);
+        }
+        .notification .message {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(60px); }
+            to { opacity: 1; transform: translateX(0); }
         }
     </style>
 </head>
@@ -491,6 +578,7 @@
                 <a href="About.html">О нас</a>
                 <a href="Account.html">Профиль</a>
                 <a href="Admin.html">Админ</a>
+                <button class="theme-toggle" id="themeToggle">🌙 Тема</button>
             </nav>
             <a href="Cart.html" class="cart-icon">
                 🛒
@@ -630,6 +718,9 @@
         const auth = firebase.auth();
         const db = firebase.firestore();
 
+        let unsubscribeOrders = null;
+        let lastNotifiedOrderIds = new Set();
+
         function updateCartBadge() {
             const cart = JSON.parse(localStorage.getItem('cart') || '[]');
             const badge = document.getElementById('cartBadge');
@@ -707,6 +798,137 @@
             }
         });
 
+        function showNotification(title, message, isSuccess = true) {
+            const existing = document.querySelector('.notification');
+            if (existing) existing.remove();
+            const div = document.createElement('div');
+            div.className = 'notification' + (isSuccess ? ' success' : '');
+            div.innerHTML = `
+                <div class="title">${title}</div>
+                <div class="message">${message}</div>
+            `;
+            document.body.appendChild(div);
+            setTimeout(() => div.remove(), 5000);
+        }
+
+        function renderOrders(orders) {
+            let totalItemsCount = 0;
+            let totalSpentSum = 0;
+            const categoryCount = { 'самокат': 0, 'гироскутер': 0, 'моноколесо': 0, 'электроскейт': 0, 'другое': 0 };
+            const modelCount = {};
+
+            orders.forEach(o => {
+                totalSpentSum += o.total || 0;
+                if (o.items) {
+                    o.items.forEach(item => {
+                        totalItemsCount += item.quantity || 1;
+                        const name = item.name.toLowerCase();
+                        if (name.includes('kukirin') || name.includes('самокат') || name.includes('scooter')) {
+                            categoryCount['самокат'] += item.quantity || 1;
+                        } else if (name.includes('гироскутер') || name.includes('gyro')) {
+                            categoryCount['гироскутер'] += item.quantity || 1;
+                        } else if (name.includes('моноколесо') || name.includes('monowheel')) {
+                            categoryCount['моноколесо'] += item.quantity || 1;
+                        } else if (name.includes('электроскейт') || name.includes('eskate')) {
+                            categoryCount['электроскейт'] += item.quantity || 1;
+                        } else {
+                            categoryCount['другое'] += item.quantity || 1;
+                        }
+                        const modelKey = item.name;
+                        modelCount[modelKey] = (modelCount[modelKey] || 0) + (item.quantity || 1);
+                    });
+                }
+            });
+
+            totalItems.textContent = totalItemsCount;
+            totalOrders.textContent = orders.length;
+            totalSpent.textContent = totalSpentSum.toLocaleString() + ' ₽';
+
+            let maxCat = '—';
+            let maxVal = 0;
+            for (const [cat, val] of Object.entries(categoryCount)) {
+                if (val > maxVal) { maxVal = val; maxCat = cat; }
+            }
+            topCategory.textContent = maxCat === '—' ? 'Нет данных' : maxCat.charAt(0).toUpperCase() + maxCat.slice(1);
+
+            const sortedModels = Object.entries(modelCount).sort((a,b) => b[1] - a[1]).slice(0, 3);
+            if (sortedModels.length === 0) {
+                topModels.textContent = 'Нет покупок';
+            } else {
+                topModels.innerHTML = sortedModels.map(([name, count]) => 
+                    `<div style="display:inline-block; margin-right:12px;">${name} ×${count}</div>`
+                ).join('');
+            }
+
+            let level = 'Новичок';
+            let percent = 0;
+            if (totalSpentSum >= 50000) { level = 'Легенда'; percent = 100; }
+            else if (totalSpentSum >= 20000) { level = 'Мастер'; percent = 75; }
+            else if (totalSpentSum >= 10000) { level = 'Эксперт'; percent = 50; }
+            else if (totalSpentSum >= 5000) { level = 'Продвинутый'; percent = 25; }
+            else { level = 'Новичок'; percent = Math.min(25, Math.floor(totalSpentSum / 200)); }
+            profileLevel.textContent = level;
+            levelFill.style.width = percent + '%';
+
+            const sortedOrders = orders.slice().sort((a,b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+            const recentOrders = sortedOrders.slice(0, 10);
+            let ordersHtml = '';
+            if (recentOrders.length === 0) {
+                ordersHtml = '<p style="color:var(--text-secondary); font-size:0.9rem;">У вас пока нет заказов</p>';
+            } else {
+                recentOrders.forEach(o => {
+                    const statusMap = { pending: '⏳ Ожидает', shipped: '📦 Отправлен', delivered: '✅ Доставлен' };
+                    const statusText = statusMap[o.status] || o.status;
+                    ordersHtml += `
+                        <div class="order-item">
+                            <div class="order-info">
+                                <strong>${o.items ? o.items.map(i => i.name).join(', ') : 'Товары'}</strong>
+                                <br />${o.total || 0} ₽
+                            </div>
+                            <div class="order-status" style="color:${o.status === 'delivered' ? '#00ff88' : o.status === 'shipped' ? '#00ccff' : '#ff8800'}">${statusText}</div>
+                        </div>
+                    `;
+                });
+            }
+            ordersContainer.innerHTML = ordersHtml;
+        }
+
+        function subscribeToOrders(user) {
+            if (unsubscribeOrders) {
+                unsubscribeOrders();
+                unsubscribeOrders = null;
+            }
+            if (!user) return;
+            unsubscribeOrders = db.collection('orders')
+                .where('uid', '==', user.uid)
+                .onSnapshot((snapshot) => {
+                    const orders = [];
+                    snapshot.forEach(doc => {
+                        const data = doc.data();
+                        orders.push({ id: doc.id, ...data });
+                    });
+                    renderOrders(orders);
+
+                    snapshot.docChanges().forEach(change => {
+                        if (change.type === 'modified') {
+                            const newData = change.doc.data();
+                            if (newData.status === 'delivered') {
+                                const orderId = change.doc.id;
+                                if (!lastNotifiedOrderIds.has(orderId)) {
+                                    lastNotifiedOrderIds.add(orderId);
+                                    const items = newData.items ? newData.items.map(i => i.name).join(', ') : 'заказ';
+                                    showNotification('✅ Доставлен!', `Ваш заказ (${items}) доставлен! Спасибо за покупку.`, true);
+                                    setTimeout(() => lastNotifiedOrderIds.delete(orderId), 10000);
+                                }
+                            }
+                        }
+                    });
+                }, (err) => {
+                    console.error('Ошибка подписки на заказы:', err);
+                    ordersContainer.innerHTML = '<p style="color:var(--text-secondary);">Ошибка загрузки заказов. Попробуйте позже.</p>';
+                });
+        }
+
         async function loadUserData(user) {
             if (!user) return;
             currentUser = user;
@@ -732,95 +954,7 @@
                 console.error(err);
             }
 
-            try {
-                const ordersSnap = await db.collection('orders').where('uid', '==', user.uid).get();
-                const orders = [];
-                let totalItemsCount = 0;
-                let totalSpentSum = 0;
-                const categoryCount = { 'самокат': 0, 'гироскутер': 0, 'моноколесо': 0, 'электроскейт': 0, 'другое': 0 };
-                const modelCount = {};
-
-                ordersSnap.forEach(doc => {
-                    const o = doc.data();
-                    orders.push(o);
-                    totalSpentSum += o.total || 0;
-                    if (o.items) {
-                        o.items.forEach(item => {
-                            totalItemsCount += item.quantity || 1;
-                            const name = item.name.toLowerCase();
-                            if (name.includes('kukirin') || name.includes('самокат') || name.includes('scooter')) {
-                                categoryCount['самокат'] += item.quantity || 1;
-                            } else if (name.includes('гироскутер') || name.includes('gyro')) {
-                                categoryCount['гироскутер'] += item.quantity || 1;
-                            } else if (name.includes('моноколесо') || name.includes('monowheel')) {
-                                categoryCount['моноколесо'] += item.quantity || 1;
-                            } else if (name.includes('электроскейт') || name.includes('eskate')) {
-                                categoryCount['электроскейт'] += item.quantity || 1;
-                            } else {
-                                categoryCount['другое'] += item.quantity || 1;
-                            }
-                            const modelKey = item.name;
-                            modelCount[modelKey] = (modelCount[modelKey] || 0) + (item.quantity || 1);
-                        });
-                    }
-                });
-
-                totalItems.textContent = totalItemsCount;
-                totalOrders.textContent = orders.length;
-                totalSpent.textContent = totalSpentSum.toLocaleString() + ' ₽';
-
-                let maxCat = '—';
-                let maxVal = 0;
-                for (const [cat, val] of Object.entries(categoryCount)) {
-                    if (val > maxVal) { maxVal = val; maxCat = cat; }
-                }
-                topCategory.textContent = maxCat === '—' ? 'Нет данных' : maxCat.charAt(0).toUpperCase() + maxCat.slice(1);
-
-                const sortedModels = Object.entries(modelCount).sort((a,b) => b[1] - a[1]).slice(0, 3);
-                if (sortedModels.length === 0) {
-                    topModels.textContent = 'Нет покупок';
-                } else {
-                    topModels.innerHTML = sortedModels.map(([name, count]) => 
-                        `<div style="display:inline-block; margin-right:12px;">${name} ×${count}</div>`
-                    ).join('');
-                }
-
-                let level = 'Новичок';
-                let percent = 0;
-                if (totalSpentSum >= 50000) { level = 'Легенда'; percent = 100; }
-                else if (totalSpentSum >= 20000) { level = 'Мастер'; percent = 75; }
-                else if (totalSpentSum >= 10000) { level = 'Эксперт'; percent = 50; }
-                else if (totalSpentSum >= 5000) { level = 'Продвинутый'; percent = 25; }
-                else { level = 'Новичок'; percent = Math.min(25, Math.floor(totalSpentSum / 200)); }
-                profileLevel.textContent = level;
-                levelFill.style.width = percent + '%';
-
-                orders.sort((a,b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
-                const recentOrders = orders.slice(0, 10);
-                let ordersHtml = '';
-                if (recentOrders.length === 0) {
-                    ordersHtml = '<p style="color:var(--text-secondary); font-size:0.9rem;">У вас пока нет заказов</p>';
-                } else {
-                    recentOrders.forEach(o => {
-                        const statusMap = { pending: '⏳ Ожидает', shipped: '📦 Отправлен', delivered: '✅ Доставлен' };
-                        const statusText = statusMap[o.status] || o.status;
-                        ordersHtml += `
-                            <div class="order-item">
-                                <div class="order-info">
-                                    <strong>${o.items ? o.items.map(i => i.name).join(', ') : 'Товары'}</strong>
-                                    <br />${o.total || 0} ₽
-                                </div>
-                                <div class="order-status" style="color:${o.status === 'delivered' ? '#00ff88' : o.status === 'shipped' ? '#00ccff' : '#ff8800'}">${statusText}</div>
-                            </div>
-                        `;
-                    });
-                }
-                ordersContainer.innerHTML = ordersHtml;
-
-            } catch (err) {
-                console.error(err);
-                ordersContainer.innerHTML = '<p style="color:var(--text-secondary);">Ошибка загрузки заказов. Попробуйте позже.</p>';
-            }
+            subscribeToOrders(user);
         }
 
         auth.onAuthStateChanged(async function(user) {
@@ -837,6 +971,10 @@
                 passwordInput.value = '';
                 authError.style.display = 'none';
                 currentUser = null;
+                if (unsubscribeOrders) {
+                    unsubscribeOrders();
+                    unsubscribeOrders = null;
+                }
             }
         });
 
@@ -874,6 +1012,23 @@
                 setTimeout(() => this.style.animation = 'glitch 0.3s ease-in-out', 10);
             });
         });
+
+        (function() {
+            const toggle = document.getElementById('themeToggle');
+            const current = localStorage.getItem('theme') || 'dark';
+            if (current === 'light') {
+                document.body.classList.add('light-theme');
+                toggle.textContent = '☀️ Тема';
+            } else {
+                toggle.textContent = '🌙 Тема';
+            }
+            toggle.addEventListener('click', function() {
+                document.body.classList.toggle('light-theme');
+                const isLight = document.body.classList.contains('light-theme');
+                localStorage.setItem('theme', isLight ? 'light' : 'dark');
+                this.textContent = isLight ? '☀️ Тема' : '🌙 Тема';
+            });
+        })();
     </script>
 </body>
 </html>
