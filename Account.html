@@ -147,13 +147,6 @@
             margin-bottom: 30px;
             display: none;
         }
-        .profile-card .avatar-section {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
         .profile-card .avatar {
             width: 80px;
             height: 80px;
@@ -166,7 +159,7 @@
             justify-content: center;
             font-size: 2.5rem;
             color: var(--text-secondary);
-            flex-shrink: 0;
+            margin-bottom: 16px;
         }
         .profile-card .info-row {
             display: flex;
@@ -193,6 +186,29 @@
             background: linear-gradient(90deg, var(--cyan), var(--magenta));
             border-radius: 4px;
             transition: width 0.5s;
+        }
+        .profile-card .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 16px 0;
+        }
+        .profile-card .stats-grid .stat-item {
+            background: var(--bg-primary);
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid rgba(0,240,255,0.1);
+        }
+        .profile-card .stats-grid .stat-item .number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
+            color: var(--cyan);
+        }
+        .profile-card .stats-grid .stat-item .label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
         }
         .profile-card .orders-list {
             margin-top: 20px;
@@ -378,7 +394,7 @@
             .nav-links { gap: 15px; font-size: 0.9rem; }
             .logo { font-size: 1.4rem; }
             .page-header h1 { font-size: 2rem; }
-            .profile-card .avatar-section { flex-direction: column; align-items: center; }
+            .stats-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 480px) {
             .navbar .container { flex-direction: column; gap: 15px; }
@@ -452,6 +468,16 @@
             background: var(--cyan);
             color: #0a0a0f;
         }
+        .category-tag {
+            display: inline-block;
+            background: var(--cyan);
+            color: #0a0a0f;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 700;
+            margin-left: 6px;
+        }
     </style>
 </head>
 <body>
@@ -492,9 +518,7 @@
         </div>
 
         <div class="profile-card" id="profileCard">
-            <div class="avatar-section">
-                <div class="avatar">👤</div>
-            </div>
+            <div class="avatar">👤</div>
 
             <div class="info-row">
                 <span class="label">Email</span>
@@ -514,6 +538,30 @@
             </div>
             <div class="level-bar">
                 <div class="fill" id="levelFill" style="width:0%"></div>
+            </div>
+
+            <div class="stats-grid" id="statsGrid">
+                <div class="stat-item">
+                    <div class="number" id="totalItems">0</div>
+                    <div class="label">Всего товаров</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number" id="totalOrders">0</div>
+                    <div class="label">Заказов</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number" id="totalSpent">0 ₽</div>
+                    <div class="label">Потрачено</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number" id="topCategory">—</div>
+                    <div class="label">Любимая категория</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom:12px;">
+                <h3 style="font-family:'Orbitron',sans-serif; font-weight:400; font-size:1rem; color:var(--cyan);">🏆 Топ-3 модели</h3>
+                <div id="topModels" style="font-size:0.9rem; color:var(--text-secondary);"></div>
             </div>
 
             <div class="orders-list" id="ordersList">
@@ -607,6 +655,11 @@
         const profileLevel = document.getElementById('profileLevel');
         const levelFill = document.getElementById('levelFill');
         const ordersContainer = document.getElementById('ordersContainer');
+        const totalItems = document.getElementById('totalItems');
+        const totalOrders = document.getElementById('totalOrders');
+        const totalSpent = document.getElementById('totalSpent');
+        const topCategory = document.getElementById('topCategory');
+        const topModels = document.getElementById('topModels');
         const logoutBtn = document.getElementById('logoutBtn');
         const deleteBtn = document.getElementById('deleteBtn');
         const deleteModal = document.getElementById('deleteModal');
@@ -680,20 +733,75 @@
             }
 
             try {
-                const ordersSnap = await db.collection('orders')
-                    .where('uid', '==', user.uid)
-                    .orderBy('createdAt', 'desc')
-                    .limit(10)
-                    .get();
+                const ordersSnap = await db.collection('orders').where('uid', '==', user.uid).get();
+                const orders = [];
+                let totalItemsCount = 0;
+                let totalSpentSum = 0;
+                const categoryCount = { 'самокат': 0, 'гироскутер': 0, 'моноколесо': 0, 'электроскейт': 0, 'другое': 0 };
+                const modelCount = {};
 
-                let totalSpent = 0;
+                ordersSnap.forEach(doc => {
+                    const o = doc.data();
+                    orders.push(o);
+                    totalSpentSum += o.total || 0;
+                    if (o.items) {
+                        o.items.forEach(item => {
+                            totalItemsCount += item.quantity || 1;
+                            const name = item.name.toLowerCase();
+                            if (name.includes('kukirin') || name.includes('самокат') || name.includes('scooter')) {
+                                categoryCount['самокат'] += item.quantity || 1;
+                            } else if (name.includes('гироскутер') || name.includes('gyro')) {
+                                categoryCount['гироскутер'] += item.quantity || 1;
+                            } else if (name.includes('моноколесо') || name.includes('monowheel')) {
+                                categoryCount['моноколесо'] += item.quantity || 1;
+                            } else if (name.includes('электроскейт') || name.includes('eskate')) {
+                                categoryCount['электроскейт'] += item.quantity || 1;
+                            } else {
+                                categoryCount['другое'] += item.quantity || 1;
+                            }
+                            const modelKey = item.name;
+                            modelCount[modelKey] = (modelCount[modelKey] || 0) + (item.quantity || 1);
+                        });
+                    }
+                });
+
+                totalItems.textContent = totalItemsCount;
+                totalOrders.textContent = orders.length;
+                totalSpent.textContent = totalSpentSum.toLocaleString() + ' ₽';
+
+                let maxCat = '—';
+                let maxVal = 0;
+                for (const [cat, val] of Object.entries(categoryCount)) {
+                    if (val > maxVal) { maxVal = val; maxCat = cat; }
+                }
+                topCategory.textContent = maxCat === '—' ? 'Нет данных' : maxCat.charAt(0).toUpperCase() + maxCat.slice(1);
+
+                const sortedModels = Object.entries(modelCount).sort((a,b) => b[1] - a[1]).slice(0, 3);
+                if (sortedModels.length === 0) {
+                    topModels.textContent = 'Нет покупок';
+                } else {
+                    topModels.innerHTML = sortedModels.map(([name, count]) => 
+                        `<div style="display:inline-block; margin-right:12px;">${name} ×${count}</div>`
+                    ).join('');
+                }
+
+                let level = 'Новичок';
+                let percent = 0;
+                if (totalSpentSum >= 50000) { level = 'Легенда'; percent = 100; }
+                else if (totalSpentSum >= 20000) { level = 'Мастер'; percent = 75; }
+                else if (totalSpentSum >= 10000) { level = 'Эксперт'; percent = 50; }
+                else if (totalSpentSum >= 5000) { level = 'Продвинутый'; percent = 25; }
+                else { level = 'Новичок'; percent = Math.min(25, Math.floor(totalSpentSum / 200)); }
+                profileLevel.textContent = level;
+                levelFill.style.width = percent + '%';
+
+                orders.sort((a,b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+                const recentOrders = orders.slice(0, 10);
                 let ordersHtml = '';
-                if (ordersSnap.empty) {
+                if (recentOrders.length === 0) {
                     ordersHtml = '<p style="color:var(--text-secondary); font-size:0.9rem;">У вас пока нет заказов</p>';
                 } else {
-                    ordersSnap.forEach(doc => {
-                        const o = doc.data();
-                        totalSpent += o.total || 0;
+                    recentOrders.forEach(o => {
                         const statusMap = { pending: '⏳ Ожидает', shipped: '📦 Отправлен', delivered: '✅ Доставлен' };
                         const statusText = statusMap[o.status] || o.status;
                         ordersHtml += `
@@ -709,19 +817,9 @@
                 }
                 ordersContainer.innerHTML = ordersHtml;
 
-                let level = 'Новичок';
-                let percent = 0;
-                if (totalSpent >= 50000) { level = 'Легенда'; percent = 100; }
-                else if (totalSpent >= 20000) { level = 'Мастер'; percent = 75; }
-                else if (totalSpent >= 10000) { level = 'Эксперт'; percent = 50; }
-                else if (totalSpent >= 5000) { level = 'Продвинутый'; percent = 25; }
-                else { level = 'Новичок'; percent = Math.min(25, Math.floor(totalSpent / 200)); }
-                profileLevel.textContent = level;
-                levelFill.style.width = percent + '%';
-
             } catch (err) {
                 console.error(err);
-                ordersContainer.innerHTML = '<p style="color:var(--text-secondary);">Ошибка загрузки заказов</p>';
+                ordersContainer.innerHTML = '<p style="color:var(--text-secondary);">Ошибка загрузки заказов. Попробуйте позже.</p>';
             }
         }
 
