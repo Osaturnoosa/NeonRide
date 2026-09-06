@@ -55,7 +55,7 @@
             color: var(--magenta);
         }
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 0 20px;
         }
@@ -207,22 +207,65 @@
         body.light-theme .profile-card .avatar {
             background: #e0e0ff;
         }
-        .profile-card .info-row {
+        .tabs {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(0,240,255,0.2);
+            padding-bottom: 6px;
+        }
+        .tabs button {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 400;
+            font-size: 0.85rem;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 4px;
+        }
+        .tabs button:hover {
+            color: #fff;
+            background: rgba(0,240,255,0.1);
+        }
+        .tabs button.active {
+            color: var(--cyan);
+            background: rgba(0,240,255,0.15);
+            box-shadow: 0 0 20px rgba(0,240,255,0.1);
+        }
+        body.light-theme .tabs button:hover {
+            color: #000;
+        }
+        .tab-content {
+            display: none;
+            animation: fadeInUp 0.3s ease-out;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .info-row {
             display: flex;
             justify-content: space-between;
             padding: 8px 0;
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-        body.light-theme .profile-card .info-row {
+        body.light-theme .info-row {
             border-bottom: 1px solid rgba(0,0,0,0.1);
         }
-        .profile-card .info-row .label {
+        .info-row .label {
             color: var(--text-secondary);
         }
-        .profile-card .info-row .value {
+        .info-row .value {
             font-weight: 500;
         }
-        .profile-card .level-bar {
+        .level-bar {
             width: 100%;
             height: 8px;
             background: #1a1a2e;
@@ -230,22 +273,22 @@
             margin: 12px 0;
             overflow: hidden;
         }
-        body.light-theme .profile-card .level-bar {
+        body.light-theme .level-bar {
             background: #d0d0e0;
         }
-        .profile-card .level-bar .fill {
+        .level-bar .fill {
             height: 100%;
             background: linear-gradient(90deg, var(--cyan), var(--magenta));
             border-radius: 4px;
             transition: width 0.5s;
         }
-        .profile-card .stats-grid {
+        .stats-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
             margin: 16px 0;
         }
-        .profile-card .stats-grid .stat-item {
+        .stats-grid .stat-item {
             background: var(--bg-primary);
             border-radius: 6px;
             padding: 12px;
@@ -253,24 +296,21 @@
             border: 1px solid rgba(0,240,255,0.1);
             transition: background 0.3s;
         }
-        body.light-theme .profile-card .stats-grid .stat-item {
+        body.light-theme .stats-grid .stat-item {
             background: var(--bg-primary);
             border-color: rgba(0,0,0,0.1);
         }
-        .profile-card .stats-grid .stat-item .number {
+        .stats-grid .stat-item .number {
             font-family: 'Orbitron', sans-serif;
             font-size: 1.4rem;
             color: var(--cyan);
         }
-        .profile-card .stats-grid .stat-item .label {
+        .stats-grid .stat-item .label {
             font-size: 0.8rem;
             color: var(--text-secondary);
             margin-top: 4px;
         }
-        .profile-card .orders-list {
-            margin-top: 20px;
-        }
-        .profile-card .orders-list .order-item {
+        .orders-list .order-item {
             background: var(--bg-primary);
             border-radius: 6px;
             padding: 12px 16px;
@@ -278,28 +318,44 @@
             border-left: 3px solid var(--cyan);
             display: flex;
             justify-content: space-between;
+            align-items: center;
             flex-wrap: wrap;
             gap: 8px;
             transition: background 0.3s;
         }
-        body.light-theme .profile-card .orders-list .order-item {
+        body.light-theme .orders-list .order-item {
             background: var(--bg-primary);
         }
-        .profile-card .orders-list .order-item .order-info {
+        .orders-list .order-item .order-info {
             font-size: 0.9rem;
+            flex: 1;
         }
-        .profile-card .orders-list .order-item .order-status {
+        .orders-list .order-item .order-status {
             font-size: 0.8rem;
             font-weight: 700;
             text-transform: uppercase;
         }
-        .profile-card .btn-group {
+        .orders-list .order-item .btn-remove-order {
+            background: transparent;
+            border: 1px solid #ff0044;
+            color: #ff0044;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: 0.3s;
+        }
+        .orders-list .order-item .btn-remove-order:hover {
+            background: #ff0044;
+            color: #fff;
+        }
+        .btn-group {
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
             margin-top: 20px;
         }
-        .profile-card .btn-group button {
+        .btn-group button {
             padding: 10px 24px;
             border: none;
             border-radius: 4px;
@@ -311,22 +367,22 @@
             cursor: pointer;
             transition: 0.3s;
         }
-        .profile-card .btn-logout {
+        .btn-logout {
             background: transparent;
             border: 2px solid var(--magenta);
             color: var(--magenta);
         }
-        .profile-card .btn-logout:hover {
+        .btn-logout:hover {
             background: var(--magenta);
             color: #0a0a0f;
             box-shadow: var(--glow-magenta);
         }
-        .profile-card .btn-delete {
+        .btn-delete {
             background: transparent;
             border: 2px solid #ff0044;
             color: #ff0044;
         }
-        .profile-card .btn-delete:hover {
+        .btn-delete:hover {
             background: #ff0044;
             color: #0a0a0f;
             box-shadow: 0 0 20px rgba(255,0,68,0.3);
@@ -401,6 +457,91 @@
             margin-bottom: 12px;
             display: none;
         }
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        body.light-theme .settings-item {
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        .settings-item .label {
+            color: var(--text-secondary);
+        }
+        .settings-item .toggle {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background: #444;
+            border-radius: 13px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .settings-item .toggle.active {
+            background: var(--cyan);
+        }
+        .settings-item .toggle .knob {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 22px;
+            height: 22px;
+            background: #fff;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+        .settings-item .toggle.active .knob {
+            left: 26px;
+        }
+        .favorite-grid, .history-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .favorite-item, .history-item {
+            background: var(--bg-primary);
+            border: var(--border-neon);
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .favorite-item:hover, .history-item:hover {
+            border-color: var(--cyan);
+            transform: scale(1.02);
+        }
+        .favorite-item img, .history-item img {
+            width: 100%;
+            height: 100px;
+            object-fit: contain;
+            background: #1a1a2e;
+            border-radius: 4px;
+        }
+        .favorite-item .name, .history-item .name {
+            font-size: 0.85rem;
+            margin-top: 6px;
+            color: var(--text-primary);
+        }
+        .favorite-item .price, .history-item .price {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            color: var(--yellow);
+        }
+        .favorite-item .remove-fav {
+            background: transparent;
+            border: none;
+            color: #ff0044;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-top: 4px;
+        }
+        .favorite-item .remove-fav:hover {
+            text-decoration: underline;
+        }
         .footer {
             margin-top: auto;
             padding: 40px 0 20px;
@@ -460,6 +601,7 @@
             .page-header h1 { font-size: 2rem; }
             .stats-grid { grid-template-columns: 1fr; }
             .theme-toggle { padding: 4px 10px; font-size: 0.8rem; }
+            .tabs button { font-size: 0.75rem; padding: 6px 10px; }
         }
         @media (max-width: 480px) {
             .navbar .container { flex-direction: column; gap: 15px; }
@@ -565,6 +707,42 @@
             from { opacity: 0; transform: translateX(60px); }
             to { opacity: 1; transform: translateX(0); }
         }
+        .change-password-form {
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .change-password-form input {
+            padding: 10px 14px;
+            background: var(--bg-input);
+            border: var(--border-neon);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+        .change-password-form input:focus {
+            outline: none;
+            border-color: var(--cyan);
+        }
+        .change-password-form .btn {
+            align-self: flex-start;
+            padding: 10px 24px;
+            background: var(--cyan);
+            border: none;
+            border-radius: 4px;
+            color: #0a0a0f;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .change-password-form .btn:hover {
+            background: var(--magenta);
+            box-shadow: var(--glow-magenta);
+        }
     </style>
 </head>
 <body>
@@ -572,13 +750,17 @@
         <div class="container">
             <div class="logo">NeonRide</div>
             <nav class="nav-links">
-                <a href="index.html">Главная</a>
-                <a href="Categories.html">Магазин</a>
-                <a href="Promotions.html">Акции</a>
-                <a href="Cart.html">Корзина</a>
-                <a href="About.html">О нас</a>
-                <a href="Account.html">Профиль</a>
-                <a href="Admin.html">Админ</a>
+    <a href="index.html">Главная</a>
+    <a href="Categories.html">Магазин</a>
+    <a href="Promotions.html">Акции</a>
+    <a href="Cart.html">Корзина</a>
+    <a href="Compare.html">Сравнение</a>
+    <a href="Support.html">Поддержка</a>
+    <a href="About.html">О нас</a>
+    <a href="Account.html">Профиль</a>
+    <a href="Admin.html">Админ</a>
+    <button class="theme-toggle" id="themeToggle">🌙 Тема</button>
+</nav>
                 <button class="theme-toggle" id="themeToggle">🌙 Тема</button>
             </nav>
             <a href="Cart.html" class="cart-icon">
@@ -609,58 +791,111 @@
         <div class="profile-card" id="profileCard">
             <div class="avatar">👤</div>
 
-            <div class="info-row">
-                <span class="label">Email</span>
-                <span class="value" id="profileEmail"></span>
-            </div>
-            <div class="info-row">
-                <span class="label">Бонусы</span>
-                <span class="value" id="profileBonuses">0 ₽</span>
-            </div>
-            <div class="info-row">
-                <span class="label">Скидка</span>
-                <span class="value" id="profileDiscount">0%</span>
-            </div>
-            <div class="info-row">
-                <span class="label">Уровень</span>
-                <span class="value" id="profileLevel">Новичок</span>
-            </div>
-            <div class="level-bar">
-                <div class="fill" id="levelFill" style="width:0%"></div>
+            <div class="tabs">
+                <button class="active" data-tab="main">Основное</button>
+                <button data-tab="favorites">❤️ Избранное</button>
+                <button data-tab="history">📖 История</button>
+                <button data-tab="settings">⚙️ Настройки</button>
             </div>
 
-            <div class="stats-grid" id="statsGrid">
-                <div class="stat-item">
-                    <div class="number" id="totalItems">0</div>
-                    <div class="label">Всего товаров</div>
+            <!-- Вкладка Основное -->
+            <div class="tab-content active" id="tab-main">
+                <div class="info-row">
+                    <span class="label">Email</span>
+                    <span class="value" id="profileEmail"></span>
                 </div>
-                <div class="stat-item">
-                    <div class="number" id="totalOrders">0</div>
-                    <div class="label">Заказов</div>
+                <div class="info-row">
+                    <span class="label">Бонусы</span>
+                    <span class="value" id="profileBonuses">0 ₽</span>
                 </div>
-                <div class="stat-item">
-                    <div class="number" id="totalSpent">0 ₽</div>
-                    <div class="label">Потрачено</div>
+                <div class="info-row">
+                    <span class="label">Скидка</span>
+                    <span class="value" id="profileDiscount">0%</span>
                 </div>
-                <div class="stat-item">
-                    <div class="number" id="topCategory">—</div>
-                    <div class="label">Любимая категория</div>
+                <div class="info-row">
+                    <span class="label">Уровень</span>
+                    <span class="value" id="profileLevel">Новичок</span>
+                </div>
+                <div class="level-bar">
+                    <div class="fill" id="levelFill" style="width:0%"></div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="number" id="totalItems">0</div>
+                        <div class="label">Всего товаров</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="number" id="totalOrders">0</div>
+                        <div class="label">Заказов</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="number" id="totalSpent">0 ₽</div>
+                        <div class="label">Потрачено</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="number" id="topCategory">—</div>
+                        <div class="label">Любимая категория</div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom:12px;">
+                    <h3 style="font-family:'Orbitron',sans-serif; font-weight:400; font-size:1rem; color:var(--cyan);">🏆 Топ-3 модели</h3>
+                    <div id="topModels" style="font-size:0.9rem; color:var(--text-secondary);"></div>
+                </div>
+
+                <div class="orders-list">
+                    <h3 style="font-family:'Orbitron',sans-serif; font-weight:400; font-size:1.1rem; color:var(--cyan); margin-bottom:10px;">📦 Мои заказы</h3>
+                    <div id="ordersContainer"></div>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn-logout" id="logoutBtn">Выйти</button>
+                    <button class="btn-delete" id="deleteBtn">🗑 Удалить аккаунт</button>
                 </div>
             </div>
 
-            <div style="margin-bottom:12px;">
-                <h3 style="font-family:'Orbitron',sans-serif; font-weight:400; font-size:1rem; color:var(--cyan);">🏆 Топ-3 модели</h3>
-                <div id="topModels" style="font-size:0.9rem; color:var(--text-secondary);"></div>
+            <!-- Вкладка Избранное -->
+            <div class="tab-content" id="tab-favorites">
+                <h3 style="font-family:'Orbitron',sans-serif; font-weight:400; font-size:1.1rem; color:var(--cyan); margin-bottom:10px;">❤️ Избранные товары</h3>
+                <div id="favoritesContainer" class="favorite-grid">
+                    <p style="color:var(--text-secondary);">Здесь будут ваши избранные товары</p>
+                </div>
             </div>
 
-            <div class="orders-list" id="ordersList">
-                <h3 style="font-family:'Orbitron',sans-serif; font-weight:400; font-size:1.1rem; color:var(--cyan); margin-bottom:10px;">📦 Мои заказы</h3>
-                <div id="ordersContainer"></div>
+            <!-- Вкладка История -->
+            <div class="tab-content" id="tab-history">
+                <h3 style="font-family:'Orbitron',sans-serif; font-weight:400; font-size:1.1rem; color:var(--cyan); margin-bottom:10px;">📖 История просмотров</h3>
+                <div id="historyContainer" class="history-grid">
+                    <p style="color:var(--text-secondary);">Здесь будут товары, которые вы просматривали</p>
+                </div>
             </div>
 
-            <div class="btn-group">
-                <button class="btn-logout" id="logoutBtn">Выйти</button>
-                <button class="btn-delete" id="deleteBtn">🗑 Удалить аккаунт</button>
+            <!-- Вкладка Настройки -->
+            <div class="tab-content" id="tab-settings">
+                <h3 style="font-family:'Orbitron',sans-serif; font-weight:400; font-size:1.1rem; color:var(--cyan); margin-bottom:16px;">⚙️ Настройки</h3>
+                <div class="settings-item">
+                    <span class="label">Уведомления о статусе заказа</span>
+                    <div class="toggle" id="toggleOrderNotifications">
+                        <div class="knob"></div>
+                    </div>
+                </div>
+                <div class="settings-item">
+                    <span class="label">Уведомления об акциях</span>
+                    <div class="toggle" id="togglePromoNotifications">
+                        <div class="knob"></div>
+                    </div>
+                </div>
+                <div style="margin-top:20px;">
+                    <h4 style="color:var(--cyan); font-family:'Orbitron',sans-serif; font-weight:400; font-size:1rem; margin-bottom:8px;">Смена пароля</h4>
+                    <div class="change-password-form" id="changePasswordForm">
+                        <input type="password" id="currentPassword" placeholder="Текущий пароль" />
+                        <input type="password" id="newPassword" placeholder="Новый пароль" />
+                        <input type="password" id="newPasswordConfirm" placeholder="Подтвердите новый пароль" />
+                        <button class="btn" id="changePasswordBtn">Сменить пароль</button>
+                    </div>
+                    <div id="passwordMessage" style="margin-top:8px; color:var(--text-secondary); font-size:0.9rem;"></div>
+                </div>
             </div>
         </div>
     </section>
@@ -719,6 +954,201 @@
         const auth = firebase.auth();
         const db = firebase.firestore();
 
+        // ---------- ДАННЫЕ ТОВАРОВ (для избранного и истории) ----------
+        // Для демонстрации – небольшой массив популярных товаров
+        const allProducts = [
+            { id: 'g1pro', name: 'Kukirin G1 Pro', price: '119 900 ₽', img: 'Photos/g1-pro.jpg' },
+            { id: 'g2max', name: 'Kukirin G2 Max', price: '74 900 ₽', img: 'Photos/g2-max.jpg' },
+            { id: 'g4pro', name: 'Kukirin G4 Pro', price: '149 900 ₽', img: 'Photos/g4-pro.jpg' },
+            { id: 'm5pro', name: 'Kukirin M5 Pro', price: '59 900 ₽', img: 'Photos/m5-pro.jpg' },
+            { id: 'segway-max-g2', name: 'Segway MAX G2', price: '89 900 ₽', img: 'Photos/segway-max-g2.jpg' },
+            { id: 'dualtron-thunder-3', name: 'Dualtron Thunder 3', price: '199 900 ₽', img: 'Photos/dualtron-thunder-3.jpg' },
+            { id: 'ausom-l2-max', name: 'Ausom L2 Max', price: '69 900 ₽', img: 'Photos/ausom-l2-max.jpg' },
+            { id: 'inmotion-v12s', name: 'Inmotion V12S', price: '129 900 ₽', img: 'Photos/inmotion-v12s.jpg' }
+        ];
+
+        // ---------- Работа с localStorage ----------
+        function getFavorites() {
+            return JSON.parse(localStorage.getItem('favorites') || '[]');
+        }
+        function setFavorites(arr) {
+            localStorage.setItem('favorites', JSON.stringify(arr));
+        }
+        function getHistory() {
+            return JSON.parse(localStorage.getItem('viewHistory') || '[]');
+        }
+        function setHistory(arr) {
+            localStorage.setItem('viewHistory', JSON.stringify(arr));
+        }
+        function getSettings() {
+            return JSON.parse(localStorage.getItem('userSettings') || '{"orderNotifications":true,"promoNotifications":true}');
+        }
+        function setSettings(settings) {
+            localStorage.setItem('userSettings', JSON.stringify(settings));
+        }
+
+        // ---------- Рендеринг избранного ----------
+        function renderFavorites() {
+            const container = document.getElementById('favoritesContainer');
+            const favIds = getFavorites();
+            if (favIds.length === 0) {
+                container.innerHTML = '<p style="color:var(--text-secondary);">У вас пока нет избранных товаров</p>';
+                return;
+            }
+            const items = allProducts.filter(p => favIds.includes(p.id));
+            if (items.length === 0) {
+                container.innerHTML = '<p style="color:var(--text-secondary);">У вас пока нет избранных товаров</p>';
+                return;
+            }
+            container.innerHTML = items.map(p => `
+                <div class="favorite-item" data-id="${p.id}">
+                    <img src="${p.img}" alt="${p.name}" onerror="this.style.display='none'" />
+                    <div class="name">${p.name}</div>
+                    <div class="price">${p.price}</div>
+                    <button class="remove-fav" data-id="${p.id}">✕ Удалить</button>
+                </div>
+            `).join('');
+
+            container.querySelectorAll('.remove-fav').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const id = this.dataset.id;
+                    let favs = getFavorites();
+                    favs = favs.filter(f => f !== id);
+                    setFavorites(favs);
+                    renderFavorites();
+                    showNotification('Удалено из избранного', false);
+                });
+            });
+            container.querySelectorAll('.favorite-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const id = this.dataset.id;
+                    window.location.href = `Store.html?product=${id}`;
+                });
+            });
+        }
+
+        // ---------- Рендеринг истории ----------
+        function renderHistory() {
+            const container = document.getElementById('historyContainer');
+            const historyIds = getHistory();
+            if (historyIds.length === 0) {
+                container.innerHTML = '<p style="color:var(--text-secondary);">Вы ещё не просматривали товары</p>';
+                return;
+            }
+            const items = allProducts.filter(p => historyIds.includes(p.id));
+            if (items.length === 0) {
+                container.innerHTML = '<p style="color:var(--text-secondary);">Вы ещё не просматривали товары</p>';
+                return;
+            }
+            container.innerHTML = items.map(p => `
+                <div class="history-item" data-id="${p.id}">
+                    <img src="${p.img}" alt="${p.name}" onerror="this.style.display='none'" />
+                    <div class="name">${p.name}</div>
+                    <div class="price">${p.price}</div>
+                </div>
+            `).join('');
+
+            container.querySelectorAll('.history-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const id = this.dataset.id;
+                    window.location.href = `Store.html?product=${id}`;
+                });
+            });
+        }
+
+        // ---------- Настройки уведомлений ----------
+        function loadSettings() {
+            const settings = getSettings();
+            const orderToggle = document.getElementById('toggleOrderNotifications');
+            const promoToggle = document.getElementById('togglePromoNotifications');
+            if (settings.orderNotifications) {
+                orderToggle.classList.add('active');
+            } else {
+                orderToggle.classList.remove('active');
+            }
+            if (settings.promoNotifications) {
+                promoToggle.classList.add('active');
+            } else {
+                promoToggle.classList.remove('active');
+            }
+        }
+
+        document.getElementById('toggleOrderNotifications').addEventListener('click', function() {
+            this.classList.toggle('active');
+            const settings = getSettings();
+            settings.orderNotifications = this.classList.contains('active');
+            setSettings(settings);
+        });
+        document.getElementById('togglePromoNotifications').addEventListener('click', function() {
+            this.classList.toggle('active');
+            const settings = getSettings();
+            settings.promoNotifications = this.classList.contains('active');
+            setSettings(settings);
+        });
+
+        // ---------- Смена пароля ----------
+        document.getElementById('changePasswordBtn').addEventListener('click', async function() {
+            const current = document.getElementById('currentPassword').value;
+            const newPass = document.getElementById('newPassword').value;
+            const confirm = document.getElementById('newPasswordConfirm').value;
+            const msg = document.getElementById('passwordMessage');
+
+            if (!current || !newPass || !confirm) {
+                msg.textContent = 'Заполните все поля';
+                msg.style.color = '#ff0044';
+                return;
+            }
+            if (newPass.length < 6) {
+                msg.textContent = 'Новый пароль должен быть минимум 6 символов';
+                msg.style.color = '#ff0044';
+                return;
+            }
+            if (newPass !== confirm) {
+                msg.textContent = 'Пароли не совпадают';
+                msg.style.color = '#ff0044';
+                return;
+            }
+
+            const user = auth.currentUser;
+            if (!user) {
+                msg.textContent = 'Вы не авторизованы';
+                msg.style.color = '#ff0044';
+                return;
+            }
+
+            // Переаутентификация
+            const credential = firebase.auth.EmailAuthProvider.credential(user.email, current);
+            try {
+                await user.reauthenticateWithCredential(credential);
+                await user.updatePassword(newPass);
+                msg.textContent = 'Пароль успешно изменён!';
+                msg.style.color = '#00ff88';
+                document.getElementById('currentPassword').value = '';
+                document.getElementById('newPassword').value = '';
+                document.getElementById('newPasswordConfirm').value = '';
+                showNotification('Пароль изменён', true);
+            } catch (err) {
+                msg.textContent = 'Ошибка: ' + err.message;
+                msg.style.color = '#ff0044';
+            }
+        });
+
+        // ---------- Табы ----------
+        document.querySelectorAll('.tabs button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+                const tabId = this.dataset.tab;
+                document.getElementById('tab-' + tabId).classList.add('active');
+                if (tabId === 'favorites') renderFavorites();
+                if (tabId === 'history') renderHistory();
+                if (tabId === 'settings') loadSettings();
+            });
+        });
+
+        // ---------- Остальная логика профиля (заказы, бонусы, удаление) ----------
         let unsubscribeOrders = null;
         let lastNotifiedOrderIds = new Set();
 
@@ -812,6 +1242,16 @@
             setTimeout(() => div.remove(), 5000);
         }
 
+        async function deleteOrder(orderId) {
+            if (!confirm('Вы уверены, что хотите удалить этот заказ?')) return;
+            try {
+                await db.collection('orders').doc(orderId).delete();
+                showNotification('Заказ удалён', false);
+            } catch (err) {
+                showNotification('Ошибка удаления: ' + err.message, true);
+            }
+        }
+
         function renderOrders(orders) {
             let totalItemsCount = 0;
             let totalSpentSum = 0;
@@ -887,11 +1327,20 @@
                                 <br />${o.total || 0} ₽
                             </div>
                             <div class="order-status" style="color:${o.status === 'delivered' ? '#00ff88' : o.status === 'shipped' ? '#00ccff' : '#ff8800'}">${statusText}</div>
+                            <button class="btn-remove-order" data-order-id="${o.id}">🗑 Удалить</button>
                         </div>
                     `;
                 });
             }
             ordersContainer.innerHTML = ordersHtml;
+
+            ordersContainer.querySelectorAll('.btn-remove-order').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const orderId = this.dataset.orderId;
+                    deleteOrder(orderId);
+                });
+            });
         }
 
         function subscribeToOrders(user) {
@@ -910,10 +1359,11 @@
                     });
                     renderOrders(orders);
 
+                    const settings = getSettings();
                     snapshot.docChanges().forEach(change => {
                         if (change.type === 'modified') {
                             const newData = change.doc.data();
-                            if (newData.status === 'delivered') {
+                            if (newData.status === 'delivered' && settings.orderNotifications !== false) {
                                 const orderId = change.doc.id;
                                 if (!lastNotifiedOrderIds.has(orderId)) {
                                     lastNotifiedOrderIds.add(orderId);
@@ -963,6 +1413,11 @@
                 authForm.style.display = 'none';
                 profileCard.style.display = 'block';
                 await loadUserData(user);
+                // загружаем настройки и отображаем табы по умолчанию
+                loadSettings();
+                // рендерим избранное и историю после загрузки
+                renderFavorites();
+                renderHistory();
             } else {
                 authForm.style.display = 'block';
                 profileCard.style.display = 'none';

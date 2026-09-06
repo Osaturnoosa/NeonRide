@@ -75,6 +75,7 @@
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
+            max-width: 1200px;
         }
         .logo {
             font-family: 'Orbitron', sans-serif;
@@ -94,6 +95,7 @@
             font-weight: 400;
             font-size: 1rem;
             align-items: center;
+            flex-wrap: wrap;
         }
         .nav-links a {
             color: var(--text-secondary);
@@ -236,6 +238,29 @@
             box-shadow: 0 0 20px rgba(255, 0, 68, 0.5);
             z-index: 2;
         }
+        .product-card .compare-check {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(0,0,0,0.6);
+            border: var(--border-neon);
+            color: var(--cyan);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            z-index: 3;
+            transition: 0.3s;
+        }
+        .product-card .compare-check:hover {
+            background: var(--cyan);
+            color: #0a0a0f;
+        }
+        .product-card .compare-check.active {
+            background: var(--magenta);
+            color: #fff;
+            border-color: var(--magenta);
+        }
         .product-card .image {
             width: 100%;
             height: 200px;
@@ -307,6 +332,50 @@
             padding: 60px 0;
             color: var(--text-secondary);
             font-size: 1.2rem;
+        }
+        .compare-banner {
+            background: var(--bg-card);
+            border: var(--border-neon);
+            border-radius: 8px;
+            padding: 12px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            box-shadow: 0 0 20px var(--shadow);
+        }
+        .compare-banner .count {
+            color: var(--cyan);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+        }
+        .compare-banner .btn-compare-go {
+            padding: 6px 18px;
+            background: var(--cyan);
+            border: none;
+            border-radius: 4px;
+            color: #0a0a0f;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .compare-banner .btn-compare-go:hover {
+            background: var(--magenta);
+            box-shadow: var(--glow-magenta);
+        }
+        .compare-banner .btn-clear-compare {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        .compare-banner .btn-clear-compare:hover {
+            color: #ff0044;
         }
         .footer {
             margin-top: auto;
@@ -382,6 +451,7 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            overflow-y: auto;
         }
         .modal-overlay.active {
             display: flex;
@@ -489,22 +559,69 @@
             margin: 24px 0 12px;
             letter-spacing: 1px;
         }
-        .modal .review {
+        .modal .review-item {
             background: var(--bg-primary);
             border-radius: 6px;
             padding: 14px 18px;
             margin-bottom: 10px;
             border-left: 3px solid var(--cyan);
         }
-        .modal .review .review-author {
+        .modal .review-item .review-author {
             font-weight: 700;
             color: var(--cyan);
             font-size: 0.95rem;
         }
-        .modal .review .review-text {
+        .modal .review-item .review-rating {
+            color: var(--yellow);
+            font-size: 0.9rem;
+        }
+        .modal .review-item .review-text {
             color: var(--text-secondary);
             font-size: 0.9rem;
             margin-top: 4px;
+        }
+        .modal .review-form {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: var(--border-neon);
+        }
+        .modal .review-form textarea {
+            width: 100%;
+            padding: 10px;
+            background: var(--bg-input);
+            border: var(--border-neon);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-family: 'Roboto', sans-serif;
+            resize: vertical;
+            min-height: 80px;
+        }
+        .modal .review-form select {
+            padding: 8px 12px;
+            background: var(--bg-input);
+            border: var(--border-neon);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-family: 'Roboto', sans-serif;
+            margin: 8px 0;
+            width: 100%;
+        }
+        .modal .review-form .btn-submit-review {
+            padding: 10px 24px;
+            background: var(--cyan);
+            border: none;
+            border-radius: 4px;
+            color: #0a0a0f;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 8px;
+        }
+        .modal .review-form .btn-submit-review:hover {
+            background: var(--magenta);
+            box-shadow: var(--glow-magenta);
         }
         .modal .btn-buy-modal {
             margin-top: 24px;
@@ -521,11 +638,43 @@
             cursor: pointer;
             transition: 0.3s;
             box-shadow: var(--glow-cyan);
+            margin-right: 12px;
         }
         .modal .btn-buy-modal:hover {
             background: var(--magenta);
             box-shadow: var(--glow-magenta);
             transform: scale(1.03);
+        }
+        .modal .btn-compare-modal {
+            padding: 14px 24px;
+            background: transparent;
+            border: 2px solid var(--cyan);
+            color: var(--cyan);
+            border-radius: 4px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .modal .btn-compare-modal.active {
+            border-color: var(--magenta);
+            color: var(--magenta);
+        }
+        .modal .btn-compare-modal:hover {
+            background: var(--cyan);
+            color: #0a0a0f;
+        }
+        .modal .avg-rating {
+            display: inline-block;
+            font-size: 1.2rem;
+            color: var(--yellow);
+            margin-left: 10px;
+        }
+        .modal .no-reviews {
+            color: var(--text-secondary);
         }
         @media (max-width: 600px) {
             .modal { padding: 24px; }
@@ -540,13 +689,17 @@
         <div class="container">
             <div class="logo">NeonRide</div>
             <nav class="nav-links">
-                <a href="index.html">Главная</a>
-                <a href="Categories.html">Магазин</a>
-                <a href="Promotions.html">Акции</a>
-                <a href="Cart.html">Корзина</a>
-                <a href="About.html">О нас</a>
-                <a href="Account.html">Профиль</a>
-                <a href="Admin.html">Админ</a>
+    <a href="index.html">Главная</a>
+    <a href="Categories.html">Магазин</a>
+    <a href="Promotions.html">Акции</a>
+    <a href="Cart.html">Корзина</a>
+    <a href="Compare.html">Сравнение</a>
+    <a href="Support.html">Поддержка</a>
+    <a href="About.html">О нас</a>
+    <a href="Account.html">Профиль</a>
+    <a href="Admin.html">Админ</a>
+    <button class="theme-toggle" id="themeToggle">🌙 Тема</button>
+</nav>
                 <button class="theme-toggle" id="themeToggle">🌙 Тема</button>
             </nav>
             <a href="Cart.html" class="cart-icon">
@@ -566,6 +719,13 @@
 
     <section class="products">
         <div class="container">
+            <div id="compareBanner" class="compare-banner" style="display:none;">
+                <span>📋 В списке сравнения: <span class="count" id="compareCount">0</span> товаров</span>
+                <div>
+                    <a href="Compare.html" class="btn-compare-go">Сравнить</a>
+                    <button class="btn-clear-compare" id="clearCompare">Очистить</button>
+                </div>
+            </div>
             <div class="product-grid" id="kukirinGrid"></div>
         </div>
     </section>
@@ -579,9 +739,23 @@
             <div class="modal-desc" id="modalDesc"></div>
             <div class="specs-title">Характеристики</div>
             <div class="specs-grid" id="modalSpecs"></div>
-            <div class="reviews-title">Отзывы</div>
-            <div id="modalReviews"></div>
-            <button class="btn-buy-modal" id="modalBuyBtn">Купить</button>
+            <div class="reviews-title">Отзывы <span id="avgRatingDisplay" class="avg-rating"></span></div>
+            <div id="modalReviews"><div class="no-reviews">Загрузка отзывов...</div></div>
+            <div class="review-form" id="reviewForm" style="display:none;">
+                <select id="ratingSelect">
+                    <option value="5">5 ★</option>
+                    <option value="4">4 ★</option>
+                    <option value="3">3 ★</option>
+                    <option value="2">2 ★</option>
+                    <option value="1">1 ★</option>
+                </select>
+                <textarea id="reviewText" placeholder="Ваш отзыв..."></textarea>
+                <button class="btn-submit-review" id="submitReviewBtn">Оставить отзыв</button>
+            </div>
+            <div style="margin-top:20px;">
+                <button class="btn-buy-modal" id="modalBuyBtn">Купить</button>
+                <button class="btn-compare-modal" id="modalCompareBtn">➕ Сравнить</button>
+            </div>
         </div>
     </div>
 
@@ -609,18 +783,26 @@
         </div>
     </footer>
 
+    <script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore-compat.js"></script>
+
     <script>
-        function updateCartBadge() {
-            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-            const badge = document.getElementById('cartBadge');
-            if (badge) {
-                const total = cart.reduce((sum, item) => sum + item.quantity, 0);
-                badge.textContent = total;
-            }
-        }
+        const firebaseConfig = {
+            apiKey: "AIzaSyD604DaYFZFDxyXficUMk5o6vjoeDTP--c",
+            authDomain: "neonride-7f3ec.firebaseapp.com",
+            projectId: "neonride-7f3ec",
+            storageBucket: "neonride-7f3ec.firebasestorage.app",
+            messagingSenderId: "439881566114",
+            appId: "1:439881566114:web:3ae85a145f524f50ead4fb",
+            measurementId: "G-WCWH5H151L"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
 
         const products = [
-            // KUKIRIN
             {
                 id: 'g1pro', name: 'Kukirin G1 Pro', price: '119 900 ₽', oldPrice: null, onSale: false,
                 desc: 'Двухмоторный внедорожник 1600 Вт (2×800 Вт). Скорость до 75 км/ч, запас хода до 70 км. Аккумулятор 48V 20.8Ah. 11" колёса.',
@@ -878,7 +1060,6 @@
                 ],
                 reviews: []
             },
-            // МОНОКОЛЁСА
             {
                 id: 'inmotion-v9', name: 'Inmotion V9', price: '99 900 ₽', oldPrice: null, onSale: false,
                 desc: 'Моноколесо 1500 Вт, скорость до 55 км/ч, запас хода до 50 км. Аккумулятор 84V 20Ah, 16" колесо.',
@@ -954,7 +1135,6 @@
                 ],
                 reviews: []
             },
-            // ГИРОСКУТЕРЫ
             {
                 id: 'gyroor-g13', name: 'Gyroor G13', price: '39 900 ₽', oldPrice: null, onSale: false,
                 desc: 'Гироскутер с Bluetooth, 700 Вт, скорость до 20 км/ч, запас хода до 30 км. Аккумулятор 36V 6Ah.',
@@ -985,7 +1165,6 @@
                 ],
                 reviews: []
             },
-            // ЭЛЕКТРОСКЕЙТЫ
             {
                 id: 'evolve-gtr-bamboo', name: 'Evolve GTR Bamboo', price: '119 900 ₽', oldPrice: null, onSale: false,
                 desc: 'Бамбуковая дека, 1500 Вт, скорость до 45 км/ч, запас хода до 35 км. Аккумулятор 42V 14Ah.',
@@ -1061,7 +1240,6 @@
                 ],
                 reviews: []
             },
-            // SEGWAY
             {
                 id: 'segway-max-g2', name: 'Segway Ninebot MAX G2', price: '89 900 ₽', oldPrice: '99 900 ₽', onSale: true,
                 desc: 'Городской самокат 450 Вт, скорость до 35 км/ч, запас хода до 60 км. Аккумулятор 36V 15Ah, 10" колёса.',
@@ -1164,7 +1342,6 @@
                 ],
                 reviews: []
             },
-            // DUALTRON
             {
                 id: 'dualtron-popular', name: 'Dualtron Popular', price: '119 900 ₽', oldPrice: null, onSale: false,
                 desc: 'Двухмоторный 2000 Вт, скорость до 50 км/ч, запас хода до 60 км. Аккумулятор 48V 20Ah, 10" колёса.',
@@ -1284,7 +1461,6 @@
                 ],
                 reviews: []
             },
-            // AUSOM
             {
                 id: 'ausom-l1', name: 'Ausom L1', price: '49 900 ₽', oldPrice: null, onSale: false,
                 desc: 'Городской самокат 350 Вт, скорость до 32 км/ч, запас хода до 40 км. Аккумулятор 36V 10Ah, 8.5" колёса.',
@@ -1389,6 +1565,138 @@
             }
         ];
 
+        function getCompareList() {
+            return JSON.parse(localStorage.getItem('compareList') || '[]');
+        }
+        function setCompareList(list) {
+            localStorage.setItem('compareList', JSON.stringify(list));
+            updateCompareBanner();
+        }
+        function toggleCompare(productId) {
+            let list = getCompareList();
+            if (list.includes(productId)) {
+                list = list.filter(id => id !== productId);
+            } else {
+                if (list.length >= 4) {
+                    alert('Можно сравнивать не более 4 товаров');
+                    return;
+                }
+                list.push(productId);
+            }
+            setCompareList(list);
+            renderProducts(getCurrentCategory());
+            updateCompareBanner();
+        }
+
+        function updateCompareBanner() {
+            const list = getCompareList();
+            const banner = document.getElementById('compareBanner');
+            const count = document.getElementById('compareCount');
+            if (list.length > 0) {
+                banner.style.display = 'flex';
+                count.textContent = list.length;
+            } else {
+                banner.style.display = 'none';
+            }
+        }
+
+        document.getElementById('clearCompare').addEventListener('click', function() {
+            setCompareList([]);
+            renderProducts(getCurrentCategory());
+            updateCompareBanner();
+        });
+
+        let currentProductId = null;
+        let currentProduct = null;
+
+        async function loadReviews(productId) {
+            const container = document.getElementById('modalReviews');
+            const avgSpan = document.getElementById('avgRatingDisplay');
+            try {
+                const snap = await db.collection('reviews')
+                    .where('productId', '==', productId)
+                    .orderBy('createdAt', 'desc')
+                    .get();
+                if (snap.empty) {
+                    container.innerHTML = '<div class="no-reviews">Отзывов пока нет. Будьте первым!</div>';
+                    avgSpan.textContent = '';
+                    return;
+                }
+                let totalRating = 0;
+                let count = 0;
+                let html = '';
+                snap.forEach(doc => {
+                    const r = doc.data();
+                    totalRating += r.rating;
+                    count++;
+                    const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+                    html += `
+                        <div class="review-item">
+                            <div class="review-author">${r.userName || 'Аноним'}</div>
+                            <div class="review-rating">${stars}</div>
+                            <div class="review-text">${r.text}</div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+                const avg = (totalRating / count).toFixed(1);
+                avgSpan.textContent = `⭐ ${avg} (${count})`;
+            } catch (err) {
+                console.error(err);
+                container.innerHTML = '<div class="no-reviews">Ошибка загрузки отзывов</div>';
+                avgSpan.textContent = '';
+            }
+        }
+
+        async function submitReview() {
+            const user = auth.currentUser;
+            if (!user) {
+                alert('Войдите, чтобы оставить отзыв');
+                return;
+            }
+            if (!currentProductId) return;
+            const rating = parseInt(document.getElementById('ratingSelect').value);
+            const text = document.getElementById('reviewText').value.trim();
+            if (!text) {
+                alert('Напишите текст отзыва');
+                return;
+            }
+            try {
+                await db.collection('reviews').add({
+                    productId: currentProductId,
+                    uid: user.uid,
+                    userName: user.email,
+                    rating: rating,
+                    text: text,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                document.getElementById('reviewText').value = '';
+                loadReviews(currentProductId);
+            } catch (err) {
+                alert('Ошибка при отправке отзыва: ' + err.message);
+            }
+        }
+
+        function updateCartBadge() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const badge = document.getElementById('cartBadge');
+            if (badge) {
+                const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+                badge.textContent = total;
+            }
+        }
+        updateCartBadge();
+        window.addEventListener('focus', updateCartBadge);
+
+        function getCategoryFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('category');
+        }
+
+        function getCurrentCategory() {
+            return getCategoryFromURL() || null;
+        }
+
         function getCategoryInfo(cat) {
             const map = {
                 'kukirin': { title: 'Kukirin', desc: 'Электросамокаты для города и бездорожья' },
@@ -1417,23 +1725,28 @@
                 grid.innerHTML = `<div class="no-products">Товаров в этой категории пока нет</div>`;
                 return;
             }
-            grid.innerHTML = filtered.map(p => `
-                <div class="product-card" data-id="${p.id}">
-                    ${p.onSale ? `<div class="badge">🔥 Акция</div>` : ''}
-                    <div class="image">
-                        <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'" />
+            const compareList = getCompareList();
+            grid.innerHTML = filtered.map(p => {
+                const isInCompare = compareList.includes(p.id);
+                return `
+                    <div class="product-card" data-id="${p.id}">
+                        <div class="compare-check ${isInCompare ? 'active' : ''}" data-id="${p.id}">${isInCompare ? '✓' : '➕'}</div>
+                        ${p.onSale ? `<div class="badge">🔥 Акция</div>` : ''}
+                        <div class="image">
+                            <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'" />
+                        </div>
+                        <h3>${p.name}</h3>
+                        <div class="desc">${p.desc.slice(0, 120)}...</div>
+                        <div class="price">${p.price}</div>
+                        ${p.oldPrice ? `<div class="old-price">${p.oldPrice}</div>` : ''}
+                        <button class="btn-buy" data-id="${p.id}" data-name="${p.name}" data-price="${p.price}">Купить</button>
                     </div>
-                    <h3>${p.name}</h3>
-                    <div class="desc">${p.desc.slice(0, 120)}...</div>
-                    <div class="price">${p.price}</div>
-                    ${p.oldPrice ? `<div class="old-price">${p.oldPrice}</div>` : ''}
-                    <button class="btn-buy" data-id="${p.id}" data-name="${p.name}" data-price="${p.price}">Купить</button>
-                </div>
-            `).join('');
+                `;
+            }).join('');
 
             document.querySelectorAll('.product-card').forEach(card => {
                 card.addEventListener('click', function(e) {
-                    if (e.target.classList.contains('btn-buy')) return;
+                    if (e.target.classList.contains('btn-buy') || e.target.classList.contains('compare-check')) return;
                     const id = this.dataset.id;
                     const product = products.find(p => p.id == id);
                     if (product) openModal(product);
@@ -1462,8 +1775,8 @@
                     msg.textContent = `✅ ${product.name} в корзине!`;
                     msg.style.cssText = `
                         position: fixed; bottom: 20px; right: 20px;
-                        background: #12121a; color: #00f0ff;
-                        border: 1px solid #00f0ff; padding: 12px 24px;
+                        background: var(--bg-card); color: var(--cyan);
+                        border: 1px solid var(--cyan); padding: 12px 24px;
                         border-radius: 4px; font-family: 'Roboto', sans-serif;
                         box-shadow: 0 0 30px rgba(0,240,255,0.2);
                         z-index: 999;
@@ -1472,12 +1785,22 @@
                     setTimeout(() => msg.remove(), 2000);
                 });
             });
+
+            document.querySelectorAll('.compare-check').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const id = this.dataset.id;
+                    toggleCompare(id);
+                });
+            });
         }
 
         const overlay = document.getElementById('modalOverlay');
         const closeBtn = document.getElementById('modalClose');
 
         function openModal(product) {
+            currentProduct = product;
+            currentProductId = product.id;
             document.getElementById('modalImage').innerHTML = `<img src="${product.img}" alt="${product.name}" onerror="this.style.display='none'" />`;
             document.getElementById('modalName').textContent = product.name;
             document.getElementById('modalPrice').textContent = product.price;
@@ -1491,32 +1814,29 @@
                 </div>
             `).join('');
 
-            const reviewsContainer = document.getElementById('modalReviews');
-            if (product.reviews && product.reviews.length > 0) {
-                reviewsContainer.innerHTML = product.reviews.map(r => `
-                    <div class="review">
-                        <div class="review-author">${r.author}</div>
-                        <div class="review-text">${r.text}</div>
-                    </div>
-                `).join('');
+            loadReviews(product.id);
+            document.getElementById('reviewForm').style.display = 'block';
+            document.getElementById('reviewText').value = '';
+            document.getElementById('ratingSelect').value = '5';
+
+            const compareBtn = document.getElementById('modalCompareBtn');
+            const compareList = getCompareList();
+            if (compareList.includes(product.id)) {
+                compareBtn.textContent = '✕ Убрать из сравнения';
+                compareBtn.classList.add('active');
             } else {
-                reviewsContainer.innerHTML = '<p style="color: var(--text-secondary);">Отзывов пока нет. Будьте первым!</p>';
+                compareBtn.textContent = '➕ Сравнить';
+                compareBtn.classList.remove('active');
             }
 
             const buyBtn = document.getElementById('modalBuyBtn');
             buyBtn.onclick = function() {
-                const productToCart = {
-                    id: product.id,
-                    name: product.name,
-                    price: product.price,
-                    quantity: 1
-                };
-                let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-                const existing = cart.find(item => item.id === productToCart.id);
+                const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                const existing = cart.find(item => item.id === product.id);
                 if (existing) {
                     existing.quantity += 1;
                 } else {
-                    cart.push(productToCart);
+                    cart.push({ id: product.id, name: product.name, price: product.price, quantity: 1 });
                 }
                 localStorage.setItem('cart', JSON.stringify(cart));
                 updateCartBadge();
@@ -1525,8 +1845,8 @@
                 msg.textContent = `✅ ${product.name} в корзине!`;
                 msg.style.cssText = `
                     position: fixed; bottom: 20px; right: 20px;
-                    background: #12121a; color: #00f0ff;
-                    border: 1px solid #00f0ff; padding: 12px 24px;
+                    background: var(--bg-card); color: var(--cyan);
+                    border: 1px solid var(--cyan); padding: 12px 24px;
                     border-radius: 4px; font-family: 'Roboto', sans-serif;
                     box-shadow: 0 0 30px rgba(0,240,255,0.2);
                     z-index: 999;
@@ -1552,11 +1872,27 @@
             if (e.key === 'Escape') closeModal();
         });
 
-        const params = new URLSearchParams(window.location.search);
-        const category = params.get('category');
+        document.getElementById('modalCompareBtn').addEventListener('click', function() {
+            if (!currentProduct) return;
+            toggleCompare(currentProduct.id);
+            const list = getCompareList();
+            if (list.includes(currentProduct.id)) {
+                this.textContent = '✕ Убрать из сравнения';
+                this.classList.add('active');
+            } else {
+                this.textContent = '➕ Сравнить';
+                this.classList.remove('active');
+            }
+            renderProducts(getCurrentCategory());
+        });
+
+        document.getElementById('submitReviewBtn').addEventListener('click', submitReview);
+
+        const category = getCurrentCategory();
         updateHeader(category);
         renderProducts(category);
         updateCartBadge();
+        updateCompareBanner();
 
         document.querySelectorAll('.glitch-text').forEach(el => {
             el.addEventListener('mouseenter', function() {
@@ -1567,7 +1903,6 @@
 
         window.addEventListener('focus', updateCartBadge);
 
-        // ===== ТЕМА =====
         (function() {
             const toggle = document.getElementById('themeToggle');
             const current = localStorage.getItem('theme') || 'dark';

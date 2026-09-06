@@ -14,6 +14,7 @@
             --cyan: #00f0ff;
             --magenta: #ff00d4;
             --yellow: #ffe600;
+            --red: #ff0044;
             --glow-cyan: 0 0 20px rgba(0, 240, 255, 0.3);
             --glow-magenta: 0 0 20px rgba(255, 0, 212, 0.3);
             --border-neon: 1px solid rgba(0, 240, 255, 0.2);
@@ -94,6 +95,7 @@
             font-weight: 400;
             font-size: 1rem;
             align-items: center;
+            flex-wrap: wrap;
         }
         .nav-links a {
             color: var(--text-secondary);
@@ -183,6 +185,48 @@
         .admin-panel {
             padding: 20px 0 60px;
         }
+        .admin-tabs {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(0,240,255,0.2);
+            padding-bottom: 6px;
+        }
+        .admin-tabs button {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 400;
+            font-size: 0.85rem;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 4px;
+        }
+        .admin-tabs button:hover {
+            color: #fff;
+            background: rgba(0,240,255,0.1);
+        }
+        .admin-tabs button.active {
+            color: var(--cyan);
+            background: rgba(0,240,255,0.15);
+        }
+        body.light-theme .admin-tabs button:hover {
+            color: #000;
+        }
+        .admin-section {
+            display: none;
+            animation: fadeInUp 0.3s ease-out;
+        }
+        .admin-section.active {
+            display: block;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
         .admin-panel .section {
             background: var(--bg-card);
             border: var(--border-neon);
@@ -246,15 +290,6 @@
             color: #0a0a0f;
             box-shadow: var(--glow-cyan);
         }
-        .admin-panel .btn-sm.danger {
-            border-color: var(--magenta);
-            color: var(--magenta);
-        }
-        .admin-panel .btn-sm.danger:hover {
-            background: var(--magenta);
-            color: #0a0a0f;
-            box-shadow: var(--glow-magenta);
-        }
         .admin-panel .btn-sm.success {
             border-color: #00ff88;
             color: #00ff88;
@@ -308,6 +343,81 @@
             background: var(--magenta);
             box-shadow: var(--glow-magenta);
             transform: scale(1.05);
+        }
+        .chat-item {
+            background: var(--bg-primary);
+            border-radius: 6px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            border-left: 3px solid var(--cyan);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .chat-item .chat-info {
+            font-size: 0.9rem;
+        }
+        .chat-item .chat-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .chat-item .chat-actions .btn-sm {
+            font-size: 0.7rem;
+        }
+        .chat-item .chat-actions .btn-close {
+            border-color: var(--red);
+            color: var(--red);
+        }
+        .chat-item .chat-actions .btn-close:hover {
+            background: var(--red);
+            color: #fff;
+        }
+        .chat-messages-box {
+            background: var(--bg-input);
+            border-radius: 6px;
+            padding: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 8px;
+        }
+        .chat-messages-box .msg {
+            padding: 4px 8px;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+        }
+        .chat-messages-box .msg.user {
+            color: var(--cyan);
+        }
+        .chat-messages-box .msg.admin {
+            color: var(--yellow);
+        }
+        .admin-reply-area {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .admin-reply-area input {
+            flex: 1;
+            padding: 6px 10px;
+            background: var(--bg-input);
+            border: var(--border-neon);
+            border-radius: 4px;
+            color: var(--text-primary);
+        }
+        .admin-reply-area button {
+            padding: 6px 14px;
+            background: var(--cyan);
+            border: none;
+            border-radius: 4px;
+            color: #0a0a0f;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .admin-reply-area button:hover {
+            background: var(--magenta);
         }
         .footer {
             margin-top: auto;
@@ -366,19 +476,11 @@
             .nav-links { gap: 15px; font-size: 0.9rem; flex-wrap: wrap; }
             .logo { font-size: 1.4rem; }
             .page-header h1 { font-size: 2rem; }
-            .admin-panel table { font-size: 0.8rem; }
-            .admin-panel .bonus-input { width: 60px; }
-            .admin-panel .btn-sm { font-size: 0.7rem; padding: 4px 10px; }
+            .admin-tabs button { font-size: 0.75rem; padding: 6px 10px; }
             .theme-toggle { padding: 4px 10px; font-size: 0.8rem; }
         }
         @media (max-width: 480px) {
             .navbar .container { flex-direction: column; gap: 15px; }
-            .admin-panel table, .admin-panel thead, .admin-panel tbody, .admin-panel th, .admin-panel td, .admin-panel tr {
-                display: block;
-            }
-            .admin-panel th { display: none; }
-            .admin-panel td { border: none; padding: 6px 0; }
-            .admin-panel td:before { content: attr(data-label); font-weight: bold; color: var(--cyan); display: inline-block; width: 100px; }
         }
     </style>
 </head>
@@ -387,13 +489,17 @@
         <div class="container">
             <div class="logo">NeonRide</div>
             <nav class="nav-links">
-                <a href="index.html">Главная</a>
-                <a href="Categories.html">Магазин</a>
-                <a href="Promotions.html">Акции</a>
-                <a href="Cart.html">Корзина</a>
-                <a href="About.html">О нас</a>
-                <a href="Account.html">Профиль</a>
-                <a href="Admin.html">Админ</a>
+    <a href="index.html">Главная</a>
+    <a href="Categories.html">Магазин</a>
+    <a href="Promotions.html">Акции</a>
+    <a href="Cart.html">Корзина</a>
+    <a href="Compare.html">Сравнение</a>
+    <a href="Support.html">Поддержка</a>
+    <a href="About.html">О нас</a>
+    <a href="Account.html">Профиль</a>
+    <a href="Admin.html">Админ</a>
+    <button class="theme-toggle" id="themeToggle">🌙 Тема</button>
+</nav>
                 <button class="theme-toggle" id="themeToggle">🌙 Тема</button>
             </nav>
             <a href="Cart.html" class="cart-icon">
@@ -416,13 +522,34 @@
                 <a href="Account.html" class="btn-primary">Войти</a>
             </div>
             <div id="adminDashboard" style="display:none;">
-                <div class="section">
-                    <h2>👥 Пользователи</h2>
-                    <div id="usersTableContainer"><div class="empty-message">Загрузка...</div></div>
+                <div class="admin-tabs">
+                    <button class="active" data-tab="users">👥 Пользователи</button>
+                    <button data-tab="orders">📦 Заказы</button>
+                    <button data-tab="chats">💬 Чаты</button>
                 </div>
-                <div class="section">
-                    <h2>📦 Заказы</h2>
-                    <div id="ordersTableContainer"><div class="empty-message">Загрузка...</div></div>
+
+                <!-- Пользователи -->
+                <div class="admin-section active" id="tab-users">
+                    <div class="section">
+                        <h2>👥 Пользователи</h2>
+                        <div id="usersTableContainer"><div class="empty-message">Загрузка...</div></div>
+                    </div>
+                </div>
+
+                <!-- Заказы -->
+                <div class="admin-section" id="tab-orders">
+                    <div class="section">
+                        <h2>📦 Заказы</h2>
+                        <div id="ordersTableContainer"><div class="empty-message">Загрузка...</div></div>
+                    </div>
+                </div>
+
+                <!-- Чаты -->
+                <div class="admin-section" id="tab-chats">
+                    <div class="section">
+                        <h2>💬 Чаты поддержки</h2>
+                        <div id="chatsContainer"><div class="empty-message">Загрузка...</div></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -471,6 +598,8 @@
         const auth = firebase.auth();
         const db = firebase.firestore();
 
+        const adminEmail = 'admin@neonride.tech';
+
         function updateCartBadge() {
             const cart = JSON.parse(localStorage.getItem('cart') || '[]');
             const badge = document.getElementById('cartBadge');
@@ -482,8 +611,19 @@
         updateCartBadge();
         window.addEventListener('focus', updateCartBadge);
 
-        const adminEmail = 'admin@neonride.tech';
+        // ----- Табы -----
+        document.querySelectorAll('.admin-tabs button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.admin-tabs button').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+                const tabId = this.dataset.tab;
+                document.getElementById('tab-' + tabId).classList.add('active');
+                if (tabId === 'chats') loadChats();
+            });
+        });
 
+        // ----- Пользователи -----
         function renderUsers(users) {
             const container = document.getElementById('usersTableContainer');
             if (!users || users.length === 0) {
@@ -525,6 +665,7 @@
             });
         }
 
+        // ----- Заказы -----
         function renderOrders(orders) {
             const container = document.getElementById('ordersTableContainer');
             if (!orders || orders.length === 0) {
@@ -560,7 +701,7 @@
                     try {
                         await db.collection('orders').doc(orderId).update({ status: newStatus });
                         showNotification('Статус заказа обновлён');
-                        loadData();
+                        loadOrders();
                     } catch (err) {
                         showNotification('Ошибка: ' + err.message, true);
                     }
@@ -568,6 +709,131 @@
             });
         }
 
+        // ----- Чаты -----
+        let chatUnsubscribers = {};
+
+        function renderChats(chats) {
+            const container = document.getElementById('chatsContainer');
+            if (!chats || chats.length === 0) {
+                container.innerHTML = '<div class="empty-message">Нет активных чатов</div>';
+                return;
+            }
+            let html = '';
+            chats.forEach(chat => {
+                const lastMsg = chat.messages && chat.messages.length > 0 ? chat.messages[chat.messages.length-1] : null;
+                const lastText = lastMsg ? lastMsg.text : 'Нет сообщений';
+                const lastTime = lastMsg && lastMsg.timestamp ? new Date(lastMsg.timestamp.seconds * 1000).toLocaleString() : '';
+                html += `
+                    <div class="chat-item" data-chat-id="${chat.id}">
+                        <div class="chat-info">
+                            <strong>${chat.userEmail || 'Неизвестный'}</strong><br />
+                            <span style="font-size:0.8rem; color:var(--text-secondary);">${lastText} ${lastTime ? '— ' + lastTime : ''}</span>
+                            <div class="chat-messages-box" id="chatMessages_${chat.id}"></div>
+                        </div>
+                        <div class="chat-actions">
+                            <button class="btn-sm btn-close close-chat-btn" data-chat-id="${chat.id}">Закрыть</button>
+                            <div class="admin-reply-area">
+                                <input type="text" placeholder="Ответ..." class="reply-input" data-chat-id="${chat.id}" />
+                                <button class="reply-btn" data-chat-id="${chat.id}">Отправить</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+
+            // Подписка на изменения каждого чата
+            chats.forEach(chat => {
+                const chatId = chat.id;
+                if (chatUnsubscribers[chatId]) {
+                    chatUnsubscribers[chatId]();
+                }
+                chatUnsubscribers[chatId] = db.collection('supportChats').doc(chatId).onSnapshot((doc) => {
+                    const data = doc.data();
+                    if (data && data.messages) {
+                        const box = document.getElementById('chatMessages_' + chatId);
+                        if (box) {
+                            box.innerHTML = data.messages.map(m => `
+                                <div class="msg ${m.from}">
+                                    <strong>${m.from === 'user' ? 'Пользователь' : 'Админ'}:</strong> ${m.text}
+                                    <span style="font-size:0.7rem; opacity:0.6;">${m.timestamp ? new Date(m.timestamp.seconds * 1000).toLocaleString() : ''}</span>
+                                </div>
+                            `).join('');
+                            box.scrollTop = box.scrollHeight;
+                        }
+                    }
+                });
+            });
+
+            // Закрытие чата
+            container.querySelectorAll('.close-chat-btn').forEach(btn => {
+                btn.addEventListener('click', async function() {
+                    const chatId = this.dataset.chatId;
+                    if (!confirm('Закрыть чат?')) return;
+                    try {
+                        await db.collection('supportChats').doc(chatId).update({ status: 'closed' });
+                        showNotification('Чат закрыт');
+                        loadChats();
+                    } catch (err) {
+                        showNotification('Ошибка: ' + err.message, true);
+                    }
+                });
+            });
+
+            // Ответ администратора
+            container.querySelectorAll('.reply-btn').forEach(btn => {
+                btn.addEventListener('click', async function() {
+                    const chatId = this.dataset.chatId;
+                    const input = document.querySelector(`.reply-input[data-chat-id="${chatId}"]`);
+                    const text = input.value.trim();
+                    if (!text) return;
+                    try {
+                        await db.collection('supportChats').doc(chatId).update({
+                            messages: firebase.firestore.FieldValue.arrayUnion({
+                                from: 'admin',
+                                text: text,
+                                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                            }),
+                            lastUpdate: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                        input.value = '';
+                        showNotification('Ответ отправлен');
+                    } catch (err) {
+                        showNotification('Ошибка: ' + err.message, true);
+                    }
+                });
+            });
+            // Отправка по Enter
+            container.querySelectorAll('.reply-input').forEach(input => {
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        const chatId = this.dataset.chatId;
+                        const btn = document.querySelector(`.reply-btn[data-chat-id="${chatId}"]`);
+                        if (btn) btn.click();
+                    }
+                });
+            });
+        }
+
+        async function loadChats() {
+            try {
+                const snap = await db.collection('supportChats')
+                    .where('status', '==', 'open')
+                    .orderBy('lastUpdate', 'desc')
+                    .get();
+                const chats = [];
+                snap.forEach(doc => {
+                    const data = doc.data();
+                    chats.push({ id: doc.id, ...data });
+                });
+                renderChats(chats);
+            } catch (err) {
+                console.error(err);
+                document.getElementById('chatsContainer').innerHTML = '<div class="empty-message">Ошибка загрузки чатов</div>';
+            }
+        }
+
+        // ----- Общие функции -----
         function showNotification(msg, isError = false) {
             const div = document.createElement('div');
             div.textContent = msg;
@@ -587,25 +853,31 @@
             setTimeout(() => div.remove(), 3000);
         }
 
-        async function loadData() {
+        async function loadUsers() {
             try {
-                const usersSnapshot = await db.collection('users').get();
+                const snap = await db.collection('users').get();
                 const users = [];
-                usersSnapshot.forEach(doc => {
+                snap.forEach(doc => {
                     const data = doc.data();
                     users.push({ uid: doc.id, email: data.email, bonuses: data.bonuses || 0, discount: data.discount || 0 });
                 });
                 renderUsers(users);
+            } catch (err) {
+                document.getElementById('usersTableContainer').innerHTML = '<div class="empty-message">Ошибка загрузки данных</div>';
+                console.error(err);
+            }
+        }
 
-                const ordersSnapshot = await db.collection('orders').get();
+        async function loadOrders() {
+            try {
+                const snap = await db.collection('orders').get();
                 const orders = [];
-                ordersSnapshot.forEach(doc => {
+                snap.forEach(doc => {
                     const data = doc.data();
                     orders.push({ id: doc.id, ...data });
                 });
                 renderOrders(orders);
             } catch (err) {
-                document.getElementById('usersTableContainer').innerHTML = '<div class="empty-message">Ошибка загрузки данных</div>';
                 document.getElementById('ordersTableContainer').innerHTML = '<div class="empty-message">Ошибка загрузки данных</div>';
                 console.error(err);
             }
@@ -615,7 +887,9 @@
             if (user && user.email === adminEmail) {
                 document.getElementById('loginRequired').style.display = 'none';
                 document.getElementById('adminDashboard').style.display = 'block';
-                await loadData();
+                await loadUsers();
+                await loadOrders();
+                await loadChats();
             } else {
                 document.getElementById('loginRequired').style.display = 'block';
                 document.getElementById('adminDashboard').style.display = 'none';
@@ -624,6 +898,9 @@
                 } else {
                     document.querySelector('#loginRequired p').textContent = 'Требуется вход администратора';
                 }
+                // Отписаться от чатов
+                Object.values(chatUnsubscribers).forEach(unsub => unsub());
+                chatUnsubscribers = {};
             }
         });
 
