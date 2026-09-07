@@ -6,6 +6,7 @@
     <title>NeonRide — Поддержка</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
     <style>
+        /* (все стили такие же, как в прошлом ответе – я не дублирую, чтобы сэкономить место. Возьмите их из предыдущего сообщения) */
         :root {
             --bg-primary: #0a0a0f;
             --bg-secondary: #12121a;
@@ -387,9 +388,7 @@
     </section>
 
     <section class="container">
-        <div id="chatContainer">
-            <!-- Сюда будет вставлен чат или форма входа -->
-        </div>
+        <div id="chatContainer"></div>
     </section>
 
     <footer class="footer">
@@ -476,6 +475,8 @@
                 unsubscribeChat = null;
             }
 
+            console.log('Поиск открытого чата для пользователя:', user.uid);
+
             db.collection('supportChats')
                 .where('uid', '==', user.uid)
                 .where('status', '==', 'open')
@@ -483,6 +484,7 @@
                 .then((snap) => {
                     let chatId;
                     if (snap.empty) {
+                        console.log('Открытых чатов нет, создаём новый');
                         return db.collection('supportChats').add({
                             uid: user.uid,
                             userEmail: user.email,
@@ -491,15 +493,18 @@
                             status: 'open'
                         }).then(ref => {
                             chatId = ref.id;
+                            console.log('Чат создан, ID:', chatId);
                             return chatId;
                         });
                     } else {
                         chatId = snap.docs[0].id;
+                        console.log('Найден открытый чат, ID:', chatId);
                         return chatId;
                     }
                 })
                 .then((chatId) => {
                     currentChatId = chatId;
+                    console.log('Подписка на чат:', chatId);
                     unsubscribeChat = db.collection('supportChats').doc(chatId).onSnapshot((doc) => {
                         const data = doc.data();
                         if (data && data.messages) {
@@ -515,11 +520,14 @@
                             }).join('');
                             container.scrollTop = container.scrollHeight;
                         }
+                    }, (err) => {
+                        console.error('Ошибка подписки на чат:', err);
+                        document.getElementById('chatMessages').innerHTML = '<p style="color:var(--text-secondary);">Ошибка загрузки сообщений</p>';
                     });
                 })
                 .catch((err) => {
-                    console.error(err);
-                    container.innerHTML = `<p style="color:var(--text-secondary);">Ошибка загрузки чата</p>`;
+                    console.error('Ошибка при создании/поиске чата:', err);
+                    container.innerHTML = `<p style="color:var(--text-secondary);">Ошибка: ${err.message}</p>`;
                 });
 
             document.getElementById('sendBtn').addEventListener('click', sendMessage);
@@ -531,8 +539,12 @@
         function sendMessage() {
             const input = document.getElementById('chatInput');
             const text = input.value.trim();
-            if (!text || !currentChatId) return;
+            if (!text || !currentChatId) {
+                console.warn('Нет текста или ID чата');
+                return;
+            }
             input.value = '';
+            console.log('Отправка сообщения в чат', currentChatId, 'текст:', text);
             db.collection('supportChats').doc(currentChatId).update({
                 messages: firebase.firestore.FieldValue.arrayUnion({
                     from: 'user',
@@ -540,13 +552,16 @@
                     timestamp: firebase.firestore.FieldValue.serverTimestamp()
                 }),
                 lastUpdate: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                console.log('Сообщение отправлено');
             }).catch((err) => {
-                console.error(err);
-                alert('Ошибка отправки сообщения');
+                console.error('Ошибка отправки сообщения:', err);
+                alert('Ошибка отправки: ' + err.message);
             });
         }
 
         auth.onAuthStateChanged((user) => {
+            console.log('authStateChanged, user:', user ? user.email : 'null');
             if (user) {
                 renderChat(user);
             } else {
@@ -558,7 +573,6 @@
             }
         });
 
-        // Тема
         (function() {
             const toggle = document.getElementById('themeToggle');
             const current = localStorage.getItem('theme') || 'dark';
