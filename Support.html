@@ -6,354 +6,144 @@
     <title>NeonRide — Поддержка</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
     <style>
-        /* (все стили такие же, как в прошлом ответе – я не дублирую, чтобы сэкономить место. Возьмите их из предыдущего сообщения) */
         :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #12121a;
-            --text-primary: #e0e0ff;
-            --text-secondary: #8888bb;
-            --cyan: #00f0ff;
-            --magenta: #ff00d4;
-            --yellow: #ffe600;
+            --bg-primary: #0a0a0f; --bg-secondary: #12121a; --text-primary: #e0e0ff;
+            --text-secondary: #8888bb; --cyan: #00f0ff; --magenta: #ff00d4;
+            --border-neon: 1px solid rgba(0, 240, 255, 0.2);
             --glow-cyan: 0 0 20px rgba(0, 240, 255, 0.3);
             --glow-magenta: 0 0 20px rgba(255, 0, 212, 0.3);
-            --border-neon: 1px solid rgba(0, 240, 255, 0.2);
-            --bg-card: #12121a;
-            --bg-input: #0a0a0f;
-            --shadow: rgba(0,240,255,0.1);
+            --bg-card: #12121a; --bg-input: #0a0a0f;
         }
         body.light-theme {
-            --bg-primary: #f0f0ff;
-            --bg-secondary: #ffffff;
-            --text-primary: #1a1a2e;
-            --text-secondary: #444466;
-            --bg-card: #ffffff;
-            --bg-input: #f0f0ff;
+            --bg-primary: #f0f0ff; --bg-secondary: #ffffff; --text-primary: #1a1a2e;
+            --text-secondary: #444466; --bg-card: #ffffff; --bg-input: #f0f0ff;
             --border-neon: 1px solid #00f0ff;
-            --shadow: rgba(0,0,0,0.1);
         }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Roboto', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            font-family: 'Roboto', sans-serif; background: var(--bg-primary);
+            color: var(--text-primary); line-height: 1.6; min-height: 100vh;
+            display: flex; flex-direction: column;
             transition: background 0.3s, color 0.3s;
         }
-        a {
-            color: var(--cyan);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        a:hover {
-            color: var(--magenta);
-        }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+        a { color: var(--cyan); transition: color 0.3s; }
+        a:hover { color: var(--magenta); }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
         .navbar {
-            padding: 20px 0;
-            border-bottom: var(--border-neon);
-            background: var(--bg-secondary);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            transition: background 0.3s, border-color 0.3s;
+            padding: 20px 0; border-bottom: var(--border-neon);
+            background: var(--bg-secondary); backdrop-filter: blur(10px);
+            position: sticky; top: 0; z-index: 100;
         }
         .navbar .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            max-width: 1200px;
+            display: flex; align-items: center; justify-content: space-between;
+            flex-wrap: wrap; max-width: 1200px;
         }
         .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 900;
-            font-size: 1.8rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 1.8rem;
+            letter-spacing: 2px; text-transform: uppercase;
             background: linear-gradient(135deg, var(--cyan), var(--magenta));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: var(--glow-cyan);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            font-weight: 400;
-            font-size: 1rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .nav-links a {
-            color: var(--text-secondary);
-            transition: 0.3s;
-            position: relative;
-        }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--cyan);
-            transition: width 0.3s;
-            box-shadow: var(--glow-cyan);
-        }
-        .nav-links a:hover {
-            color: #fff;
-        }
-        body.light-theme .nav-links a:hover {
-            color: #000;
-        }
-        .nav-links a:hover::after {
-            width: 100%;
-        }
+        .nav-links { display: flex; gap: 30px; font-size: 1rem; align-items: center; flex-wrap: wrap; }
+        .nav-links a { color: var(--text-secondary); position: relative; }
+        .nav-links a:hover { color: #fff; }
+        body.light-theme .nav-links a:hover { color: #000; }
         .theme-toggle {
-            background: transparent;
-            border: var(--border-neon);
-            border-radius: 20px;
-            padding: 6px 14px;
-            color: var(--text-primary);
-            cursor: pointer;
-            font-size: 1rem;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            background: transparent; border: var(--border-neon); border-radius: 20px;
+            padding: 6px 14px; color: var(--text-primary); cursor: pointer; font-size: 1rem;
         }
-        .theme-toggle:hover {
-            background: var(--cyan);
-            color: #0a0a0f;
-        }
-        .cart-icon {
-            font-size: 1.4rem;
-            color: var(--text-secondary);
-            transition: 0.3s;
-            position: relative;
-            cursor: pointer;
-        }
-        .cart-icon:hover {
-            color: var(--cyan);
-            transform: scale(1.1);
-        }
+        .theme-toggle:hover { background: var(--cyan); color: #0a0a0f; }
+        .cart-icon { font-size: 1.4rem; color: var(--text-secondary); position: relative; }
         .cart-badge {
-            position: absolute;
-            top: -8px;
-            right: -10px;
-            background: var(--magenta);
-            color: #fff;
-            font-size: 0.7rem;
-            border-radius: 50%;
-            padding: 2px 6px;
-            font-weight: 700;
-            box-shadow: var(--glow-magenta);
+            position: absolute; top: -8px; right: -10px; background: var(--magenta);
+            color: #fff; font-size: 0.7rem; border-radius: 50%; padding: 2px 6px; font-weight: 700;
         }
-        .page-header {
-            padding: 40px 0 20px;
-            text-align: center;
-        }
+        .page-header { padding: 40px 0 20px; text-align: center; }
         .page-header h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 900;
-            font-size: 2.5rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 2.5rem;
+            letter-spacing: 2px; text-transform: uppercase;
             background: linear-gradient(135deg, #fff 30%, var(--cyan) 70%, var(--magenta));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
         body.light-theme .page-header h1 {
             background: linear-gradient(135deg, #1a1a2e 30%, var(--cyan) 70%, var(--magenta));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
         .chat-container {
-            background: var(--bg-card);
-            border: var(--border-neon);
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 30px;
-            box-shadow: 0 0 30px var(--shadow);
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
+            background: var(--bg-card); border: var(--border-neon); border-radius: 12px;
+            padding: 24px; margin-bottom: 30px; min-height: 400px;
+            display: flex; flex-direction: column;
         }
-        .chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            max-height: 400px;
-            margin-bottom: 16px;
-            padding-right: 8px;
-        }
+        .chat-messages { flex: 1; overflow-y: auto; max-height: 400px; margin-bottom: 16px; padding-right: 8px; }
         .chat-messages .msg {
-            padding: 10px 14px;
-            margin-bottom: 8px;
-            border-radius: 8px;
-            max-width: 80%;
-            word-wrap: break-word;
+            padding: 10px 14px; margin-bottom: 8px; border-radius: 8px;
+            max-width: 80%; word-wrap: break-word;
         }
         .chat-messages .msg.user {
-            background: var(--cyan);
-            color: #0a0a0f;
-            align-self: flex-end;
-            margin-left: auto;
+            background: var(--cyan); color: #0a0a0f; margin-left: auto;
             border-bottom-right-radius: 4px;
         }
         .chat-messages .msg.admin {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-neon);
-            align-self: flex-start;
+            background: var(--bg-secondary); border: 1px solid var(--border-neon);
             border-bottom-left-radius: 4px;
         }
-        body.light-theme .chat-messages .msg.admin {
-            background: #f0f0ff;
-        }
-        .chat-messages .msg .time {
-            font-size: 0.7rem;
-            opacity: 0.6;
-            margin-top: 4px;
-        }
+        body.light-theme .chat-messages .msg.admin { background: #f0f0ff; }
+        .chat-messages .msg .time { font-size: 0.7rem; opacity: 0.6; margin-top: 4px; }
         .chat-input-area {
-            display: flex;
-            gap: 12px;
-            border-top: var(--border-neon);
-            padding-top: 16px;
+            display: flex; gap: 12px; border-top: var(--border-neon); padding-top: 16px;
         }
         .chat-input-area input {
-            flex: 1;
-            padding: 10px 14px;
-            background: var(--bg-input);
-            border: var(--border-neon);
-            border-radius: 6px;
-            color: var(--text-primary);
+            flex: 1; padding: 10px 14px; background: var(--bg-input);
+            border: var(--border-neon); border-radius: 6px; color: var(--text-primary);
             font-size: 1rem;
         }
-        .chat-input-area input:focus {
-            outline: none;
-            border-color: var(--cyan);
-        }
+        .chat-input-area input:focus { outline: none; border-color: var(--cyan); }
         .chat-input-area button {
-            padding: 10px 24px;
-            background: var(--cyan);
-            border: none;
-            border-radius: 6px;
-            color: #0a0a0f;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: 0.3s;
+            padding: 10px 24px; background: var(--cyan); border: none; border-radius: 6px;
+            color: #0a0a0f; font-family: 'Orbitron', sans-serif; font-weight: 700;
+            text-transform: uppercase; font-size: 0.9rem; cursor: pointer;
         }
-        .chat-input-area button:hover {
-            background: var(--magenta);
-            box-shadow: var(--glow-magenta);
-        }
-        .chat-login-required {
-            text-align: center;
-            padding: 40px 0;
-            color: var(--text-secondary);
-        }
+        .chat-input-area button:hover { background: var(--magenta); }
+        .chat-login-required { text-align: center; padding: 40px 0; color: var(--text-secondary); }
         .chat-login-required .btn-primary {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 14px 40px;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #0a0a0f;
-            background: var(--cyan);
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: var(--glow-cyan);
+            display: inline-block; margin-top: 20px; padding: 14px 40px;
+            font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 1rem;
+            text-transform: uppercase; letter-spacing: 2px; color: #0a0a0f;
+            background: var(--cyan); border: none; border-radius: 4px; cursor: pointer;
         }
-        .chat-login-required .btn-primary:hover {
-            background: var(--magenta);
-            box-shadow: var(--glow-magenta);
-            transform: scale(1.05);
+        .error-box {
+            background: #ff0044; color: #fff; padding: 12px 20px;
+            border-radius: 6px; margin-bottom: 16px; font-size: 0.9rem;
         }
         .footer {
-            margin-top: auto;
-            padding: 40px 0 20px;
-            border-top: var(--border-neon);
+            margin-top: auto; padding: 40px 0 20px; border-top: var(--border-neon);
             background: var(--bg-secondary);
-            transition: background 0.3s, border-color 0.3s;
         }
         .footer .container {
-            max-width: 1200px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 30px;
+            max-width: 1200px; display: flex; flex-wrap: wrap;
+            justify-content: space-between; gap: 30px;
         }
         .footer-col h4 {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 400;
+            font-family: 'Orbitron', sans-serif; font-weight: 400;
             margin-bottom: 12px;
-            letter-spacing: 1px;
         }
-        .footer-col p,
-        .footer-col a {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            display: block;
-            margin-bottom: 6px;
+        .footer-col p, .footer-col a {
+            color: var(--text-secondary); font-size: 0.9rem;
+            display: block; margin-bottom: 6px;
         }
-        .footer-col a:hover {
-            color: var(--cyan);
-        }
+        .footer-col a:hover { color: var(--cyan); }
         .footer-bottom {
-            text-align: center;
-            padding-top: 30px;
-            border-top: var(--border-neon);
-            margin-top: 30px;
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-        }
-        .glitch-text {
-            display: inline-block;
-            position: relative;
-        }
-        .glitch-text:hover {
-            animation: glitch 0.3s ease-in-out;
-        }
-        @keyframes glitch {
-            0% { transform: skew(0deg); }
-            20% { transform: skew(2deg) translateX(2px); color: var(--magenta); }
-            40% { transform: skew(-2deg) translateX(-2px); color: var(--cyan); }
-            60% { transform: skew(1deg) translateX(1px); }
-            80% { transform: skew(-1deg) translateX(-1px); }
-            100% { transform: skew(0deg); }
+            text-align: center; padding-top: 30px; border-top: var(--border-neon);
+            margin-top: 30px; color: var(--text-secondary); font-size: 0.8rem;
         }
         @media (max-width: 768px) {
             .nav-links { gap: 15px; font-size: 0.9rem; flex-wrap: wrap; }
             .logo { font-size: 1.4rem; }
             .page-header h1 { font-size: 2rem; }
             .chat-input-area { flex-direction: column; }
-            .theme-toggle { padding: 4px 10px; font-size: 0.8rem; }
         }
         @media (max-width: 480px) {
             .navbar .container { flex-direction: column; gap: 15px; }
-            .chat-messages .msg { max-width: 95%; }
         }
     </style>
 </head>
@@ -382,8 +172,8 @@
 
     <section class="page-header">
         <div class="container">
-            <h1 class="glitch-text">Чат поддержки</h1>
-            <p style="color:var(--text-secondary);">Задайте свой вопрос – мы ответим в ближайшее время</p>
+            <h1>Чат поддержки</h1>
+            <p style="color:var(--text-secondary); margin-top:10px;">Задайте свой вопрос — мы ответим в ближайшее время</p>
         </div>
     </section>
 
@@ -410,9 +200,7 @@
                 <a href="#">YouTube</a>
             </div>
         </div>
-        <div class="footer-bottom">
-            <span class="glitch-text">#RideTheFuture</span>
-        </div>
+        <div class="footer-bottom">#RideTheFuture</div>
     </footer>
 
     <script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-app-compat.js"></script>
@@ -426,8 +214,7 @@
             projectId: "neonride-7f3ec",
             storageBucket: "neonride-7f3ec.firebasestorage.app",
             messagingSenderId: "439881566114",
-            appId: "1:439881566114:web:3ae85a145f524f50ead4fb",
-            measurementId: "G-WCWH5H151L"
+            appId: "1:439881566114:web:3ae85a145f524f50ead4fb"
         };
 
         firebase.initializeApp(firebaseConfig);
@@ -437,16 +224,21 @@
         function updateCartBadge() {
             const cart = JSON.parse(localStorage.getItem('cart') || '[]');
             const badge = document.getElementById('cartBadge');
-            if (badge) {
-                const total = cart.reduce((sum, item) => sum + item.quantity, 0);
-                badge.textContent = total;
-            }
+            if (badge) badge.textContent = cart.reduce((s, i) => s + i.quantity, 0);
         }
         updateCartBadge();
-        window.addEventListener('focus', updateCartBadge);
 
         let currentChatId = null;
         let unsubscribeChat = null;
+
+        function showError(msg) {
+            const container = document.getElementById('chatContainer');
+            const err = document.createElement('div');
+            err.className = 'error-box';
+            err.textContent = msg;
+            container.prepend(err);
+            setTimeout(() => err.remove(), 5000);
+        }
 
         function renderChat(user) {
             const container = document.getElementById('chatContainer');
@@ -470,64 +262,39 @@
                 </div>
             `;
 
-            if (unsubscribeChat) {
-                unsubscribeChat();
-                unsubscribeChat = null;
-            }
-
-            console.log('Поиск открытого чата для пользователя:', user.uid);
+            if (unsubscribeChat) { unsubscribeChat(); unsubscribeChat = null; }
 
             db.collection('supportChats')
                 .where('uid', '==', user.uid)
-                .where('status', '==', 'open')
                 .get()
                 .then((snap) => {
-                    let chatId;
-                    if (snap.empty) {
-                        console.log('Открытых чатов нет, создаём новый');
+                    let foundId = null;
+                    snap.forEach(doc => {
+                        const d = doc.data();
+                        if (d.status === 'open' && !foundId) {
+                            foundId = doc.id;
+                        }
+                    });
+
+                    if (foundId) {
+                        currentChatId = foundId;
+                        subscribeToChat(foundId);
+                    } else {
                         return db.collection('supportChats').add({
                             uid: user.uid,
                             userEmail: user.email,
                             messages: [],
-                            lastUpdate: firebase.firestore.FieldValue.serverTimestamp(),
-                            status: 'open'
+                            status: 'open',
+                            lastUpdate: firebase.firestore.FieldValue.serverTimestamp()
                         }).then(ref => {
-                            chatId = ref.id;
-                            console.log('Чат создан, ID:', chatId);
-                            return chatId;
+                            currentChatId = ref.id;
+                            subscribeToChat(ref.id);
                         });
-                    } else {
-                        chatId = snap.docs[0].id;
-                        console.log('Найден открытый чат, ID:', chatId);
-                        return chatId;
                     }
                 })
-                .then((chatId) => {
-                    currentChatId = chatId;
-                    console.log('Подписка на чат:', chatId);
-                    unsubscribeChat = db.collection('supportChats').doc(chatId).onSnapshot((doc) => {
-                        const data = doc.data();
-                        if (data && data.messages) {
-                            const container = document.getElementById('chatMessages');
-                            container.innerHTML = data.messages.map(m => {
-                                const isUser = m.from === 'user';
-                                return `
-                                    <div class="msg ${isUser ? 'user' : 'admin'}">
-                                        ${m.text}
-                                        <div class="time">${m.timestamp ? new Date(m.timestamp.seconds * 1000).toLocaleString() : ''}</div>
-                                    </div>
-                                `;
-                            }).join('');
-                            container.scrollTop = container.scrollHeight;
-                        }
-                    }, (err) => {
-                        console.error('Ошибка подписки на чат:', err);
-                        document.getElementById('chatMessages').innerHTML = '<p style="color:var(--text-secondary);">Ошибка загрузки сообщений</p>';
-                    });
-                })
                 .catch((err) => {
-                    console.error('Ошибка при создании/поиске чата:', err);
-                    container.innerHTML = `<p style="color:var(--text-secondary);">Ошибка: ${err.message}</p>`;
+                    console.error('Ошибка:', err);
+                    showError('Ошибка подключения к чату: ' + err.message);
                 });
 
             document.getElementById('sendBtn').addEventListener('click', sendMessage);
@@ -536,15 +303,39 @@
             });
         }
 
+        function subscribeToChat(chatId) {
+            unsubscribeChat = db.collection('supportChats').doc(chatId).onSnapshot((doc) => {
+                const data = doc.data();
+                if (!data) return;
+                const container = document.getElementById('chatMessages');
+                if (!container) return;
+                const messages = data.messages || [];
+                if (messages.length === 0) {
+                    container.innerHTML = '<p style="color:var(--text-secondary); text-align:center; padding:20px;">Напишите сообщение — мы ответим</p>';
+                    return;
+                }
+                container.innerHTML = messages.map(m => {
+                    const isUser = m.from === 'user';
+                    const time = m.timestamp ? new Date(m.timestamp.seconds * 1000).toLocaleString() : '';
+                    return `
+                        <div class="msg ${isUser ? 'user' : 'admin'}">
+                            ${m.text}
+                            <div class="time">${time}</div>
+                        </div>
+                    `;
+                }).join('');
+                container.scrollTop = container.scrollHeight;
+            }, (err) => {
+                console.error('Snapshot error:', err);
+                showError('Ошибка подписки: ' + err.message);
+            });
+        }
+
         function sendMessage() {
             const input = document.getElementById('chatInput');
             const text = input.value.trim();
-            if (!text || !currentChatId) {
-                console.warn('Нет текста или ID чата');
-                return;
-            }
+            if (!text || !currentChatId) return;
             input.value = '';
-            console.log('Отправка сообщения в чат', currentChatId, 'текст:', text);
             db.collection('supportChats').doc(currentChatId).update({
                 messages: firebase.firestore.FieldValue.arrayUnion({
                     from: 'user',
@@ -552,24 +343,18 @@
                     timestamp: firebase.firestore.FieldValue.serverTimestamp()
                 }),
                 lastUpdate: firebase.firestore.FieldValue.serverTimestamp()
-            }).then(() => {
-                console.log('Сообщение отправлено');
             }).catch((err) => {
-                console.error('Ошибка отправки сообщения:', err);
-                alert('Ошибка отправки: ' + err.message);
+                console.error('Send error:', err);
+                showError('Ошибка отправки: ' + err.message);
             });
         }
 
         auth.onAuthStateChanged((user) => {
-            console.log('authStateChanged, user:', user ? user.email : 'null');
             if (user) {
                 renderChat(user);
             } else {
                 renderChat(null);
-                if (unsubscribeChat) {
-                    unsubscribeChat();
-                    unsubscribeChat = null;
-                }
+                if (unsubscribeChat) { unsubscribeChat(); unsubscribeChat = null; }
             }
         });
 
@@ -579,8 +364,6 @@
             if (current === 'light') {
                 document.body.classList.add('light-theme');
                 toggle.textContent = '☀️ Тема';
-            } else {
-                toggle.textContent = '🌙 Тема';
             }
             toggle.addEventListener('click', function() {
                 document.body.classList.toggle('light-theme');

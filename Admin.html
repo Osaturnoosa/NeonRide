@@ -7,487 +7,172 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
     <style>
         :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #12121a;
-            --text-primary: #e0e0ff;
-            --text-secondary: #8888bb;
-            --cyan: #00f0ff;
-            --magenta: #ff00d4;
-            --yellow: #ffe600;
-            --red: #ff0044;
+            --bg-primary: #0a0a0f; --bg-secondary: #12121a; --text-primary: #e0e0ff;
+            --text-secondary: #8888bb; --cyan: #00f0ff; --magenta: #ff00d4;
+            --yellow: #ffe600; --red: #ff0044;
+            --border-neon: 1px solid rgba(0, 240, 255, 0.2);
             --glow-cyan: 0 0 20px rgba(0, 240, 255, 0.3);
             --glow-magenta: 0 0 20px rgba(255, 0, 212, 0.3);
-            --border-neon: 1px solid rgba(0, 240, 255, 0.2);
-            --bg-card: #12121a;
-            --bg-input: #0a0a0f;
-            --shadow: rgba(0,240,255,0.1);
+            --bg-card: #12121a; --bg-input: #0a0a0f;
         }
         body.light-theme {
-            --bg-primary: #f0f0ff;
-            --bg-secondary: #ffffff;
-            --text-primary: #1a1a2e;
-            --text-secondary: #444466;
-            --bg-card: #ffffff;
-            --bg-input: #f0f0ff;
+            --bg-primary: #f0f0ff; --bg-secondary: #ffffff; --text-primary: #1a1a2e;
+            --text-secondary: #444466; --bg-card: #ffffff; --bg-input: #f0f0ff;
             --border-neon: 1px solid #00f0ff;
-            --shadow: rgba(0,0,0,0.1);
         }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Roboto', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            transition: background 0.3s, color 0.3s;
+            font-family: 'Roboto', sans-serif; background: var(--bg-primary);
+            color: var(--text-primary); line-height: 1.6; min-height: 100vh;
+            display: flex; flex-direction: column;
         }
-        a {
-            color: var(--cyan);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        a:hover {
-            color: var(--magenta);
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+        a { color: var(--cyan); }
+        a:hover { color: var(--magenta); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .navbar {
-            padding: 20px 0;
-            border-bottom: var(--border-neon);
-            background: var(--bg-secondary);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            transition: background 0.3s, border-color 0.3s;
+            padding: 20px 0; border-bottom: var(--border-neon);
+            background: var(--bg-secondary); position: sticky; top: 0; z-index: 100;
         }
         .navbar .container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            max-width: 1200px;
+            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
         }
         .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 900;
-            font-size: 1.8rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 1.8rem;
+            letter-spacing: 2px; text-transform: uppercase;
             background: linear-gradient(135deg, var(--cyan), var(--magenta));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: var(--glow-cyan);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            font-weight: 400;
-            font-size: 1rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .nav-links a {
-            color: var(--text-secondary);
-            transition: 0.3s;
-            position: relative;
-        }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--cyan);
-            transition: width 0.3s;
-            box-shadow: var(--glow-cyan);
-        }
-        .nav-links a:hover {
-            color: #fff;
-        }
-        body.light-theme .nav-links a:hover {
-            color: #000;
-        }
-        .nav-links a:hover::after {
-            width: 100%;
-        }
+        .nav-links { display: flex; gap: 30px; font-size: 1rem; align-items: center; flex-wrap: wrap; }
+        .nav-links a { color: var(--text-secondary); }
+        .nav-links a:hover { color: #fff; }
+        body.light-theme .nav-links a:hover { color: #000; }
         .theme-toggle {
-            background: transparent;
-            border: var(--border-neon);
-            border-radius: 20px;
-            padding: 6px 14px;
-            color: var(--text-primary);
-            cursor: pointer;
-            font-size: 1rem;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            background: transparent; border: var(--border-neon); border-radius: 20px;
+            padding: 6px 14px; color: var(--text-primary); cursor: pointer; font-size: 1rem;
         }
-        .theme-toggle:hover {
-            background: var(--cyan);
-            color: #0a0a0f;
-        }
-        .cart-icon {
-            font-size: 1.4rem;
-            color: var(--text-secondary);
-            transition: 0.3s;
-            position: relative;
-            cursor: pointer;
-        }
-        .cart-icon:hover {
-            color: var(--cyan);
-            transform: scale(1.1);
-        }
+        .theme-toggle:hover { background: var(--cyan); color: #0a0a0f; }
+        .cart-icon { font-size: 1.4rem; color: var(--text-secondary); position: relative; }
         .cart-badge {
-            position: absolute;
-            top: -8px;
-            right: -10px;
-            background: var(--magenta);
-            color: #fff;
-            font-size: 0.7rem;
-            border-radius: 50%;
-            padding: 2px 6px;
-            font-weight: 700;
-            box-shadow: var(--glow-magenta);
+            position: absolute; top: -8px; right: -10px; background: var(--magenta);
+            color: #fff; font-size: 0.7rem; border-radius: 50%; padding: 2px 6px; font-weight: 700;
         }
-        .page-header {
-            padding: 40px 0 20px;
-            text-align: center;
-        }
+        .page-header { padding: 40px 0 20px; text-align: center; }
         .page-header h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 900;
-            font-size: 2.5rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 2.5rem;
+            letter-spacing: 2px; text-transform: uppercase;
             background: linear-gradient(135deg, #fff 30%, var(--cyan) 70%, var(--magenta));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
         body.light-theme .page-header h1 {
             background: linear-gradient(135deg, #1a1a2e 30%, var(--cyan) 70%, var(--magenta));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .admin-panel {
-            padding: 20px 0 60px;
-        }
+        .admin-panel { padding: 20px 0 60px; }
         .admin-tabs {
-            display: flex;
-            gap: 6px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            border-bottom: 1px solid rgba(0,240,255,0.2);
-            padding-bottom: 6px;
+            display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap;
+            border-bottom: 1px solid rgba(0,240,255,0.2); padding-bottom: 6px;
         }
         .admin-tabs button {
-            background: transparent;
-            border: none;
-            color: var(--text-secondary);
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 400;
-            font-size: 0.85rem;
-            padding: 8px 16px;
-            cursor: pointer;
-            transition: 0.3s;
-            border-radius: 4px;
+            background: transparent; border: none; color: var(--text-secondary);
+            font-family: 'Orbitron', sans-serif; font-size: 0.85rem;
+            padding: 8px 16px; cursor: pointer; border-radius: 4px;
         }
-        .admin-tabs button:hover {
-            color: #fff;
-            background: rgba(0,240,255,0.1);
+        .admin-tabs button:hover { color: #fff; background: rgba(0,240,255,0.1); }
+        .admin-tabs button.active { color: var(--cyan); background: rgba(0,240,255,0.15); }
+        body.light-theme .admin-tabs button:hover { color: #000; }
+        .admin-section { display: none; }
+        .admin-section.active { display: block; }
+        .section {
+            background: var(--bg-card); border: var(--border-neon);
+            border-radius: 12px; padding: 24px; margin-bottom: 30px;
         }
-        .admin-tabs button.active {
-            color: var(--cyan);
-            background: rgba(0,240,255,0.15);
+        .section h2 {
+            font-family: 'Orbitron', sans-serif; font-weight: 400; font-size: 1.6rem;
+            color: var(--cyan); margin-bottom: 16px;
         }
-        body.light-theme .admin-tabs button:hover {
-            color: #000;
+        table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+        th {
+            text-align: left; padding: 10px 8px; color: var(--cyan);
+            border-bottom: 1px solid var(--cyan); font-weight: 400;
         }
-        .admin-section {
-            display: none;
-            animation: fadeInUp 0.3s ease-out;
-        }
-        .admin-section.active {
-            display: block;
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .admin-panel .section {
-            background: var(--bg-card);
-            border: var(--border-neon);
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 30px;
-            box-shadow: 0 0 20px var(--shadow);
-        }
-        .admin-panel .section h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 400;
-            font-size: 1.6rem;
-            color: var(--cyan);
-            margin-bottom: 16px;
-            text-shadow: var(--glow-cyan);
-        }
-        .admin-panel table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.95rem;
-        }
-        .admin-panel th {
-            text-align: left;
-            padding: 10px 8px;
-            color: var(--cyan);
-            border-bottom: 1px solid var(--cyan);
-            font-weight: 400;
-            letter-spacing: 1px;
-        }
-        .admin-panel td {
-            padding: 10px 8px;
-            border-bottom: 1px solid rgba(0,240,255,0.1);
-            color: var(--text-primary);
-        }
-        .admin-panel .status-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        td { padding: 10px 8px; border-bottom: 1px solid rgba(0,240,255,0.1); }
+        .status-badge {
+            display: inline-block; padding: 4px 12px; border-radius: 20px;
+            font-size: 0.8rem; font-weight: 700; text-transform: uppercase;
         }
         .status-badge.pending { background: #ff8800; color: #0a0a0f; }
         .status-badge.shipped { background: #00ccff; color: #0a0a0f; }
         .status-badge.delivered { background: #00ff88; color: #0a0a0f; }
-        .admin-panel .btn-sm {
-            padding: 6px 14px;
-            border: 1px solid var(--cyan);
-            background: transparent;
-            color: var(--cyan);
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: 0.3s;
-            font-family: 'Roboto', sans-serif;
-            font-weight: 500;
+        .btn-sm {
+            padding: 6px 14px; border: 1px solid var(--cyan); background: transparent;
+            color: var(--cyan); border-radius: 4px; cursor: pointer;
+            font-size: 0.8rem; font-weight: 500;
         }
-        .admin-panel .btn-sm:hover {
-            background: var(--cyan);
-            color: #0a0a0f;
-            box-shadow: var(--glow-cyan);
+        .btn-sm:hover { background: var(--cyan); color: #0a0a0f; }
+        .btn-sm.success { border-color: #00ff88; color: #00ff88; }
+        .btn-sm.success:hover { background: #00ff88; color: #0a0a0f; }
+        .btn-sm.danger { border-color: var(--red); color: var(--red); }
+        .btn-sm.danger:hover { background: var(--red); color: #fff; }
+        .bonus-input {
+            width: 80px; padding: 4px 8px; background: var(--bg-input);
+            border: var(--border-neon); border-radius: 4px; color: var(--text-primary);
         }
-        .admin-panel .btn-sm.success {
-            border-color: #00ff88;
-            color: #00ff88;
+        .empty-message { color: var(--text-secondary); padding: 20px 0; text-align: center; }
+        .login-required {
+            text-align: center; padding: 60px 0; font-size: 1.4rem; color: var(--text-secondary);
         }
-        .admin-panel .btn-sm.success:hover {
-            background: #00ff88;
-            color: #0a0a0f;
-        }
-        .admin-panel .btn-sm.danger {
-            border-color: var(--red);
-            color: var(--red);
-        }
-        .admin-panel .btn-sm.danger:hover {
-            background: var(--red);
-            color: #fff;
-        }
-        .admin-panel .bonus-input {
-            width: 80px;
-            padding: 4px 8px;
-            background: var(--bg-input);
-            border: var(--border-neon);
-            border-radius: 4px;
-            color: var(--text-primary);
-            font-size: 0.9rem;
-        }
-        .admin-panel .bonus-input:focus {
-            outline: none;
-            border-color: var(--cyan);
-        }
-        .admin-panel .empty-message {
-            color: var(--text-secondary);
-            padding: 20px 0;
-            text-align: center;
-        }
-        .admin-panel .login-required {
-            text-align: center;
-            padding: 60px 0;
-            font-size: 1.4rem;
-            color: var(--text-secondary);
-        }
-        .admin-panel .login-required .btn-primary {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 14px 40px;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #0a0a0f;
-            background: var(--cyan);
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: var(--glow-cyan);
-        }
-        .admin-panel .login-required .btn-primary:hover {
-            background: var(--magenta);
-            box-shadow: var(--glow-magenta);
-            transform: scale(1.05);
+        .login-required .btn-primary {
+            display: inline-block; margin-top: 20px; padding: 14px 40px;
+            font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 1rem;
+            text-transform: uppercase; letter-spacing: 2px; color: #0a0a0f;
+            background: var(--cyan); border: none; border-radius: 4px; cursor: pointer;
         }
         .chat-item {
-            background: var(--bg-primary);
-            border-radius: 6px;
-            padding: 12px 16px;
-            margin-bottom: 8px;
-            border-left: 3px solid var(--cyan);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
+            background: var(--bg-primary); border-radius: 6px; padding: 16px;
+            margin-bottom: 12px; border-left: 3px solid var(--cyan);
         }
-        .chat-item .chat-info {
-            font-size: 0.9rem;
-            flex: 1;
-        }
-        .chat-item .chat-actions {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-        .chat-item .chat-actions .btn-sm {
-            font-size: 0.7rem;
-        }
-        .chat-item .chat-actions .btn-close {
-            border-color: var(--red);
-            color: var(--red);
-        }
-        .chat-item .chat-actions .btn-close:hover {
-            background: var(--red);
-            color: #fff;
-        }
+        .chat-item .chat-info { font-size: 0.9rem; margin-bottom: 10px; }
+        .chat-item .chat-actions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
         .chat-messages-box {
-            background: var(--bg-input);
-            border-radius: 6px;
-            padding: 12px;
-            max-height: 200px;
-            overflow-y: auto;
-            margin-top: 8px;
+            background: var(--bg-input); border-radius: 6px; padding: 12px;
+            max-height: 200px; overflow-y: auto; margin: 8px 0;
         }
         .chat-messages-box .msg {
-            padding: 4px 8px;
-            margin-bottom: 4px;
-            font-size: 0.9rem;
+            padding: 4px 8px; margin-bottom: 4px; font-size: 0.9rem;
         }
-        .chat-messages-box .msg.user {
-            color: var(--cyan);
-        }
-        .chat-messages-box .msg.admin {
-            color: var(--yellow);
-        }
-        .admin-reply-area {
-            display: flex;
-            gap: 8px;
-            margin-top: 8px;
-        }
+        .chat-messages-box .msg.user { color: var(--cyan); }
+        .chat-messages-box .msg.admin { color: var(--yellow); }
+        .admin-reply-area { display: flex; gap: 8px; margin-top: 8px; }
         .admin-reply-area input {
-            flex: 1;
-            padding: 6px 10px;
-            background: var(--bg-input);
-            border: var(--border-neon);
-            border-radius: 4px;
-            color: var(--text-primary);
+            flex: 1; padding: 8px 12px; background: var(--bg-input);
+            border: var(--border-neon); border-radius: 4px; color: var(--text-primary);
         }
+        .admin-reply-area input:focus { outline: none; border-color: var(--cyan); }
         .admin-reply-area button {
-            padding: 6px 14px;
-            background: var(--cyan);
-            border: none;
-            border-radius: 4px;
-            color: #0a0a0f;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
+            padding: 8px 16px; background: var(--cyan); border: none; border-radius: 4px;
+            color: #0a0a0f; font-weight: 700; cursor: pointer;
         }
-        .admin-reply-area button:hover {
-            background: var(--magenta);
-        }
+        .admin-reply-area button:hover { background: var(--magenta); }
         .footer {
-            margin-top: auto;
-            padding: 40px 0 20px;
-            border-top: var(--border-neon);
+            margin-top: auto; padding: 40px 0 20px; border-top: var(--border-neon);
             background: var(--bg-secondary);
-            transition: background 0.3s, border-color 0.3s;
         }
         .footer .container {
-            max-width: 1200px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 30px;
+            display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px;
         }
-        .footer-col h4 {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 400;
-            margin-bottom: 12px;
-            letter-spacing: 1px;
+        .footer-col h4 { font-family: 'Orbitron', sans-serif; font-weight: 400; margin-bottom: 12px; }
+        .footer-col p, .footer-col a {
+            color: var(--text-secondary); font-size: 0.9rem; display: block; margin-bottom: 6px;
         }
-        .footer-col p,
-        .footer-col a {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            display: block;
-            margin-bottom: 6px;
-        }
-        .footer-col a:hover {
-            color: var(--cyan);
-        }
+        .footer-col a:hover { color: var(--cyan); }
         .footer-bottom {
-            text-align: center;
-            padding-top: 30px;
-            border-top: var(--border-neon);
-            margin-top: 30px;
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-        }
-        .glitch-text {
-            display: inline-block;
-            position: relative;
-        }
-        .glitch-text:hover {
-            animation: glitch 0.3s ease-in-out;
-        }
-        @keyframes glitch {
-            0% { transform: skew(0deg); }
-            20% { transform: skew(2deg) translateX(2px); color: var(--magenta); }
-            40% { transform: skew(-2deg) translateX(-2px); color: var(--cyan); }
-            60% { transform: skew(1deg) translateX(1px); }
-            80% { transform: skew(-1deg) translateX(-1px); }
-            100% { transform: skew(0deg); }
+            text-align: center; padding-top: 30px; border-top: var(--border-neon);
+            margin-top: 30px; color: var(--text-secondary); font-size: 0.8rem;
         }
         @media (max-width: 768px) {
             .nav-links { gap: 15px; font-size: 0.9rem; flex-wrap: wrap; }
             .logo { font-size: 1.4rem; }
             .page-header h1 { font-size: 2rem; }
-            .admin-tabs button { font-size: 0.75rem; padding: 6px 10px; }
-            .theme-toggle { padding: 4px 10px; font-size: 0.8rem; }
         }
         @media (max-width: 480px) {
             .navbar .container { flex-direction: column; gap: 15px; }
@@ -519,12 +204,12 @@
 
     <section class="page-header">
         <div class="container">
-            <h1 class="glitch-text">Админ-панель</h1>
+            <h1>Админ-панель</h1>
         </div>
     </section>
 
     <section class="admin-panel">
-        <div class="container" id="adminContent">
+        <div class="container">
             <div class="login-required" id="loginRequired">
                 <p>Требуется вход администратора</p>
                 <a href="Account.html" class="btn-primary">Войти</a>
@@ -536,7 +221,6 @@
                     <button data-tab="chats">💬 Чаты</button>
                 </div>
 
-                <!-- Пользователи -->
                 <div class="admin-section active" id="tab-users">
                     <div class="section">
                         <h2>👥 Пользователи</h2>
@@ -544,7 +228,6 @@
                     </div>
                 </div>
 
-                <!-- Заказы -->
                 <div class="admin-section" id="tab-orders">
                     <div class="section">
                         <h2>📦 Заказы</h2>
@@ -552,7 +235,6 @@
                     </div>
                 </div>
 
-                <!-- Чаты -->
                 <div class="admin-section" id="tab-chats">
                     <div class="section">
                         <h2>💬 Чаты поддержки</h2>
@@ -582,9 +264,7 @@
                 <a href="#">YouTube</a>
             </div>
         </div>
-        <div class="footer-bottom">
-            <span class="glitch-text">#RideTheFuture</span>
-        </div>
+        <div class="footer-bottom">#RideTheFuture</div>
     </footer>
 
     <script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-app-compat.js"></script>
@@ -598,280 +278,227 @@
             projectId: "neonride-7f3ec",
             storageBucket: "neonride-7f3ec.firebasestorage.app",
             messagingSenderId: "439881566114",
-            appId: "1:439881566114:web:3ae85a145f524f50ead4fb",
-            measurementId: "G-WCWH5H151L"
+            appId: "1:439881566114:web:3ae85a145f524f50ead4fb"
         };
 
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
-
         const adminEmail = 'admin@neonride.tech';
 
         function updateCartBadge() {
             const cart = JSON.parse(localStorage.getItem('cart') || '[]');
             const badge = document.getElementById('cartBadge');
-            if (badge) {
-                const total = cart.reduce((sum, item) => sum + item.quantity, 0);
-                badge.textContent = total;
-            }
+            if (badge) badge.textContent = cart.reduce((s, i) => s + i.quantity, 0);
         }
         updateCartBadge();
-        window.addEventListener('focus', updateCartBadge);
 
-        // ----- Табы -----
         document.querySelectorAll('.admin-tabs button').forEach(btn => {
             btn.addEventListener('click', function() {
                 document.querySelectorAll('.admin-tabs button').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
                 document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
-                const tabId = this.dataset.tab;
-                document.getElementById('tab-' + tabId).classList.add('active');
-                if (tabId === 'chats') loadChats();
+                document.getElementById('tab-' + this.dataset.tab).classList.add('active');
+                if (this.dataset.tab === 'chats') loadChats();
             });
         });
 
-        // ----- Пользователи -----
         function renderUsers(users) {
-            const container = document.getElementById('usersTableContainer');
+            const c = document.getElementById('usersTableContainer');
             if (!users || users.length === 0) {
-                container.innerHTML = '<div class="empty-message">Пользователей пока нет</div>';
+                c.innerHTML = '<div class="empty-message">Пользователей пока нет</div>';
                 return;
             }
-            let html = `<table>
-                <thead><tr><th>Email</th><th>Бонусы</th><th>Скидка %</th><th>Действия</th></tr></thead>
-                <tbody>`;
+            let html = `<table><thead><tr><th>Email</th><th>Бонусы</th><th>Скидка</th><th>Действия</th></tr></thead><tbody>`;
             users.forEach(u => {
-                html += `<tr data-uid="${u.uid}">
-                    <td data-label="Email">${u.email}</td>
-                    <td data-label="Бонусы"><span class="bonus-value">${u.bonuses || 0}</span></td>
-                    <td data-label="Скидка">${u.discount || 0}%</td>
-                    <td data-label="Действия">
-                        <input type="number" class="bonus-input" value="${u.bonuses || 0}" min="0" />
+                html += `<tr>
+                    <td>${u.email}</td>
+                    <td><span class="bonus-value">${u.bonuses}</span></td>
+                    <td>${u.discount}%</td>
+                    <td>
+                        <input type="number" class="bonus-input" value="${u.bonuses}" min="0" />
                         <button class="btn-sm success update-bonus-btn" data-uid="${u.uid}">Обновить</button>
                     </td>
                 </tr>`;
             });
             html += `</tbody></table>`;
-            container.innerHTML = html;
+            c.innerHTML = html;
 
-            container.querySelectorAll('.update-bonus-btn').forEach(btn => {
+            c.querySelectorAll('.update-bonus-btn').forEach(btn => {
                 btn.addEventListener('click', async function() {
                     const uid = this.dataset.uid;
                     const input = this.parentElement.querySelector('.bonus-input');
-                    const newBonus = parseInt(input.value, 10);
-                    if (isNaN(newBonus) || newBonus < 0) return;
+                    const val = parseInt(input.value, 10);
+                    if (isNaN(val) || val < 0) return;
                     try {
-                        await db.collection('users').doc(uid).update({ bonuses: newBonus });
-                        const row = this.closest('tr');
-                        row.querySelector('.bonus-value').textContent = newBonus;
-                        showNotification('Бонусы обновлены');
-                    } catch (err) {
-                        showNotification('Ошибка: ' + err.message, true);
-                    }
+                        await db.collection('users').doc(uid).update({ bonuses: val });
+                        this.closest('tr').querySelector('.bonus-value').textContent = val;
+                        notify('Бонусы обновлены');
+                    } catch (e) { notify('Ошибка: ' + e.message, true); }
                 });
             });
         }
 
-        // ----- Заказы -----
         function renderOrders(orders) {
-            const container = document.getElementById('ordersTableContainer');
+            const c = document.getElementById('ordersTableContainer');
             if (!orders || orders.length === 0) {
-                container.innerHTML = '<div class="empty-message">Заказов пока нет</div>';
+                c.innerHTML = '<div class="empty-message">Заказов пока нет</div>';
                 return;
             }
-            let html = `<table>
-                <thead><tr><th>Заказ #</th><th>Пользователь</th><th>Товары</th><th>Сумма</th><th>Статус</th><th>Действие</th></tr></thead>
-                <tbody>`;
-            orders.forEach((o, idx) => {
-                const status = o.status || 'pending';
-                const statusClass = status === 'pending' ? 'pending' : status === 'shipped' ? 'shipped' : 'delivered';
-                const statusLabel = status === 'pending' ? 'Ожидает' : status === 'shipped' ? 'Отправлен' : 'Доставлен';
-                html += `<tr data-order-id="${o.id}">
-                    <td data-label="Заказ #">${idx+1}</td>
-                    <td data-label="Пользователь">${o.userEmail || 'неизвестно'}</td>
-                    <td data-label="Товары">${o.items ? o.items.map(i => i.name).join(', ') : ''}</td>
-                    <td data-label="Сумма">${o.total || 0} ₽</td>
-                    <td data-label="Статус"><span class="status-badge ${statusClass}">${statusLabel}</span></td>
-                    <td data-label="Действие">
-                        <button class="btn-sm status-btn" data-order-id="${o.id}" data-status="shipped">Отправить</button>
-                        <button class="btn-sm success status-btn" data-order-id="${o.id}" data-status="delivered">Доставлен</button>
+            let html = `<table><thead><tr><th>#</th><th>Пользователь</th><th>Товары</th><th>Сумма</th><th>Статус</th><th>Действие</th></tr></thead><tbody>`;
+            orders.forEach((o, i) => {
+                const s = o.status || 'pending';
+                const cls = s === 'pending' ? 'pending' : s === 'shipped' ? 'shipped' : 'delivered';
+                const lbl = s === 'pending' ? 'Ожидает' : s === 'shipped' ? 'Отправлен' : 'Доставлен';
+                html += `<tr>
+                    <td>${i+1}</td>
+                    <td>${o.userEmail || '—'}</td>
+                    <td>${o.items ? o.items.map(x => x.name).join(', ') : ''}</td>
+                    <td>${o.total || 0} ₽</td>
+                    <td><span class="status-badge ${cls}">${lbl}</span></td>
+                    <td>
+                        <button class="btn-sm status-btn" data-id="${o.id}" data-status="shipped">Отправить</button>
+                        <button class="btn-sm success status-btn" data-id="${o.id}" data-status="delivered">Доставлен</button>
                     </td>
                 </tr>`;
             });
             html += `</tbody></table>`;
-            container.innerHTML = html;
+            c.innerHTML = html;
 
-            container.querySelectorAll('.status-btn').forEach(btn => {
+            c.querySelectorAll('.status-btn').forEach(btn => {
                 btn.addEventListener('click', async function() {
-                    const orderId = this.dataset.orderId;
-                    const newStatus = this.dataset.status;
                     try {
-                        await db.collection('orders').doc(orderId).update({ status: newStatus });
-                        showNotification('Статус заказа обновлён');
+                        await db.collection('orders').doc(this.dataset.id).update({ status: this.dataset.status });
+                        notify('Статус обновлён');
                         loadOrders();
-                    } catch (err) {
-                        showNotification('Ошибка: ' + err.message, true);
-                    }
+                    } catch (e) { notify('Ошибка: ' + e.message, true); }
                 });
             });
         }
 
-        // ----- Чаты -----
-        let chatUnsubscribers = {};
-
         function renderChats(chats) {
-            const container = document.getElementById('chatsContainer');
+            const c = document.getElementById('chatsContainer');
             if (!chats || chats.length === 0) {
-                container.innerHTML = '<div class="empty-message">Нет активных чатов</div>';
+                c.innerHTML = '<div class="empty-message">Нет активных чатов</div>';
                 return;
             }
             let html = '';
             chats.forEach(chat => {
-                const lastMsg = chat.messages && chat.messages.length > 0 ? chat.messages[chat.messages.length-1] : null;
-                const lastText = lastMsg ? lastMsg.text : 'Нет сообщений';
-                const lastTime = lastMsg && lastMsg.timestamp ? new Date(lastMsg.timestamp.seconds * 1000).toLocaleString() : '';
                 html += `
-                    <div class="chat-item" data-chat-id="${chat.id}">
+                    <div class="chat-item">
                         <div class="chat-info">
-                            <strong>${chat.userEmail || 'Неизвестный'}</strong><br />
-                            <span style="font-size:0.8rem; color:var(--text-secondary);">${lastText} ${lastTime ? '— ' + lastTime : ''}</span>
-                            <div class="chat-messages-box" id="chatMessages_${chat.id}"></div>
+                            <strong>${chat.userEmail || 'Неизвестный'}</strong>
+                            <div class="chat-messages-box" id="msgbox_${chat.id}"></div>
+                        </div>
+                        <div class="admin-reply-area">
+                            <input type="text" class="reply-input" data-chat-id="${chat.id}" placeholder="Ответ..." />
+                            <button class="reply-btn" data-chat-id="${chat.id}">Отправить</button>
                         </div>
                         <div class="chat-actions">
-                            <button class="btn-sm btn-close close-chat-btn" data-chat-id="${chat.id}">Закрыть</button>
-                            <button class="btn-sm btn-close delete-chat-btn" data-chat-id="${chat.id}">Удалить</button>
-                            <div class="admin-reply-area">
-                                <input type="text" placeholder="Ответ..." class="reply-input" data-chat-id="${chat.id}" />
-                                <button class="reply-btn" data-chat-id="${chat.id}">Отправить</button>
-                            </div>
+                            <button class="btn-sm danger close-btn" data-chat-id="${chat.id}">Закрыть</button>
+                            <button class="btn-sm danger delete-btn" data-chat-id="${chat.id}">Удалить</button>
                         </div>
                     </div>
                 `;
             });
-            container.innerHTML = html;
+            c.innerHTML = html;
 
-            // Подписка на изменения каждого чата
             chats.forEach(chat => {
-                const chatId = chat.id;
-                if (chatUnsubscribers[chatId]) {
-                    chatUnsubscribers[chatId]();
+                const box = document.getElementById('msgbox_' + chat.id);
+                if (box && chat.messages) {
+                    box.innerHTML = chat.messages.map(m => {
+                        const who = m.from === 'user' ? 'Пользователь' : 'Админ';
+                        return `<div class="msg ${m.from}"><strong>${who}:</strong> ${m.text}</div>`;
+                    }).join('');
+                    box.scrollTop = box.scrollHeight;
                 }
-                chatUnsubscribers[chatId] = db.collection('supportChats').doc(chatId).onSnapshot((doc) => {
-                    const data = doc.data();
-                    if (data && data.messages) {
-                        const box = document.getElementById('chatMessages_' + chatId);
-                        if (box) {
-                            box.innerHTML = data.messages.map(m => `
-                                <div class="msg ${m.from}">
-                                    <strong>${m.from === 'user' ? 'Пользователь' : 'Админ'}:</strong> ${m.text}
-                                    <span style="font-size:0.7rem; opacity:0.6;">${m.timestamp ? new Date(m.timestamp.seconds * 1000).toLocaleString() : ''}</span>
-                                </div>
-                            `).join('');
-                            box.scrollTop = box.scrollHeight;
-                        }
-                    }
-                });
             });
 
-            // Закрытие чата
-            container.querySelectorAll('.close-chat-btn').forEach(btn => {
+            c.querySelectorAll('.reply-btn').forEach(btn => {
                 btn.addEventListener('click', async function() {
                     const chatId = this.dataset.chatId;
-                    if (!confirm('Закрыть чат? (он станет недоступен для пользователя)')) return;
-                    try {
-                        await db.collection('supportChats').doc(chatId).update({ status: 'closed' });
-                        showNotification('Чат закрыт');
-                        loadChats();
-                    } catch (err) {
-                        showNotification('Ошибка: ' + err.message, true);
-                    }
-                });
-            });
-
-            // Удаление чата
-            container.querySelectorAll('.delete-chat-btn').forEach(btn => {
-                btn.addEventListener('click', async function() {
-                    const chatId = this.dataset.chatId;
-                    if (!confirm('Удалить чат навсегда? (восстановление невозможно)')) return;
-                    try {
-                        await db.collection('supportChats').doc(chatId).delete();
-                        showNotification('Чат удалён');
-                        loadChats();
-                    } catch (err) {
-                        showNotification('Ошибка: ' + err.message, true);
-                    }
-                });
-            });
-
-            // Ответ администратора
-            container.querySelectorAll('.reply-btn').forEach(btn => {
-                btn.addEventListener('click', async function() {
-                    const chatId = this.dataset.chatId;
-                    const input = document.querySelector(`.reply-input[data-chat-id="${chatId}"]`);
+                    const input = c.querySelector(`.reply-input[data-chat-id="${chatId}"]`);
                     const text = input.value.trim();
                     if (!text) return;
                     try {
                         await db.collection('supportChats').doc(chatId).update({
                             messages: firebase.firestore.FieldValue.arrayUnion({
-                                from: 'admin',
-                                text: text,
+                                from: 'admin', text: text,
                                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
                             }),
                             lastUpdate: firebase.firestore.FieldValue.serverTimestamp()
                         });
                         input.value = '';
-                        showNotification('Ответ отправлен');
-                    } catch (err) {
-                        showNotification('Ошибка: ' + err.message, true);
-                    }
+                        notify('Ответ отправлен');
+                        loadChats();
+                    } catch (e) { notify('Ошибка: ' + e.message, true); }
                 });
             });
-            container.querySelectorAll('.reply-input').forEach(input => {
+
+            c.querySelectorAll('.reply-input').forEach(input => {
                 input.addEventListener('keypress', function(e) {
                     if (e.key === 'Enter') {
                         const chatId = this.dataset.chatId;
-                        const btn = document.querySelector(`.reply-btn[data-chat-id="${chatId}"]`);
-                        if (btn) btn.click();
+                        c.querySelector(`.reply-btn[data-chat-id="${chatId}"]`).click();
                     }
+                });
+            });
+
+            c.querySelectorAll('.close-btn').forEach(btn => {
+                btn.addEventListener('click', async function() {
+                    if (!confirm('Закрыть чат?')) return;
+                    try {
+                        await db.collection('supportChats').doc(this.dataset.chatId).update({ status: 'closed' });
+                        notify('Чат закрыт');
+                        loadChats();
+                    } catch (e) { notify('Ошибка: ' + e.message, true); }
+                });
+            });
+
+            c.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', async function() {
+                    if (!confirm('Удалить чат навсегда?')) return;
+                    try {
+                        await db.collection('supportChats').doc(this.dataset.chatId).delete();
+                        notify('Чат удалён');
+                        loadChats();
+                    } catch (e) { notify('Ошибка: ' + e.message, true); }
                 });
             });
         }
 
         async function loadChats() {
             try {
-                const snap = await db.collection('supportChats')
-                    .where('status', '==', 'open')
-                    .orderBy('lastUpdate', 'desc')
-                    .get();
+                const snap = await db.collection('supportChats').get();
                 const chats = [];
                 snap.forEach(doc => {
-                    const data = doc.data();
-                    chats.push({ id: doc.id, ...data });
+                    const d = doc.data();
+                    if (d.status === 'open') {
+                        chats.push({ id: doc.id, ...d });
+                    }
+                });
+                chats.sort((a, b) => {
+                    const at = a.lastUpdate ? a.lastUpdate.seconds : 0;
+                    const bt = b.lastUpdate ? b.lastUpdate.seconds : 0;
+                    return bt - at;
                 });
                 renderChats(chats);
-            } catch (err) {
-                console.error(err);
-                document.getElementById('chatsContainer').innerHTML = '<div class="empty-message">Ошибка загрузки чатов</div>';
+            } catch (e) {
+                console.error(e);
+                document.getElementById('chatsContainer').innerHTML =
+                    '<div class="empty-message">Ошибка загрузки: ' + e.message + '</div>';
             }
         }
 
-        // ----- Общие функции -----
-        function showNotification(msg, isError = false) {
+        function notify(msg, isError = false) {
             const div = document.createElement('div');
             div.textContent = msg;
-            div.style.cssText = `
-                position: fixed; bottom: 30px; right: 30px;
-                background: ${isError ? '#ff0044' : 'var(--bg-card)'};
-                color: ${isError ? '#fff' : 'var(--cyan)'};
-                border: 1px solid ${isError ? '#ff0044' : 'var(--cyan)'};
-                padding: 14px 24px;
-                border-radius: 8px;
-                font-family: 'Roboto', sans-serif;
-                box-shadow: 0 0 30px var(--shadow);
-                z-index: 999;
-                animation: fadeInUp 0.3s ease-out;
-            `;
+            div.style.cssText = `position:fixed;bottom:30px;right:30px;
+                background:${isError ? '#ff0044' : 'var(--bg-card)'};
+                color:${isError ? '#fff' : 'var(--cyan)'};
+                border:1px solid ${isError ? '#ff0044' : 'var(--cyan)'};
+                padding:14px 24px;border-radius:8px;font-family:'Roboto',sans-serif;
+                z-index:999;`;
             document.body.appendChild(div);
             setTimeout(() => div.remove(), 3000);
         }
@@ -881,13 +508,16 @@
                 const snap = await db.collection('users').get();
                 const users = [];
                 snap.forEach(doc => {
-                    const data = doc.data();
-                    users.push({ uid: doc.id, email: data.email, bonuses: data.bonuses || 0, discount: data.discount || 0 });
+                    const d = doc.data();
+                    users.push({
+                        uid: doc.id, email: d.email,
+                        bonuses: d.bonuses || 0, discount: d.discount || 0
+                    });
                 });
                 renderUsers(users);
-            } catch (err) {
-                document.getElementById('usersTableContainer').innerHTML = '<div class="empty-message">Ошибка загрузки данных</div>';
-                console.error(err);
+            } catch (e) {
+                document.getElementById('usersTableContainer').innerHTML =
+                    '<div class="empty-message">Ошибка: ' + e.message + '</div>';
             }
         }
 
@@ -895,14 +525,11 @@
             try {
                 const snap = await db.collection('orders').get();
                 const orders = [];
-                snap.forEach(doc => {
-                    const data = doc.data();
-                    orders.push({ id: doc.id, ...data });
-                });
+                snap.forEach(doc => orders.push({ id: doc.id, ...doc.data() }));
                 renderOrders(orders);
-            } catch (err) {
-                document.getElementById('ordersTableContainer').innerHTML = '<div class="empty-message">Ошибка загрузки данных</div>';
-                console.error(err);
+            } catch (e) {
+                document.getElementById('ordersTableContainer').innerHTML =
+                    '<div class="empty-message">Ошибка: ' + e.message + '</div>';
             }
         }
 
@@ -916,33 +543,15 @@
             } else {
                 document.getElementById('loginRequired').style.display = 'block';
                 document.getElementById('adminDashboard').style.display = 'none';
-                if (user && user.email !== adminEmail) {
-                    document.querySelector('#loginRequired p').textContent = 'У вас нет прав администратора. Войдите под admin@neonride.tech';
-                } else {
-                    document.querySelector('#loginRequired p').textContent = 'Требуется вход администратора';
-                }
-                // Отписаться от чатов
-                Object.values(chatUnsubscribers).forEach(unsub => unsub());
-                chatUnsubscribers = {};
             }
         });
 
-        document.querySelectorAll('.glitch-text').forEach(el => {
-            el.addEventListener('mouseenter', function() {
-                this.style.animation = 'none';
-                setTimeout(() => this.style.animation = 'glitch 0.3s ease-in-out', 10);
-            });
-        });
-
-        // ===== ТЕМА =====
         (function() {
             const toggle = document.getElementById('themeToggle');
             const current = localStorage.getItem('theme') || 'dark';
             if (current === 'light') {
                 document.body.classList.add('light-theme');
                 toggle.textContent = '☀️ Тема';
-            } else {
-                toggle.textContent = '🌙 Тема';
             }
             toggle.addEventListener('click', function() {
                 document.body.classList.toggle('light-theme');
